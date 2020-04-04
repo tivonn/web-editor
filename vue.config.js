@@ -9,6 +9,9 @@ module.exports = {
     loaderOptions: {
       css: {
         localsConvention: 'camelCase'
+      },
+      scss: {
+        prependData: '@import "~@/assets/css/variables.scss";'
       }
     }
   },

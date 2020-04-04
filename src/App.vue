@@ -6,9 +6,9 @@
 
 <style lang="scss">
 #app {
-  width: 100vw;
+  width: 100%;
   min-width: 1366px;
-  height: 100vh;
+  height: 100%;
   overflow: auto;
   font-family: PingFangSC, 微软雅黑, Helvetica, Arial, sans-serif;
 }
