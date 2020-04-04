@@ -1,0 +1,29 @@
+@import '~@/assets/css/mixin.scss';
+@include scrollbar();
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  word-break: break-all;
+}
+
+ul, li {
+  list-style: none;
+}
+
+.iconfont {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.clear-fix {
+  &:after {
+    height: 0;
+    display: block;
+    clear: both;
+    content: '';
+  }
+}
