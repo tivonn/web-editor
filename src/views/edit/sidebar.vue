@@ -19,22 +19,14 @@
 </template>
 
 <script>
+import { elements } from '@/views/edit/config.js'
+
 export default {
   name: 'EditSidebar',
 
   data () {
     return {
-      elements: [{
-        name: '文本'
-      }, {
-        name: '按钮'
-      }, {
-        name: '标题1'
-      }, {
-        name: '标题2'
-      }, {
-        name: '标题3'
-      }]
+      elements
     }
   },
 
