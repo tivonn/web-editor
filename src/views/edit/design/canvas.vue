@@ -1,15 +1,20 @@
 <template>
   <div :class="$style.canvas">
-    <render-element
-      v-for="element in elements"
-      :key="element.id"
-      :element="element">
-    </render-element>
+    <div class="container">
+      <render-element
+        v-for="element in elements"
+        :key="element.id"
+        :element="element"
+        class="render-element"
+        :class="getElementClass(element)"
+        @select-element="selectElement(element)">
+      </render-element>
+    </div>
   </div>
 </template>
 
 <script>
-import RenderElement from '@/components/RenderElement'
+import RenderElement from '@/components/RenderElement.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -17,8 +22,22 @@ export default {
 
   computed: {
     ...mapGetters([
-      'elements'
+      'elements',
+      'activeElements'
     ])
+  },
+
+  methods: {
+    getElementClass (element) {
+      return {
+        active: this.activeElements.some(activeElement => activeElement.id === element.id)
+      }
+    },
+
+    selectElement (element) {
+      // todo single and multiple
+      this.$store.dispatch('setActiveElements', [element])
+    }
   },
 
   components: {
@@ -33,8 +52,18 @@ export default {
   height: 100%;
   display: inline-block;
   vertical-align: middle;
+  overflow: auto;
   :global {
-
+    .container {
+      width: 1366px;
+      height: 100%;
+    }
+    .render-element {
+      border: 1px dashed transparent;
+      &.active {
+        border: 1px dashed $--color-border;
+      }
+    }
   }
 }
 </style>

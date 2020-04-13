@@ -1,2 +1,3 @@
 // edit
-export const ADD_ELEMENT = 'ADD_ELEMENT'
+export const SET_ELEMENTS = 'SET_ELEMENTS'
+export const SET_ACTIVE_ELEMENTS = 'SET_ACTIVE_ELEMENTS'

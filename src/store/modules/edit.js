@@ -1,22 +1,32 @@
-import * as types from '@/store/mutation-types'
+import * as types from '@/store/mutation-types.js'
 
 const state = {
-  elements: []
+  elements: [],
+  activeElements: []
 }
 
 const getters = {
-  elements: state => state.elements
+  elements: state => state.elements,
+  activeElements: state => state.activeElements
 }
 
 const actions = {
-  addElement ({ commit }, value) {
-    commit(types.ADD_ELEMENT, value)
+  setElements ({ commit }, value) {
+    commit(types.SET_ELEMENTS, value)
+  },
+
+  setActiveElements ({ commit }, value) {
+    commit(types.SET_ACTIVE_ELEMENTS, value)
   }
 }
 
 const mutations = {
-  [types.ADD_ELEMENT] (state, value) {
-    state.elements.push(value)
+  [types.SET_ELEMENTS] (state, value) {
+    state.elements = value
+  },
+
+  [types.SET_ACTIVE_ELEMENTS] (state, value) {
+    state.activeElements = value
   }
 }
 

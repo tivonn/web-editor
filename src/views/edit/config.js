@@ -1,4 +1,4 @@
-export const elements = [{
+export const packages = [{
   name: '文本',
   package: 'm-text'
 }, {

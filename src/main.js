@@ -2,9 +2,9 @@ import Vue from 'vue'
 import 'normalize.css'
 import ElementUI from '@/utils/element-ui.js'
 import '@/assets/css/common.scss'
-import router from '@/router'
-import store from '@/store'
-import App from '@/App'
+import router from '@/router.js'
+import store from '@/store/index.js'
+import App from '@/App.vue'
 
 Vue.use(ElementUI)
 

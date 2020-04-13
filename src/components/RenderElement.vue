@@ -1,5 +1,6 @@
 <template>
-  <div ref="package" :class="$style.renderElement">
+  <div :class="$style.renderElement" @click="$emit('select-element')">
+    <div ref="package"></div>
   </div>
 </template>
 
@@ -18,14 +19,15 @@ export default {
   },
 
   mounted () {
-    const Pacakge = Vue.extend(require(`../packages/${this.element.package}`).default)
-    new Pacakge().$mount(this.$refs.package)
+    const Package = Vue.extend(require(`../packages/${this.element.package}`).default)
+    new Package().$mount(this.$refs.package)
   }
 }
 </script>
 
 <style lang="scss" module>
 .render-element {
+  display: inline-block;
   :global {
 
   }

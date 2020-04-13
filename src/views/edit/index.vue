@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import EditHeader from '@/views/edit/header'
-import EditSidebar from '@/views/edit/sidebar'
-import DesignCanvas from '@/views/edit/design/canvas'
-import DesignOperation from '@/views/edit/design/operation'
-import DevelopCode from '@/views/edit/develop/code'
+import EditHeader from '@/views/edit/header.vue'
+import EditSidebar from '@/views/edit/sidebar.vue'
+import DesignCanvas from '@/views/edit/design/canvas.vue'
+import DesignOperation from '@/views/edit/design/operation.vue'
+import DevelopCode from '@/views/edit/develop/code.vue'
 
 export default {
   name: 'Edit',
