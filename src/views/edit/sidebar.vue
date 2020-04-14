@@ -21,7 +21,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { packages } from '@/views/edit/config.js'
-import { guid } from '@/utils/tool.js'
+import tools from '@/utils/tools.js'
 
 export default {
   name: 'EditSidebar',
@@ -41,7 +41,7 @@ export default {
   methods: {
     selectPackage (packageItem) {
       const element = Object.assign({
-        id: guid() // todo
+        id: tools.guid() // todo
       }, packageItem)
       this.$store.dispatch('setElements', this.elements.concat([element]))
     }
@@ -51,10 +51,9 @@ export default {
 
 <style lang="scss" module>
 .sidebar {
-  width: 301px;
+  width: 300px;
   height: 100%;
   display: inline-block;
-  border-right: 1px solid $--color-border;
   vertical-align: middle;
   :global {
     .package-title {
@@ -65,8 +64,14 @@ export default {
       width: 100%;
       border-collapse: collapse;
     }
-    .package-table, .package-row, .package-item {
+    .package-item {
       border: 1px solid $--color-border;
+      &:nth-child(1) {
+        border-left: none;
+      }
+      &:nth-child(3) {
+        border-right: none;
+      }
     }
     .package-item {
       width: calc(100% / 3);

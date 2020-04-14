@@ -4,7 +4,9 @@ import {
   Input,
   Option,
   Select,
-  Switch
+  Switch,
+  Tabs,
+  TabPane
 } from 'element-ui'
 import '@/assets/css/element-variables.scss'
 
@@ -15,5 +17,7 @@ export default {
     Vue.use(Option)
     Vue.use(Select)
     Vue.use(Switch)
+    Vue.use(Tabs)
+    Vue.use(TabPane)
   }
 }

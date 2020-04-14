@@ -18,7 +18,7 @@
 import EditHeader from '@/views/edit/header.vue'
 import EditSidebar from '@/views/edit/sidebar.vue'
 import DesignCanvas from '@/views/edit/design/canvas.vue'
-import DesignOperation from '@/views/edit/design/operation.vue'
+import DesignOperation from '@/views/edit/design/operation/index.vue'
 import DevelopCode from '@/views/edit/develop/code.vue'
 
 export default {
@@ -50,7 +50,7 @@ export default {
       height: calc(100% - 48px);
     }
     .main {
-      width: calc(100% - 301px);
+      width: calc(100% - 300px);
       height: 100%;
       display: inline-block;
     }

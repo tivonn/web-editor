@@ -51,6 +51,8 @@ export default {
   width: calc(100% - 400px);
   height: 100%;
   display: inline-block;
+  border-left: 1px solid $--color-border;
+  border-right: 1px solid $--color-border;
   vertical-align: middle;
   overflow: auto;
   :global {
