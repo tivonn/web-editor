@@ -27,8 +27,6 @@ export default {
 
 <style lang="scss" module>
 .m-switch {
-  :global {
 
-  }
 }
 </style>

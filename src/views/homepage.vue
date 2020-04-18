@@ -13,8 +13,6 @@ export default {
 
 <style lang="scss" module>
 .homepage {
-  :global {
 
-  }
 }
 </style>

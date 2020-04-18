@@ -14,8 +14,5 @@ export default {
   height: 100%;
   display: inline-block;
   vertical-align: middle;
-  :global {
-
-  }
 }
 </style>

@@ -59,6 +59,7 @@ export default {
     .container {
       width: 1366px;
       height: 100%;
+      position: relative;
     }
     .render-element {
       border: 1px dashed transparent;

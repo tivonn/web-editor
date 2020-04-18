@@ -1,17 +1,15 @@
 <template>
-  <div :class="$style.content">内容</div>
+  <div :class="$style.interact">交互</div>
 </template>
 
 <script>
 export default {
-  name: 'OperationContent'
+  name: 'ConfigInteract'
 }
 </script>
 
 <style lang="scss" module>
-.content {
-  :global {
+.interact {
 
-  }
 }
 </style>

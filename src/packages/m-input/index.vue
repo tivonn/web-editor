@@ -28,8 +28,6 @@ export default {
 
 <style lang="scss" module>
 .m-input {
-  :global {
 
-  }
 }
 </style>

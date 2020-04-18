@@ -10,8 +10,6 @@ export default {
 
 <style lang="scss" module>
 .preview {
-  :global {
 
-  }
 }
 </style>

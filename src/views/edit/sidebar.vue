@@ -40,10 +40,22 @@ export default {
 
   methods: {
     selectPackage (packageItem) {
-      const element = Object.assign({
-        id: tools.guid() // todo
-      }, packageItem)
-      this.$store.dispatch('setElements', this.elements.concat([element]))
+      Promise.all([
+        import('@/packages/m-text/data.js'),
+        import('@/packages/m-text/config.js')
+      ])
+        .then(res => {
+          const [dataRes, configRes] = res
+          const { default: data } = dataRes
+          const { default: config } = configRes
+          const element = Object.assign({
+            id: tools.guid(),
+            data: tools.deepClone(data),
+            config: tools.deepClone(config)
+          }, packageItem)
+          this.$store.dispatch('setElements', this.elements.concat([element]))
+        })
+        .catch(() => this.$message.error('获取组件数据失败'))
     }
   }
 }

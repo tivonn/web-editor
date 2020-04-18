@@ -1,16 +1,16 @@
 export const packages = [{
-  name: '文本',
-  package: 'm-text'
+  name: '按钮',
+  value: 'm-button'
 }, {
   name: '输入框',
-  package: 'm-input'
+  value: 'm-input'
+}, {
+  name: '文本',
+  value: 'm-text'
 }, {
   name: '选择器',
-  package: 'm-select'
-}, {
-  name: '按钮',
-  package: 'm-button'
+  value: 'm-select'
 }, {
   name: '开关',
-  package: 'm-switch'
+  value: 'm-switch'
 }]

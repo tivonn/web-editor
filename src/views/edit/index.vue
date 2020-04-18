@@ -6,7 +6,7 @@
       <div class="main">
         <template v-if="isDesign">
           <design-canvas></design-canvas>
-          <design-operation></design-operation>
+          <design-config></design-config>
         </template>
         <develop-code v-else></develop-code>
       </div>
@@ -18,7 +18,7 @@
 import EditHeader from '@/views/edit/header.vue'
 import EditSidebar from '@/views/edit/sidebar.vue'
 import DesignCanvas from '@/views/edit/design/canvas.vue'
-import DesignOperation from '@/views/edit/design/operation/index.vue'
+import DesignConfig from '@/views/edit/design/config/index.vue'
 import DevelopCode from '@/views/edit/develop/code.vue'
 
 export default {
@@ -34,7 +34,7 @@ export default {
     EditHeader,
     EditSidebar,
     DesignCanvas,
-    DesignOperation,
+    DesignConfig,
     DevelopCode
   }
 }
