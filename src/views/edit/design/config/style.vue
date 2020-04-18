@@ -22,7 +22,7 @@
              :offset="col.offset">
               <config-input
                 v-model="activeElement.data.style[block.key][col.key]"
-                :label="col.label"
+                v-bind="col"
                 @input="value => updateActiveElement(`data.style.${block.key}.${col.key}`, value)">
                 </config-input>
             </el-col>

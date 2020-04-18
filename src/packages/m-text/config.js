@@ -8,13 +8,15 @@ export default {
       list: [{
         label: '宽度',
         key: 'width',
+        span: 6,
         component: 'config-input',
-        span: 6
+        suffix: 'px'
       }, {
         label: '高度',
         key: 'height',
+        span: 6,
         component: 'config-input',
-        span: 6
+        suffix: 'px'
       }]
     }, {
       key: 'size-line2',
@@ -22,8 +24,8 @@ export default {
       list: [{
         label: '字体大小',
         key: 'fontSize',
-        component: 'config-input',
-        span: 6
+        span: 6,
+        component: 'config-input'
       }]
     }]
   }, {
@@ -35,13 +37,15 @@ export default {
       list: [{
         label: 'x坐标',
         key: 'xCoordinate',
+        span: 6,
         component: 'config-input',
-        span: 6
+        suffix: 'px'
       }, {
         label: 'y坐标',
         key: 'yCoordinate',
+        span: 6,
         component: 'config-input',
-        span: 6
+        suffix: 'px'
       }]
     }]
   }]

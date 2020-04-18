@@ -7,6 +7,7 @@
         :element="element"
         class="render-element"
         :class="getElementClass(element)"
+        :style="getElementStyle(element)"
         @select-element="selectElement(element)">
       </render-element>
     </div>
@@ -31,6 +32,14 @@ export default {
     getElementClass (element) {
       return {
         active: this.activeElements.some(activeElement => activeElement.id === element.id)
+      }
+    },
+
+    getElementStyle (element) {
+      const { xCoordinate, yCoordinate } = element.data.style.position
+      return {
+        left: `${xCoordinate || 0}px`, // 区分预览和打包模式
+        top: `${yCoordinate || 0}px`
       }
     },
 
@@ -62,6 +71,7 @@ export default {
       position: relative;
     }
     .render-element {
+      position: absolute;
       border: 1px dashed transparent;
       &.active {
         border: 1px dashed $--color-border;

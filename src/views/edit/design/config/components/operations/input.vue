@@ -6,6 +6,7 @@
       @input="$emit('input', $event)"
       size="small"
       :class="$style.configInput">
+      <template slot="suffix">{{suffix}}</template>
     </el-input>
   </div>
 </template>
@@ -25,6 +26,12 @@ export default {
       type: String,
       required: true,
       default: ''
+    },
+
+    suffix: {
+      type: String,
+      required: false,
+      default: ''
     }
   }
 }
@@ -32,6 +39,10 @@ export default {
 
 <style lang="scss" module>
 .config-input {
-
+  :global {
+    .el-input__suffix-inner {
+      line-height: 30px;
+    }
+  }
 }
 </style>

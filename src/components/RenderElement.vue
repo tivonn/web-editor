@@ -21,13 +21,10 @@ export default {
   computed: {
     getElementStyle () {
       const { width, height, fontSize } = this.element.data.style.size
-      const { xCoordinate, yCoordinate } = this.element.data.style.position
       return {
         width: `${width}px`,
         height: `${height}px`,
-        fontSize: `${fontSize}px`,
-        left: `${xCoordinate || 0}px`, // 区分预览和打包模式
-        top: `${yCoordinate || 0}px`
+        fontSize: `${fontSize}px`
       }
     }
   },
@@ -48,6 +45,5 @@ export default {
 <style lang="scss" module>
 .render-element {
   display: inline-block;
-  position: absolute;
 }
 </style>
