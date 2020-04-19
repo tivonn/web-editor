@@ -1,9 +1,8 @@
 <template>
+  <!--todo 点击时会改变值-->
   <el-switch
     v-model="switchValue"
-    v-bind="{
-      activeText
-    }">
+    :active-text="text.data">
   </el-switch>
 </template>
 
@@ -12,23 +11,23 @@ export default {
   name: 'MSwitch',
 
   props: {
+    content: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+
     switchValue: {
       type: Boolean,
       required: false,
       default: false
-    },
+    }
+  },
 
-    activeText: {
-      type: String,
-      required: false,
-      default: ''
+  data () {
+    return {
+      ...this.content
     }
   }
 }
 </script>
-
-<style lang="scss" module>
-.m-switch {
-
-}
-</style>

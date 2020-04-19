@@ -10,6 +10,12 @@ export default {
     }
   },
   content: {
+    text: {
+      mode: 'static',
+      data: '按钮'
+    }
+  },
+  interact: {
 
   }
 }

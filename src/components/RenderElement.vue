@@ -39,8 +39,16 @@ export default {
 
   methods: {
     init () {
-      const Package = Vue.extend(require(`../packages/${this.element.value}`).default)
-      new Package().$mount(this.$refs.element)
+      const { value, data } = this.element
+      const { style, content, interact } = data
+      const Package = Vue.extend(require(`../packages/${value}`).default)
+      new Package({
+        propsData: {
+          style,
+          content,
+          interact
+        }
+      }).$mount(this.$refs.element)
     }
   }
 }

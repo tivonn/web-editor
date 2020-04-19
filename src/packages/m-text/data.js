@@ -6,8 +6,17 @@ export default {
       fontSize: '14'
     },
     position: {
-      xCoordinate: '',
-      yCoordinate: ''
+      xCoordinate: '0',
+      yCoordinate: '0'
     }
+  },
+  content: {
+    text: {
+      mode: 'static',
+      data: '文本'
+    }
+  },
+  interact: {
+
   }
 }

@@ -1,10 +1,7 @@
 <template>
   <el-input
     v-model="inputValue"
-    v-bind="{
-      placeholder
-    }"
-    :class="$style.mInput">
+    :placeholder="placeholder.data">
   </el-input>
 </template>
 
@@ -13,23 +10,23 @@ export default {
   name: 'MInput',
 
   props: {
+    content: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+
     inputValue: {
       type: String,
       required: false,
       default: ''
-    },
+    }
+  },
 
-    placeholder: {
-      type: String,
-      required: false,
-      default: ''
+  data () {
+    return {
+      ...this.content
     }
   }
 }
 </script>
-
-<style lang="scss" module>
-.m-input {
-
-}
-</style>

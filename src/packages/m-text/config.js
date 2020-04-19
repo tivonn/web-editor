@@ -49,6 +49,18 @@ export default {
       }]
     }]
   }],
-  content: [],
+  content: [{
+    label: '文字',
+    key: 'text',
+    list: [{
+      key: 'text-line1',
+      list: [{
+        label: '数据',
+        key: 'data',
+        span: 24,
+        component: 'config-input'
+      }]
+    }]
+  }],
   interact: []
 }

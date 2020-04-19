@@ -1,10 +1,7 @@
 <template>
   <el-button
-    v-bind="{
-      type
-    }"
-    :class="$style.mButton">
-    {{text}}
+    :type="type">
+    {{text.data}}
   </el-button>
 </template>
 
@@ -13,23 +10,23 @@ export default {
   name: 'MButton',
 
   props: {
+    content: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+
     type: {
       type: String,
       required: false,
       default: 'primary'
-    },
+    }
+  },
 
-    text: {
-      type: String,
-      required: false,
-      default: '按钮'
+  data () {
+    return {
+      ...this.content
     }
   }
 }
 </script>
-
-<style lang="scss" module>
-.m-button {
-
-}
-</style>

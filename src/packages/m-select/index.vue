@@ -1,9 +1,8 @@
 <template>
+  <!--todo 点击不生效-->
   <el-select
     v-model="selectValue"
-    v-bind="{
-      placeholder
-    }">
+    :placeholder="placeholder.data">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -18,6 +17,12 @@ export default {
   name: 'MSelect',
 
   props: {
+    content: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+
     selectValue: {
       type: null,
       required: false,
@@ -28,19 +33,13 @@ export default {
       type: Array,
       required: false,
       default: () => []
-    },
+    }
+  },
 
-    placeholder: {
-      type: String,
-      required: false,
-      default: ''
+  data () {
+    return {
+      ...this.content
     }
   }
 }
 </script>
-
-<style lang="scss" module>
-.m-input {
-
-}
-</style>

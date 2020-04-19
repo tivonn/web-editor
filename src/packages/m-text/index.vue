@@ -1,5 +1,5 @@
 <template>
-  <p :class="$style.mText">{{text}}</p>
+  <p>{{text.data}}</p>
 </template>
 
 <script>
@@ -7,17 +7,17 @@ export default {
   name: 'MText',
 
   props: {
-    text: {
-      type: String,
-      required: false,
-      default: '文本'
+    content: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    }
+  },
+
+  data () {
+    return {
+      ...this.content
     }
   }
 }
 </script>
-
-<style lang="scss" module>
-.m-text {
-
-}
-</style>

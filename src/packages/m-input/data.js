@@ -1,13 +1,21 @@
 export default {
   style: {
     size: {
-      width: '50',
-      height: '22',
-      fontSize: '14'
+      width: '200',
+      height: '40'
     },
     position: {
-      xCoordinate: '',
-      yCoordinate: ''
+      xCoordinate: '0',
+      yCoordinate: '0'
     }
+  },
+  content: {
+    placeholder: {
+      mode: 'static',
+      data: '请输入内容'
+    }
+  },
+  interact: {
+
   }
 }

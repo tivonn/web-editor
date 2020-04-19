@@ -18,15 +18,6 @@ export default {
         component: 'config-input',
         suffix: 'px'
       }]
-    }, {
-      key: 'size-line2',
-      gutter: 20,
-      list: [{
-        label: '字体大小',
-        key: 'fontSize',
-        span: 6,
-        component: 'config-input'
-      }]
     }]
   }, {
     label: '位置',
@@ -49,6 +40,18 @@ export default {
       }]
     }]
   }],
-  content: [],
+  content: [{
+    label: '占位',
+    key: 'placeholder',
+    list: [{
+      key: 'placeholder-line1',
+      list: [{
+        label: '数据',
+        key: 'data',
+        span: 24,
+        component: 'config-input'
+      }]
+    }]
+  }],
   interact: []
 }

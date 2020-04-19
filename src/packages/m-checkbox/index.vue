@@ -1,5 +1,5 @@
 <template>
-  <el-checkbox-group v-model="checkValue" :class="$style.mCheckbox">
+  <el-checkbox-group v-model="checkValue">
     <el-checkbox
       v-for="option in options"
       :key="option.label"
@@ -27,9 +27,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" module>
-.m-checkbox {
-
-}
-</style>

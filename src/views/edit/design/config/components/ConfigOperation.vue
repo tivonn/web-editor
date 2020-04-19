@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.configOperation">
+  <div>
     <template v-if="isNoActive">
       全局
     </template>
@@ -66,11 +66,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" module>
-.config-operation {
-  :global {
-
-  }
-}
-</style>

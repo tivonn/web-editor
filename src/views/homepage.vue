@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.homepage">
+  <div>
     <p>homepage</p>
     <router-link :to="{ name: 'Edit', params: { pid: 1 } }">to edit</router-link>
   </div>
@@ -10,9 +10,3 @@ export default {
   name: 'Homepage'
 }
 </script>
-
-<style lang="scss" module>
-.homepage {
-
-}
-</style>
