@@ -1,6 +1,8 @@
 <template>
   <el-button
-    :type="type"
+    v-bind="{
+      type
+    }"
     :class="$style.mButton">
     {{text}}
   </el-button>

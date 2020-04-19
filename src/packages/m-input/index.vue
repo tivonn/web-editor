@@ -1,7 +1,9 @@
 <template>
   <el-input
     v-model="inputValue"
-    :placeholder="placeholder"
+    v-bind="{
+      placeholder
+    }"
     :class="$style.mInput">
   </el-input>
 </template>
@@ -20,7 +22,7 @@ export default {
     placeholder: {
       type: String,
       required: false,
-      default: '请输入内容'
+      default: ''
     }
   }
 }

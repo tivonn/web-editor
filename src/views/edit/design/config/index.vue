@@ -79,6 +79,11 @@ export default {
         width: calc(100% / 3);
         padding: 0;
         text-align: center;
+        font-weight: bold;
+        color: $--color-text-regular;
+        &.is-active {
+          color: $--color-primary;
+        }
       }
       .el-tabs__active-bar {
         width: calc(100% / 3) !important;

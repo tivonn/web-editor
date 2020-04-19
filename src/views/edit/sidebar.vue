@@ -41,8 +41,8 @@ export default {
   methods: {
     selectPackage (packageItem) {
       Promise.all([
-        import('@/packages/m-text/data.js'),
-        import('@/packages/m-text/config.js')
+        require(`@/packages/${packageItem.value}/data.js`),
+        require(`@/packages/${packageItem.value}/config.js`)
       ])
         .then(res => {
           const [dataRes, configRes] = res

@@ -1,5 +1,9 @@
 <template>
-  <div :class="$style.renderElement" :style="getElementStyle" @click="$emit('select-element')">
+  <div
+    :class="$style.renderElement"
+    :style="getElementStyle"
+    @click="$emit('click', $event)"
+    @mousedown="$emit('mousedown', $event)">
     <div ref="element"></div>
   </div>
 </template>

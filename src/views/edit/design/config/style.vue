@@ -23,7 +23,7 @@
               <config-input
                 v-model="activeElement.data.style[block.key][col.key]"
                 v-bind="col"
-                @input="value => updateActiveElement(`data.style.${block.key}.${col.key}`, value)">
+                @input="value => updateElement(`data.style.${block.key}.${col.key}`, value)">
                 </config-input>
             </el-col>
           </el-row>
@@ -80,9 +80,9 @@ export default {
   },
 
   methods: {
-    updateActiveElement (key, value) {
+    updateElement (key, value) {
       const { id } = this.activeElement
-      this.$store.dispatch('updateActiveElement', {
+      this.$store.dispatch('updateElement', {
         id,
         [key]: value
       })
@@ -104,6 +104,8 @@ export default {
         padding: 0 6px;
         line-height: 36px;
         border-color: $--color-border;
+        font-weight: bold;
+        color: $--color-text-secondary;
       }
       .el-collapse-item__content {
         padding: 10px 6px;

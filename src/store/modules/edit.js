@@ -16,12 +16,12 @@ const actions = {
     commit(types.SET_ELEMENTS, value)
   },
 
-  setActiveElements ({ commit }, value) {
-    commit(types.SET_ACTIVE_ELEMENTS, value)
+  updateElement ({ commit }, value) {
+    commit(types.UPDATE_ELEMENT, value)
   },
 
-  updateActiveElement ({ commit }, value) {
-    commit(types.UPDATE_ACTIVE_ELEMENT, value)
+  setActiveElements ({ commit }, value) {
+    commit(types.SET_ACTIVE_ELEMENTS, value)
   }
 }
 
@@ -30,16 +30,16 @@ const mutations = {
     state.elements = value
   },
 
-  [types.SET_ACTIVE_ELEMENTS] (state, value) {
-    state.activeElements = value
+  [types.UPDATE_ELEMENT] (state, value) {
+    const element = state.elements.find(element => element.id === value.id)
+    for (const key in value) {
+      if (key === 'id') continue
+      tools.setValueToObj(element, key, value[key])
+    }
   },
 
-  [types.UPDATE_ACTIVE_ELEMENT] (state, value) {
-    const activeElement = state.activeElements.find(activeElement => activeElement.id === value.id)
-    for (const key in value) {
-      if (key === 'id') break
-      Object.assign(activeElement, tools.getObj(key, value[key]))
-    }
+  [types.SET_ACTIVE_ELEMENTS] (state, value) {
+    state.activeElements = value
   }
 }
 

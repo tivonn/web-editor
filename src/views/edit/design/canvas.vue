@@ -1,14 +1,22 @@
 <template>
-  <div :class="$style.canvas">
-    <div class="container">
+  <div
+    ref="canvas"
+    :class="$style.canvas"
+    @mousedown="mousedownCanvas">
+    <div
+      ref="container"
+      class="container"
+      :style="getContainerStyle">
       <render-element
-        v-for="element in elements"
+        v-for="(element, index) in elements"
         :key="element.id"
+        ref="elements"
         :element="element"
         class="render-element"
         :class="getElementClass(element)"
         :style="getElementStyle(element)"
-        @select-element="selectElement(element)">
+        @click="selectElement(element)"
+        @mousedown.stop="$event => mousedownElement($event, element, index)">
       </render-element>
     </div>
   </div>
@@ -17,18 +25,35 @@
 <script>
 import RenderElement from '@/components/RenderElement.vue'
 import { mapGetters } from 'vuex'
+import tools from '@/utils/tools.js'
 
 export default {
   name: 'DesignCanvas',
 
   computed: {
     ...mapGetters([
+      'system',
       'elements',
       'activeElements'
-    ])
+    ]),
+
+    getContainerStyle () {
+      const { width, height } = this.system
+      return {
+        width: width ? `${width}px` : '100%',
+        height: height ? `${height}px` : '100%'
+      }
+    }
   },
 
   methods: {
+    mousedownCanvas (e) {
+      tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
+        this.$refs.canvas.scrollLeft -= offsetX
+        this.$refs.canvas.scrollTop -= offsetY
+      })
+    },
+
     getElementClass (element) {
       return {
         active: this.activeElements.some(activeElement => activeElement.id === element.id)
@@ -38,7 +63,7 @@ export default {
     getElementStyle (element) {
       const { xCoordinate, yCoordinate } = element.data.style.position
       return {
-        left: `${xCoordinate || 0}px`, // 区分预览和打包模式
+        left: `${xCoordinate || 0}px`,
         top: `${yCoordinate || 0}px`
       }
     },
@@ -46,6 +71,27 @@ export default {
     selectElement (element) {
       // todo single and multiple
       this.$store.dispatch('setActiveElements', [element])
+    },
+
+    mousedownElement (e, element, index) {
+      tools.drag(e, this.$refs.elements[index].$el, (offsetX, offsetY) => {
+        const { id } = element
+        const xCoordinateKey = 'data.style.position.xCoordinate'
+        const yCoordinateKey = 'data.style.position.yCoordinate'
+        this.$store.dispatch('updateElement', {
+          id,
+          [xCoordinateKey]: String(tools.clamp(
+            Number(tools.getValueFromObj(element, xCoordinateKey)) + offsetX,
+            0,
+            this.$refs.container.clientWidth - Number(tools.getValueFromObj(element, 'data.style.size.width'))
+          )),
+          [yCoordinateKey]: String(tools.clamp(
+            Number(tools.getValueFromObj(element, yCoordinateKey)) + offsetY,
+            0,
+            this.$refs.container.clientHeight - Number(tools.getValueFromObj(element, 'data.style.size.height'))
+          ))
+        })
+      })
     }
   },
 
@@ -64,17 +110,23 @@ export default {
   border-right: 1px solid $--color-border;
   vertical-align: middle;
   overflow: auto;
+  cursor: grab;
+  &:global(.dragging) {
+    cursor: grabbing; // todo 会不一直生效
+  }
   :global {
     .container {
-      width: 1366px;
-      height: 100%;
       position: relative;
+      border: 10px solid #55c580;
     }
     .render-element {
       position: absolute;
       border: 1px dashed transparent;
       &.active {
         border: 1px dashed $--color-border;
+      }
+      &.dragging {
+        cursor: grabbing;
       }
     }
   }

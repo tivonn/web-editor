@@ -1,6 +1,8 @@
 // todo 按需加载区分dev/production
 import {
   Button,
+  Checkbox,
+  CheckboxGroup,
   Col,
   Collapse,
   CollapseItem,
@@ -18,6 +20,8 @@ import '@/assets/css/element-variables.scss'
 export default {
   install (Vue) {
     Vue.use(Button)
+    Vue.use(Checkbox)
+    Vue.use(CheckboxGroup)
     Vue.use(Col)
     Vue.use(Collapse)
     Vue.use(CollapseItem)

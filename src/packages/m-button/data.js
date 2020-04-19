@@ -1,8 +1,8 @@
 export default {
   style: {
     size: {
-      width: '50',
-      height: '22',
+      width: '100',
+      height: '62',
       fontSize: '14'
     },
     position: {

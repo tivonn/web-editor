@@ -4,6 +4,24 @@
   </div>
 </template>
 
+<script>
+export default {
+  mounted () {
+    this.init()
+  },
+
+  methods: {
+    init () {
+      // todo 改为获取服务端数据
+      this.$store.dispatch('setSystem', {
+        width: '800',
+        height: '600'
+      })
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   width: 100%;

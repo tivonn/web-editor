@@ -1,7 +1,9 @@
 <template>
   <el-select
     v-model="selectValue"
-    :placeholder="placeholder">
+    v-bind="{
+      placeholder
+    }">
     <el-option
       v-for="item in options"
       :key="item.value"
@@ -19,28 +21,19 @@ export default {
     selectValue: {
       type: null,
       required: false,
-      default: 1
+      default: null
     },
 
     options: {
       type: Array,
       required: false,
-      default: () => [{
-        value: 1,
-        label: '选项1'
-      }, {
-        value: 2,
-        label: '选项2'
-      }, {
-        value: 3,
-        label: '选项3'
-      }]
+      default: () => []
     },
 
     placeholder: {
       type: String,
       required: false,
-      default: '请输入内容'
+      default: ''
     }
   }
 }

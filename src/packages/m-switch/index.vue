@@ -1,7 +1,9 @@
 <template>
   <el-switch
     v-model="switchValue"
-    :active-text="activeText">
+    v-bind="{
+      activeText
+    }">
   </el-switch>
 </template>
 
@@ -19,7 +21,7 @@ export default {
     activeText: {
       type: String,
       required: false,
-      default: '开关'
+      default: ''
     }
   }
 }
