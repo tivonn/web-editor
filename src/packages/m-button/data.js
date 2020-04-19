@@ -2,12 +2,14 @@ export default {
   style: {
     size: {
       width: '100',
-      height: '62',
-      fontSize: '14'
+      height: '50'
     },
     position: {
-      xCoordinate: '',
-      yCoordinate: ''
+      xCoordinate: '0',
+      yCoordinate: '0'
     }
+  },
+  content: {
+
   }
 }

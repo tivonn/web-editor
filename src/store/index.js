@@ -1,13 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import system from '@/store/modules/system.js'
-import edit from '@/store/modules/edit.js'
+import tools from '@/utils/tools.js'
+const modules = tools.importFiles(require.context('@/store/modules', false, /\.js$/))
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: {
-    system,
-    edit
-  }
+  modules
 })

@@ -53,6 +53,17 @@ const drag = (e, container, moveCallback) => {
   container.addEventListener('mouseup', upContainer)
 }
 
+const importFiles = (r) => {
+  const modules = {}
+  r.keys().forEach(key => {
+    const module = r(key)
+    const nameList = key.slice(2).split('.')
+    nameList.pop()
+    modules[nameList.join()] = module.__esModule && module.default ? module.default : module
+  })
+  return modules
+}
+
 const isEnvironment = (environment) => {
   return process.env.NODE_ENV === environment
 }
@@ -125,6 +136,7 @@ export default {
   clamp,
   deepClone,
   drag,
+  importFiles,
   isEnvironment,
   isFunction,
   isPlainObject,

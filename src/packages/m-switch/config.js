@@ -48,5 +48,7 @@ export default {
         suffix: 'px'
       }]
     }]
-  }]
+  }],
+  content: [],
+  interact: []
 }

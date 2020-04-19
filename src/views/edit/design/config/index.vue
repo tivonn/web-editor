@@ -1,24 +1,19 @@
 <template>
   <div :class="$style.config">
     <el-tabs v-model="activeConfig" class="config-tabs">
-      <!-- todo 点击tab时再加载组件 -->
       <el-tab-pane
         v-for="config in configs"
         :key="config.value"
         :label="config.label"
         :name="config.value">
-        <component
-          :is="`config-${config.value}`">
-        </component>
+        <config-operation :config-key="config.value"></config-operation>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-import ConfigStyle from '@/views/edit/design/config/style.vue'
-import ConfigContent from '@/views/edit/design/config/content.vue'
-import ConfigInteract from '@/views/edit/design/config/interact.vue'
+import ConfigOperation from '@/views/edit/design/config/components/ConfigOperation.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -46,16 +41,8 @@ export default {
     ])
   },
 
-  methods: {
-    isActiveConfig (type) {
-      return type === this.activeConfig
-    }
-  },
-
   components: {
-    ConfigStyle,
-    ConfigContent,
-    ConfigInteract
+    ConfigOperation
   }
 }
 </script>
