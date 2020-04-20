@@ -17,12 +17,6 @@ export default {
   name: 'MSelect',
 
   props: {
-    content: {
-      type: Object,
-      required: true,
-      default: () => ({})
-    },
-
     selectValue: {
       type: null,
       required: false,
@@ -33,12 +27,12 @@ export default {
       type: Array,
       required: false,
       default: () => []
-    }
-  },
+    },
 
-  data () {
-    return {
-      ...this.content
+    placeholder: {
+      type: Object,
+      required: false,
+      default: () => ({})
     }
   }
 }

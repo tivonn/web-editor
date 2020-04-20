@@ -11,22 +11,16 @@ export default {
   name: 'MSwitch',
 
   props: {
-    content: {
-      type: Object,
-      required: true,
-      default: () => ({})
-    },
-
     switchValue: {
       type: Boolean,
       required: false,
       default: false
-    }
-  },
+    },
 
-  data () {
-    return {
-      ...this.content
+    text: {
+      type: Object,
+      required: false,
+      default: () => ({})
     }
   }
 }

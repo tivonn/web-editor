@@ -8,13 +8,13 @@ const routes = [{
   name: 'Homepage',
   component: () => import(/* webpackChunkName: 'homepage' */ '@/views/homepage.vue')
 }, {
-  path: '/edit/:pid',
+  path: '/edit/:sid/:pid/',
   name: 'Edit',
   component: () => import(/* webpackChunkName: 'edit' */ '@/views/edit/index.vue')
 }, {
-  path: '/preview',
+  path: '/preview/:sid/:pid',
   name: 'Preview',
-  component: () => import(/* webpackChunkName: 'preview' */ '@/views/preview/index.vue')
+  component: () => import(/* webpackChunkName: 'preview' */ '@/views/preview.vue')
 }]
 
 const router = new VueRouter({

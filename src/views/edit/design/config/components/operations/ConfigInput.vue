@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'configInput',
+  name: 'ConfigInput',
 
   props: {
     value: {

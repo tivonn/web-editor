@@ -24,10 +24,11 @@ export default {
 
 <style lang="scss">
 #app {
-  width: 100%;
+  width: 100vw;
   min-width: 768px;
-  height: 100%;
-  overflow: auto;
+  height: 100vh;
+  font-size: 14px;
   font-family: PingFangSC, 微软雅黑, Helvetica, Arial, sans-serif;
+  color: $--color-text-primary;
 }
 </style>

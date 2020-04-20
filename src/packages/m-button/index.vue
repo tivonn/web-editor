@@ -10,9 +10,9 @@ export default {
   name: 'MButton',
 
   props: {
-    content: {
+    text: {
       type: Object,
-      required: true,
+      required: false,
       default: () => ({})
     },
 
@@ -20,12 +20,6 @@ export default {
       type: String,
       required: false,
       default: 'primary'
-    }
-  },
-
-  data () {
-    return {
-      ...this.content
     }
   }
 }

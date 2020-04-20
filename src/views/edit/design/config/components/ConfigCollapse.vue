@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import ConfigInput from '@/views/edit/design/config/components/operations/input.vue' // todo 按需引入configComponent
+import ConfigInput from '@/views/edit/design/config/components/operations/ConfigInput.vue' // todo 按需引入configComponent
 
 export default {
   name: 'ConfigCollapse',

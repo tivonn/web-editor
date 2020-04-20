@@ -1,5 +1,5 @@
 <template>
-  <p>{{text.data}}</p>
+  <p :style="getTextStyle">{{text.data}}</p>
 </template>
 
 <script>
@@ -7,16 +7,28 @@ export default {
   name: 'MText',
 
   props: {
-    content: {
+    text: {
       type: Object,
-      required: true,
+      required: false,
       default: () => ({})
+    },
+
+    size: {
+      type: Object,
+      required: false,
+      default: () => ({
+        width: '50',
+        height: '22',
+        fontSize: '14'
+      })
     }
   },
 
-  data () {
-    return {
-      ...this.content
+  computed: {
+    getTextStyle () {
+      return {
+        fontSize: `${this.size.fontSize}px`
+      }
     }
   }
 }

@@ -41,10 +41,10 @@ export default {
     }]
   }],
   content: [{
-    label: '占位',
-    key: 'placeholder',
+    label: '文字',
+    key: 'text',
     list: [{
-      key: 'placeholder-line1',
+      key: 'text-line1',
       list: [{
         label: '数据',
         key: 'data',

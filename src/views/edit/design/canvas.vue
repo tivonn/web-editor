@@ -46,7 +46,21 @@ export default {
     }
   },
 
+  mounted () {
+    this.init()
+  },
+
   methods: {
+    init () {
+      this.getPage()
+    },
+
+    getPage () {
+      const { sid, pid } = this.$route.params
+      const elements = JSON.parse(localStorage.getItem(`${sid}-${pid}`) || [])
+      this.$store.dispatch('setElements', elements)
+    },
+
     mousedownCanvas (e) {
       tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
         this.$refs.canvas.scrollLeft -= offsetX

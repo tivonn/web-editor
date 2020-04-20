@@ -10,7 +10,7 @@ export default {
         key: 'width',
         span: 6,
         component: 'config-input',
-        suffix: 'px'
+        suffix: 'px' // todo 改为props
       }, {
         label: '高度',
         key: 'height',
@@ -25,7 +25,8 @@ export default {
         label: '字体大小',
         key: 'fontSize',
         span: 6,
-        component: 'config-input'
+        component: 'config-input',
+        suffix: 'px'
       }]
     }]
   }, {

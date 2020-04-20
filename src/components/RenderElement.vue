@@ -24,11 +24,10 @@ export default {
 
   computed: {
     getElementStyle () {
-      const { width, height, fontSize } = this.element.data.style.size
+      const { width, height } = this.element.data.style.size
       return {
         width: `${width}px`,
-        height: `${height}px`,
-        fontSize: `${fontSize}px`
+        height: `${height}px`
       }
     }
   },
@@ -39,14 +38,18 @@ export default {
 
   methods: {
     init () {
+      this.mountElement()
+    },
+
+    mountElement () {
       const { value, data } = this.element
       const { style, content, interact } = data
       const Package = Vue.extend(require(`../packages/${value}`).default)
       new Package({
         propsData: {
-          style,
-          content,
-          interact
+          ...style,
+          ...content,
+          ...interact
         }
       }).$mount(this.$refs.element)
     }
