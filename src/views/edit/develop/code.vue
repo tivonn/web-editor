@@ -14,5 +14,6 @@ export default {
   height: 100%;
   display: inline-block;
   vertical-align: middle;
+  user-select: text;
 }
 </style>

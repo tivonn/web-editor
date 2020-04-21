@@ -24,9 +24,9 @@ export default {
 
 <style lang="scss">
 #app {
-  width: 100vw;
+  width: 100%;
   min-width: 768px;
-  height: 100vh;
+  height: 100%;
   font-size: 14px;
   font-family: PingFangSC, 微软雅黑, Helvetica, Arial, sans-serif;
   color: $--color-text-primary;

@@ -28,7 +28,7 @@ export default {
 
     preview () {
       const { sid, pid } = this.$route.params
-      this.$router.push({ name: 'Preview', params: { sid, pid } })
+      window.open(this.$router.resolve({ name: 'Preview', params: { sid, pid } }).href, '_blank')
     }
   }
 }

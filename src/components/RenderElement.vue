@@ -1,9 +1,9 @@
 <template>
   <div
+    :id="element.id"
     :class="$style.renderElement"
     :style="getElementStyle"
-    @click="$emit('click', $event)"
-    @mousedown="$emit('mousedown', $event)">
+    @click="$emit('click', $event)">
     <div ref="element"></div>
   </div>
 </template>

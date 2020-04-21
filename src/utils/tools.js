@@ -47,10 +47,10 @@ const drag = (e, container, moveCallback) => {
   const upContainer = () => {
     container.classList.remove('dragging')
     container.removeEventListener('mousemove', moveContainer)
-    container.removeEventListener('mouseup', upContainer)
+    window.removeEventListener('mouseup', upContainer)
   }
   container.addEventListener('mousemove', moveContainer)
-  container.addEventListener('mouseup', upContainer)
+  window.addEventListener('mouseup', upContainer)
 }
 
 const importFiles = (r) => {
@@ -76,6 +76,10 @@ const isPlainObject = (value) => {
   return Object.prototype.toString.call(value) === '[object Object]'
 }
 
+const getPath = (e) => {
+  return e.path || (e.composedPath && e.composedPath())
+}
+
 const getTime = () => {
   // todo 结合服务端返回时间差
   return new Date()
@@ -99,6 +103,22 @@ const guid = (hasDatePrefix = true) => {
     return v.toString(16)
   })
   return `${hasDatePrefix ? getTime().Format('yyyyMMdd') : ''}-${guid}`
+}
+
+const throttle = (fn, minDelay = 250, scope = null) => {
+  let lastCall = 0
+  let timer = 0
+  return function () {
+    const now = +new Date()
+    if (now - lastCall < minDelay) {
+      // 使节流函数最后一次必定会执行
+      clearTimeout(timer)
+      return timer = setTimeout(fn.bind(scope || this, ...arguments), minDelay)
+    }
+    lastCall = now
+    clearTimeout(timer)
+    fn.apply(scope || this, arguments)
+  }
 }
 
 const setValueToObj = (obj, key, value) => {
@@ -140,8 +160,10 @@ export default {
   isEnvironment,
   isFunction,
   isPlainObject,
+  getPath,
   getTime,
   getValueFromObj,
   guid,
+  throttle,
   setValueToObj
 }

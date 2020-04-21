@@ -16,7 +16,7 @@ module.exports = {
     }
   },
   configureWebpack: (config) => {
-    config.devtool = '@inline-source-map'
+    // config.devtool = '#inline-source-map'
     config.resolve.alias.vue$ = 'vue/dist/vue.esm.js'
   },
   chainWebpack: (config) => {

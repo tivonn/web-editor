@@ -8,15 +8,14 @@
       class="container"
       :style="getContainerStyle">
       <render-element
-        v-for="(element, index) in elements"
+        v-for="element in elements"
         :key="element.id"
         ref="elements"
         :element="element"
         class="render-element"
         :class="getElementClass(element)"
         :style="getElementStyle(element)"
-        @click="selectElement(element)"
-        @mousedown.stop="$event => mousedownElement($event, element, index)">
+        @click="selectElement(element)">
       </render-element>
     </div>
   </div>
@@ -57,15 +56,37 @@ export default {
 
     getPage () {
       const { sid, pid } = this.$route.params
-      const elements = JSON.parse(localStorage.getItem(`${sid}-${pid}`) || [])
-      this.$store.dispatch('setElements', elements)
+      this.$store.dispatch('setElements', JSON.parse(localStorage.getItem(`${sid}-${pid}`) || '[]'))
     },
 
     mousedownCanvas (e) {
-      tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
-        this.$refs.canvas.scrollLeft -= offsetX
-        this.$refs.canvas.scrollTop -= offsetY
-      })
+      const elementEl = tools.getPath(e).find(element => element.classList && element.classList.contains('render-element'))
+      if (elementEl) {
+        const { id } = elementEl
+        const element = this.elements.find(element => element.id === id)
+        const xCoordinateKey = 'data.style.position.xCoordinate'
+        const yCoordinateKey = 'data.style.position.yCoordinate'
+        tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
+          this.$store.dispatch('updateElement', {
+            id,
+            [xCoordinateKey]: String(tools.clamp(
+              Number(tools.getValueFromObj(element, xCoordinateKey)) + offsetX,
+              0,
+              this.$refs.container.clientWidth - Number(tools.getValueFromObj(element, 'data.style.size.width')) - 1
+            )),
+            [yCoordinateKey]: String(tools.clamp(
+              Number(tools.getValueFromObj(element, yCoordinateKey)) + offsetY,
+              0,
+              this.$refs.container.clientHeight - Number(tools.getValueFromObj(element, 'data.style.size.height')) - 1
+            ))
+          })
+        })
+      } else {
+        tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
+          this.$refs.canvas.scrollLeft -= offsetX
+          this.$refs.canvas.scrollTop -= offsetY
+        })
+      }
     },
 
     getElementClass (element) {
@@ -85,27 +106,6 @@ export default {
     selectElement (element) {
       // todo single and multiple
       this.$store.dispatch('setActiveElements', [element])
-    },
-
-    mousedownElement (e, element, index) {
-      tools.drag(e, this.$refs.elements[index].$el, (offsetX, offsetY) => {
-        const { id } = element
-        const xCoordinateKey = 'data.style.position.xCoordinate'
-        const yCoordinateKey = 'data.style.position.yCoordinate'
-        this.$store.dispatch('updateElement', {
-          id,
-          [xCoordinateKey]: String(tools.clamp(
-            Number(tools.getValueFromObj(element, xCoordinateKey)) + offsetX,
-            0,
-            this.$refs.container.clientWidth - Number(tools.getValueFromObj(element, 'data.style.size.width'))
-          )),
-          [yCoordinateKey]: String(tools.clamp(
-            Number(tools.getValueFromObj(element, yCoordinateKey)) + offsetY,
-            0,
-            this.$refs.container.clientHeight - Number(tools.getValueFromObj(element, 'data.style.size.height'))
-          ))
-        })
-      })
     }
   },
 
