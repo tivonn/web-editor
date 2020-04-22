@@ -1,0 +1,53 @@
+<template>
+  <div :class="$style.header">
+    <div style="float: right;">
+      <el-button @click="save">保存</el-button>
+      <el-button @click="preview">预览</el-button>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'EditHeader',
+
+  computed: {
+    ...mapGetters([
+      'elements'
+    ])
+  },
+
+  methods: {
+    save () {
+      const { pid } = this.$route.params
+      const data = {
+        elements: this.elements
+      }
+      this.$axios.put(`/pages/${pid}`, data)
+    },
+
+    preview () {
+      const { sid, pid } = this.$route.params
+      window.open(
+        this.$router.resolve({
+          name: 'Preview',
+          params: { sid, pid }
+        }).href,
+        '_blank'
+      )
+    }
+  }
+}
+</script>
+
+<style lang="scss" module>
+.header {
+  :global {
+    width: 100%;
+    height: 48px;
+    border-bottom: 1px solid $--color-border;
+  }
+}
+</style>

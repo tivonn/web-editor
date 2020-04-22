@@ -1,0 +1,230 @@
+{
+  "systems": [
+    {
+      "width": 800,
+      "height": 600,
+      "id": 1
+    }
+  ],
+  "pages": [
+    {
+      "elements": [
+        {
+          "id": 5,
+          "data": {
+            "style": {
+              "size": {
+                "width": "100",
+                "height": "50"
+              },
+              "position": {
+                "xCoordinate": "74",
+                "yCoordinate": "144"
+              }
+            },
+            "content": {
+              "text": {
+                "mode": "static",
+                "data": "按钮"
+              }
+            },
+            "interact": {}
+          },
+          "config": {
+            "style": [
+              {
+                "label": "尺寸",
+                "key": "size",
+                "list": [
+                  {
+                    "key": "size-line1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "label": "宽度",
+                        "key": "width",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      },
+                      {
+                        "label": "高度",
+                        "key": "height",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "位置",
+                "key": "position",
+                "list": [
+                  {
+                    "key": "position-line1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "label": "x坐标",
+                        "key": "xCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      },
+                      {
+                        "label": "y坐标",
+                        "key": "yCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "文字",
+                "key": "text",
+                "list": [
+                  {
+                    "key": "text-line1",
+                    "list": [
+                      {
+                        "label": "数据",
+                        "key": "data",
+                        "span": 24,
+                        "component": "config-input"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "interact": []
+          },
+          "name": "按钮",
+          "value": "m-button"
+        },
+        {
+          "id": 6,
+          "data": {
+            "style": {
+              "size": {
+                "width": "50",
+                "height": "22",
+                "fontSize": "14"
+              },
+              "position": {
+                "xCoordinate": "93",
+                "yCoordinate": "58"
+              }
+            },
+            "content": {
+              "text": {
+                "mode": "static",
+                "data": "文本"
+              }
+            },
+            "interact": {}
+          },
+          "config": {
+            "style": [
+              {
+                "label": "尺寸",
+                "key": "size",
+                "list": [
+                  {
+                    "key": "size-line1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "label": "宽度",
+                        "key": "width",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      },
+                      {
+                        "label": "高度",
+                        "key": "height",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      }
+                    ]
+                  },
+                  {
+                    "key": "size-line2",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "label": "字体大小",
+                        "key": "fontSize",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "位置",
+                "key": "position",
+                "list": [
+                  {
+                    "key": "position-line1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "label": "x坐标",
+                        "key": "xCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      },
+                      {
+                        "label": "y坐标",
+                        "key": "yCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "文字",
+                "key": "text",
+                "list": [
+                  {
+                    "key": "text-line1",
+                    "list": [
+                      {
+                        "label": "数据",
+                        "key": "data",
+                        "span": 24,
+                        "component": "config-input"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "interact": []
+          },
+          "name": "文本",
+          "value": "m-text"
+        }
+      ],
+      "id": 1
+    }
+  ]
+}
