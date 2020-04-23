@@ -3,6 +3,7 @@
     <div style="float: right;">
       <el-button @click="save">保存</el-button>
       <el-button @click="preview">预览</el-button>
+      <el-button @click="download">源码下载</el-button>
     </div>
   </div>
 </template>
@@ -19,24 +20,36 @@ export default {
     ])
   },
 
+  inject: {
+    systemId: {
+      default: 0
+    },
+
+    pageId: {
+      default: 0
+    }
+  },
+
   methods: {
     save () {
-      const { pid } = this.$route.params
       const data = {
         elements: this.elements
       }
-      this.$axios.put(`/pages/${pid}`, data)
+      this.$axios.put(`/pages/${this.pageId}`, data)
     },
 
     preview () {
-      const { sid, pid } = this.$route.params
       window.open(
         this.$router.resolve({
           name: 'Preview',
-          params: { sid, pid }
+          params: { sid: this.systemId, pid: this.pageId }
         }).href,
         '_blank'
       )
+    },
+
+    download () {
+      this.$axios.put(`/build/${this.pageId}`)
     }
   }
 }

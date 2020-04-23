@@ -7,7 +7,7 @@ export default {
   name: 'System',
 
   computed: {
-    systemtId () {
+    systemId () {
       return Number(this.$route.params.sid)
     },
 
@@ -16,8 +16,15 @@ export default {
     }
   },
 
+  provide () {
+    return {
+      systemId: this.systemId,
+      pageId: this.pageId
+    }
+  },
+
   watch: {
-    systemtId: {
+    systemId: {
       handler () {
         this.getSystem()
       },
@@ -34,7 +41,7 @@ export default {
 
   methods: {
     getSystem () {
-      this.$store.dispatch('setSystem', this.systemtId)
+      this.$store.dispatch('setSystem', this.systemId)
     },
 
     getPage () {

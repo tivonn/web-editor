@@ -10,7 +10,7 @@
     {
       "elements": [
         {
-          "id": 5,
+          "id": 11,
           "data": {
             "style": {
               "size": {
@@ -18,8 +18,8 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "74",
-                "yCoordinate": "144"
+                "xCoordinate": "185",
+                "yCoordinate": "171"
               }
             },
             "content": {
@@ -110,7 +110,7 @@
           "value": "m-button"
         },
         {
-          "id": 6,
+          "id": 12,
           "data": {
             "style": {
               "size": {
@@ -119,8 +119,8 @@
                 "fontSize": "14"
               },
               "position": {
-                "xCoordinate": "93",
-                "yCoordinate": "58"
+                "xCoordinate": "66",
+                "yCoordinate": "67"
               }
             },
             "content": {
