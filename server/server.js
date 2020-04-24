@@ -2,18 +2,31 @@ const jsonServer = require('json-server')
 const server = jsonServer.create()
 const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
-const tools = require('./tools')
 
 server.use(middlewares)
 
-server.put('/build/:pid', (req, res) => {
+server.put('/build/:sid', (req, res) => {
+  const fs = require('fs-extra')
   const path = require('path')
-  const cwdPath = process.cwd()
-  const frontEndPath = path.join(cwdPath, '../frontend')
-  const fromPath = path.join(frontEndPath, '/src/components/RenderElement.vue')
-  const toPath = path.join(cwdPath, '/codes/1/render.vue')
-  tools.copyFile(fromPath, toPath)
-  res.send('success', 500)
+  const serverPath = process.cwd()
+  const frontEndPath = path.join(serverPath, '../frontend')
+  const systemId = req.params.sid
+  const systemPath = path.join(serverPath, `/codes/${systemId}`)
+  const copyFrontendCode = () => {
+    fs.removeSync(systemPath)
+    fs.copySync(frontEndPath, systemPath, {
+      filter: src => {
+        const exceptList = ['node_modules', /m-[a-z]+\\[a-z]+.js/, /views\\/, 'router.js']
+        return !exceptList.some(exceptItem => src.match(exceptItem))
+      }
+    })
+  }
+  const genratePages = () => {
+    const pages = router.db.get('pages').value().filter(page => page.systemId === systemId)
+  }
+  copyFrontendCode()
+  genratePages()
+  res.sendStatus(200)
 })
 
 server.use(router)

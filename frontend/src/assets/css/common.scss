@@ -16,19 +16,3 @@ html, body {
 ul, li {
   list-style: none;
 }
-
-.iconfont {
-  width: 1em;
-  height: 1em;
-  fill: currentColor;
-  overflow: hidden;
-}
-
-.clear-fix {
-  &:after {
-    height: 0;
-    display: block;
-    clear: both;
-    content: '';
-  }
-}

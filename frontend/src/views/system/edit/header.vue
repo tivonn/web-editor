@@ -33,6 +33,7 @@ export default {
   methods: {
     save () {
       const data = {
+        systemId: this.systemId,
         elements: this.elements
       }
       this.$axios.put(`/pages/${this.pageId}`, data)
@@ -49,7 +50,7 @@ export default {
     },
 
     download () {
-      this.$axios.put(`/build/${this.pageId}`)
+      this.$axios.put(`/build/${this.systemId}`)
     }
   }
 }
