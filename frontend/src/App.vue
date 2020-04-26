@@ -5,8 +5,12 @@
 </template>
 
 <script>
+import mixin from '@/app.mixin.js'
+
 export default {
-  name: 'App'
+  name: 'App',
+
+  mixins: [mixin]
 }
 </script>
 

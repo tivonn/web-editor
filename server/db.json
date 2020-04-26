@@ -1,8 +1,8 @@
 {
   "systems": [
     {
-      "width": 800,
-      "height": 600,
+      "width": 0,
+      "height": 0,
       "id": 1
     }
   ],
@@ -11,7 +11,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 13,
+          "id": 26,
           "data": {
             "style": {
               "size": {
@@ -19,8 +19,8 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "190",
-                "yCoordinate": "187"
+                "xCoordinate": "130",
+                "yCoordinate": "164"
               }
             },
             "content": {
@@ -111,7 +111,7 @@
           "value": "m-button"
         },
         {
-          "id": 14,
+          "id": 27,
           "data": {
             "style": {
               "size": {
@@ -120,8 +120,8 @@
                 "fontSize": "14"
               },
               "position": {
-                "xCoordinate": "89",
-                "yCoordinate": "142"
+                "xCoordinate": "59",
+                "yCoordinate": "108"
               }
             },
             "content": {
@@ -223,6 +223,106 @@
           },
           "name": "文本",
           "value": "m-text"
+        },
+        {
+          "id": 28,
+          "data": {
+            "style": {
+              "size": {
+                "width": "100",
+                "height": "50"
+              },
+              "position": {
+                "xCoordinate": "237",
+                "yCoordinate": "36"
+              }
+            },
+            "content": {
+              "text": {
+                "mode": "static",
+                "data": "按钮"
+              }
+            },
+            "interact": {}
+          },
+          "config": {
+            "style": [
+              {
+                "label": "尺寸",
+                "key": "size",
+                "list": [
+                  {
+                    "key": "size-line1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "label": "宽度",
+                        "key": "width",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      },
+                      {
+                        "label": "高度",
+                        "key": "height",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "位置",
+                "key": "position",
+                "list": [
+                  {
+                    "key": "position-line1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "label": "x坐标",
+                        "key": "xCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      },
+                      {
+                        "label": "y坐标",
+                        "key": "yCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "suffix": "px"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "文字",
+                "key": "text",
+                "list": [
+                  {
+                    "key": "text-line1",
+                    "list": [
+                      {
+                        "label": "数据",
+                        "key": "data",
+                        "span": 24,
+                        "component": "config-input"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "interact": []
+          },
+          "name": "按钮",
+          "value": "m-button"
         }
       ],
       "id": 1
