@@ -17,7 +17,8 @@ import RenderElement from '@/components/RenderElement.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Preview', // todo 复制时动态生成
+  // todo 复制时动态生成
+  name: 'Preview',
 
   computed: {
     ...mapGetters([

@@ -23,7 +23,13 @@ server.put('/build/:sid', (req, res) => {
   const copyCode = () => {
     fs.copySync(frontEndPath, systemPath, {
       filter: src => {
-        const exceptList = ['node_modules', /m-[a-z]+\\[a-z]+.js/, /views\\/, 'router.js']
+        const exceptList = [
+          /node_modules/,
+          /packages\\m-[a-z]+\\(?!index.vue)/, // 元件
+          /store\\modules\\(?!common.js)/, // vuex
+          /views\\/,  // 页面
+          /router.js/
+        ]
         return !exceptList.some(exceptItem => src.match(exceptItem))
       }
     })

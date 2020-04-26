@@ -1,5 +1,4 @@
 <template>
-  <!--todo 点击时会改变值-->
   <el-switch
     v-model="switchValue"
     :active-text="text.data">

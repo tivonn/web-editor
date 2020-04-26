@@ -44,7 +44,7 @@ export default {
     mountElement () {
       const { value, data } = this.element
       const { style, content, interact } = data
-      const Package = Vue.extend(require(`../packages/${value}`).default)
+      const Package = Vue.extend(require(`../packages/${value}/index.vue`).default)
       new Package({
         propsData: {
           ...style,

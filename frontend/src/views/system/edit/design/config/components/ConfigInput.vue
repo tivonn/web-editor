@@ -3,7 +3,7 @@
     <p>{{label}}</p>
     <el-input
       :value="value"
-      @input="$emit('input', $event)"
+      @input="$emit('update', $event)"
       size="small"
       :class="$style.configInput">
       <template slot="suffix">{{suffix}}</template>

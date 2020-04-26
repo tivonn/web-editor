@@ -1,5 +1,4 @@
 <template>
-  <!--todo 拖拽时自动下拉-->
   <el-select
     v-model="selectValue"
     :placeholder="placeholder.data">

@@ -10,22 +10,16 @@ export default {
   name: 'MInput',
 
   props: {
-    content: {
-      type: Object,
-      required: true,
-      default: () => ({})
-    },
-
     inputValue: {
       type: String,
       required: false,
       default: ''
-    }
-  },
+    },
 
-  data () {
-    return {
-      ...this.content
+    placeholder: {
+      type: Object,
+      required: true,
+      default: () => ({})
     }
   }
 }

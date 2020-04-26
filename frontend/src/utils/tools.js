@@ -10,6 +10,10 @@ const clamp = (value, min, max) => {
   return Math.min(Math.max(min, value), max)
 }
 
+const containClass = (element, className) => {
+  return element.classList && element.classList.contains(className)
+}
+
 const deepClone = (obj, hash = new WeakMap()) => {
   if (Object(obj) !== obj) return obj // primitives
   if (hash.has(obj)) return hash.get(obj) // cyclic reference
@@ -33,7 +37,7 @@ const deepClone = (obj, hash = new WeakMap()) => {
   )
 }
 
-const drag = (e, container, moveCallback) => {
+const drag = (e, container, moveCallback, upCallback) => {
   let pageX = e.screenX
   let pageY = e.screenY
   container.classList.add('dragging')
@@ -44,10 +48,11 @@ const drag = (e, container, moveCallback) => {
     pageY = e.screenY
     isFunction(moveCallback) && moveCallback(offsetX, offsetY)
   }
-  const upContainer = () => {
+  const upContainer = (e) => {
     container.classList.remove('dragging')
     container.removeEventListener('mousemove', moveContainer)
     window.removeEventListener('mouseup', upContainer)
+    isFunction(upCallback) && upCallback(e)
   }
   container.addEventListener('mousemove', moveContainer)
   window.addEventListener('mouseup', upContainer)
@@ -76,6 +81,11 @@ const isPlainObject = (value) => {
   return Object.prototype.toString.call(value) === '[object Object]'
 }
 
+const getDate = () => {
+  // todo 结合服务端返回时间差
+  return new Date()
+}
+
 const getId = (type) => {
   // todo 改为向服务端获取自增id
   let max = Number(localStorage.getItem(type)) || 0
@@ -85,11 +95,6 @@ const getId = (type) => {
 
 const getPath = (e) => {
   return e.path || (e.composedPath && e.composedPath())
-}
-
-const getTime = () => {
-  // todo 结合服务端返回时间差
-  return new Date()
 }
 
 const getValueFromObj = (obj, key) => {
@@ -106,7 +111,7 @@ const throttle = (fn, minDelay = 250, scope = null) => {
   let lastCall = 0
   let timer = 0
   return function () {
-    const now = +new Date()
+    const now = getDate().getTime()
     if (now - lastCall < minDelay) {
       // 使节流函数最后一次必定会执行
       clearTimeout(timer)
@@ -151,15 +156,16 @@ const setValueToObj = (obj, key, value) => {
 export default {
   assert,
   clamp,
+  containClass,
   deepClone,
   drag,
   importFiles,
   isEnvironment,
   isFunction,
   isPlainObject,
+  getDate,
   getId,
   getPath,
-  getTime,
   getValueFromObj,
   throttle,
   setValueToObj

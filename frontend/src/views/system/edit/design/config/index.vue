@@ -6,14 +6,48 @@
         :key="config.value"
         :label="config.label"
         :name="config.value">
-        <config-operation :config-key="config.value"></config-operation>
+        <template v-if="isNoActive">
+          全局
+        </template>
+        <template v-else-if="isSingleActive">
+          <el-collapse
+            :value="activeElement.config[config.value].map(block => block.key)"
+            class="config-collapse">
+            <el-collapse-item
+              v-for="(block, blockKey) in activeElement.config[config.value]"
+              :key="blockKey"
+              :title="block.label"
+              :name="block.key">
+              <el-row
+                v-for="line in block.list"
+                :key="line.key"
+                :gutter="line.gutter"
+                class="config-line">
+                <el-col
+                  v-for="col in line.list"
+                  :key="col.key"
+                  :span="col.span"
+                  :offset="col.offset">
+                  <component
+                    :is="col.component"
+                    v-model="activeElement.data[config.value][block.key][col.key]"
+                    v-bind="col.props"
+                    @update="value => updateElement(`data.${config.value}.${block.key}.${col.key}`, value)">
+                  </component>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+          </el-collapse>
+        </template>
+        <template v-else>
+          组件组
+        </template>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-import ConfigOperation from '@/views/system/edit/design/config/components/ConfigOperation.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -38,11 +72,46 @@ export default {
   computed: {
     ...mapGetters([
       'activeElements'
-    ])
+    ]),
+
+    isNoActive () {
+      return !this.activeElements.length
+    },
+
+    isSingleActive () {
+      return this.activeElements.length === 1
+    },
+
+    isMultipleActive () {
+      return this.activeElements.length > 1
+    },
+
+    activeElement () {
+      switch (true) {
+        case this.isNoActive:
+          return {}
+        case this.isSingleActive:
+          return this.activeElements[0]
+        case this.isMultipleActive:
+          return this.activeElements
+        default:
+          return {}
+      }
+    }
+  },
+
+  methods: {
+    updateElement (key, value) {
+      const { id } = this.activeElement
+      this.$store.dispatch('updateElement', {
+        id,
+        [key]: value
+      })
+    }
   },
 
   components: {
-    ConfigOperation
+    ConfigInput: () => import('@/views/system/edit/design/config/components/ConfigInput.vue')
   }
 }
 </script>
@@ -78,6 +147,24 @@ export default {
       .el-tabs__content {
         height: calc(100% - 40px);
         overflow: auto;
+      }
+    }
+    .config-collapse {
+      .el-collapse-item__header {
+        height: 36px;
+        padding: 0 6px;
+        line-height: 36px;
+        border-color: $--color-border;
+        font-weight: bold;
+        color: $--color-text-secondary;
+      }
+      .el-collapse-item__content {
+        padding: 10px 6px;
+      }
+      .config-line {
+        &+.config-line {
+          margin-top: 10px;
+        }
       }
     }
   }

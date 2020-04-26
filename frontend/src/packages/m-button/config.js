@@ -6,17 +6,21 @@ export default {
       key: 'size-line1',
       gutter: 20,
       list: [{
-        label: '宽度',
         key: 'width',
         span: 6,
         component: 'config-input',
-        suffix: 'px'
+        props: {
+          label: '宽度',
+          suffix: 'px'
+        }
       }, {
-        label: '高度',
         key: 'height',
         span: 6,
         component: 'config-input',
-        suffix: 'px'
+        props: {
+          label: '高度',
+          suffix: 'px'
+        }
       }]
     }]
   }, {
@@ -26,17 +30,21 @@ export default {
       key: 'position-line1',
       gutter: 20,
       list: [{
-        label: 'x坐标',
         key: 'xCoordinate',
         span: 6,
         component: 'config-input',
-        suffix: 'px'
+        props: {
+          label: 'x坐标',
+          suffix: 'px'
+        }
       }, {
-        label: 'y坐标',
         key: 'yCoordinate',
         span: 6,
         component: 'config-input',
-        suffix: 'px'
+        props: {
+          label: 'y坐标',
+          suffix: 'px'
+        }
       }]
     }]
   }],
@@ -46,10 +54,12 @@ export default {
     list: [{
       key: 'text-line1',
       list: [{
-        label: '数据',
         key: 'data',
         span: 24,
-        component: 'config-input'
+        component: 'config-input',
+        props: {
+          label: '数据'
+        }
       }]
     }]
   }],

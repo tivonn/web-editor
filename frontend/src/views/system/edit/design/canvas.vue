@@ -1,8 +1,10 @@
 <template>
   <div
     ref="canvas"
+    class="canvas"
     :class="$style.canvas"
-    @mousedown="mousedownCanvas">
+    @mousedown="mousedownCanvas"
+    @click.capture="captureCanvas">
     <div
       ref="container"
       class="container"
@@ -29,6 +31,12 @@ import tools from '@/utils/tools.js'
 export default {
   name: 'DesignCanvas',
 
+  data () {
+    return {
+      isCaptureElement: false
+    }
+  },
+
   computed: {
     ...mapGetters([
       'system',
@@ -47,14 +55,16 @@ export default {
 
   methods: {
     mousedownCanvas (e) {
-      const elementEl = tools.getPath(e).find(element => element.classList && element.classList.contains('render-element'))
+      const elementEl = tools.getPath(e).find(element => tools.containClass(element, 'render-element'))
       const isDragElement = !!elementEl
       if (isDragElement) {
+        const mouseDownTime = tools.getDate().getTime()
         const id = Number(elementEl.id)
         const element = this.elements.find(element => element.id === id)
         const xCoordinateKey = 'data.style.position.xCoordinate'
         const yCoordinateKey = 'data.style.position.yCoordinate'
         tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
+          this.isCaptureElement = true
           this.$store.dispatch('updateElement', {
             id,
             [xCoordinateKey]: String(tools.clamp(
@@ -68,12 +78,24 @@ export default {
               this.$refs.container.clientHeight - Number(tools.getValueFromObj(element, 'data.style.size.height')) - 1
             ))
           })
+        }, (e) => {
+          const mouseUpTime = tools.getDate().getTime()
+          if (mouseUpTime - mouseDownTime < 100 || !tools.getPath(e).some(element => tools.containClass(element, 'canvas'))) {
+            this.isCaptureElement = false
+          }
         })
       } else {
         tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
           this.$refs.canvas.scrollLeft -= offsetX
           this.$refs.canvas.scrollTop -= offsetY
         })
+      }
+    },
+
+    captureCanvas (e) {
+      if (this.isCaptureElement) {
+        this.isCaptureElement = false
+        e.stopPropagation()
       }
     },
 
