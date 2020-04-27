@@ -25,6 +25,7 @@
 
 <script>
 import RenderElement from '@/components/RenderElement.vue'
+import Mousetrap from 'mousetrap'
 import { mapGetters } from 'vuex'
 import tools from '@/utils/tools.js'
 
@@ -53,7 +54,23 @@ export default {
     }
   },
 
+  mounted () {
+    this.init()
+  },
+
+  beforeDestroy () {
+    this.reset()
+  },
+
   methods: {
+    init () {
+      this.initMousetrap()
+    },
+
+    initMousetrap () {
+      Mousetrap.bind('del', this.deleteElement)
+    },
+
     mousedownCanvas (e) {
       const elementEl = tools.getPath(e).find(element => tools.containClass(element, 'render-element'))
       const isDragElement = !!elementEl
@@ -80,7 +97,8 @@ export default {
           })
         }, (e) => {
           const mouseUpTime = tools.getDate().getTime()
-          if (mouseUpTime - mouseDownTime < 100 || !tools.getPath(e).some(element => tools.containClass(element, 'canvas'))) {
+          // 快速点击或鼠标在画布外部释放
+          if (mouseUpTime - mouseDownTime < 100 || tools.getPath(e).every(element => !tools.containClass(element, 'canvas'))) {
             this.isCaptureElement = false
           }
         })
@@ -116,6 +134,19 @@ export default {
     selectElement (element) {
       // todo single and multiple
       this.$store.dispatch('setActiveElements', [element])
+    },
+
+    deleteElement () {
+      this.$store.dispatch('setElements', this.elements.filter(element => this.activeElements.every(activeElement => activeElement.id !== element.id)))
+      this.$store.dispatch('setActiveElements', [])
+    },
+
+    reset () {
+      this.resetMousetrap()
+    },
+
+    resetMousetrap () {
+      Mousetrap.reset()
     }
   },
 

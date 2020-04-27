@@ -24,18 +24,21 @@ server.put('/build/:sid', (req, res) => {
     fs.copySync(frontEndPath, systemPath, {
       filter: src => {
         const exceptList = [
-          /node_modules/,
+          /node_modules/, // node_modules
+          /package[-lock]*.json/, // package.json
           /packages\\m-[a-z]+\\(?!index.vue)/, // 元件
           /store\\modules\\(?!common.js)/, // vuex
-          /views\\/,  // 页面
-          /router.js/
+          /views\\/,  // views
+          /router.js/ // router.js
         ]
         return !exceptList.some(exceptItem => src.match(exceptItem))
       }
     })
   }
   const outputCode = () => {
+    // app.mixin.js
     fs.outputFileSync(path.join(systemPath, '/src/app.mixin.js'), require(path.join(serverPath, '/template/app.mixin.js'))(systemId))
+    // pages
     const pages = router.db.get('pages').value().filter(page => page.systemId === systemId)
     fs.outputFileSync(path.join(systemPath, '/src/router.js'), require(path.join(serverPath, '/template/router.js'))(pages))
     pages.forEach(page => {
@@ -44,6 +47,24 @@ server.put('/build/:sid', (req, res) => {
       fs.copySync(path.join(frontEndPath, '/src/views/system/preview.vue'), path.join(pagePath, '/index.vue'))
       fs.outputFileSync(path.join(pagePath, '/data.js'), `export default ${JSON.stringify(page.elements)}`)
     })
+    // package.json
+    const packageJson = fs.readJsonSync(path.join(frontEndPath, '/package.json'))
+    const exceptPackageList = [
+      'dependencies.mousetrap'
+    ]
+    exceptPackageList.forEach(exceptItem => {
+      const keyList = exceptItem.split('.')
+      let obj = packageJson
+      let keyItem
+      while (keyList.length) {
+        keyItem = keyList.shift()
+        if (keyList.length) {
+          obj = obj[keyItem]
+        }
+      }
+      delete obj[keyItem]
+    })
+    fs.outputJsonSync(path.join(systemPath, '/package.json'), packageJson)
   }
   generateCode()
   res.sendStatus(200)
