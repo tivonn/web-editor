@@ -49,7 +49,7 @@ const mutations = {
   },
 
   [types.UPDATE_ELEMENT] (state, value) {
-    const element = state.elements.find(element => element.id === value.id)
+    const element = tools.deepQuery(state.elements, { value: value.id })
     for (const key in value) {
       if (key === 'id') continue
       tools.setValueToObj(element, key, value[key])

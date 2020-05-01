@@ -39,8 +39,11 @@
             </el-collapse-item>
           </el-collapse>
         </template>
-        <template v-else>
-          组件组
+        <template v-else-if="isCombinationActive">
+          组合
+        </template>
+        <template v-else-if="isMultipleActive">
+          多选
         </template>
       </el-tab-pane>
     </el-tabs>
@@ -79,7 +82,11 @@ export default {
     },
 
     isSingleActive () {
-      return this.activeElements.length === 1
+      return this.activeElements.length === 1 && this.activeElements[0].type === 'component'
+    },
+
+    isCombinationActive () {
+      return this.activeElements.length === 1 && this.activeElements[0].type === 'combination'
     },
 
     isMultipleActive () {
@@ -91,6 +98,7 @@ export default {
         case this.isNoActive:
           return {}
         case this.isSingleActive:
+        case this.isCombinationActive:
           return this.activeElements[0]
         case this.isMultipleActive:
           return this.activeElements
@@ -102,6 +110,7 @@ export default {
 
   methods: {
     updateElement (key, value) {
+      // todo 多选
       const { id } = this.activeElement
       this.$store.dispatch('updateElement', {
         id,

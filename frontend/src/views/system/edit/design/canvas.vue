@@ -9,22 +9,16 @@
       ref="container"
       class="container"
       :style="getContainerStyle">
-      <render-element
-        v-for="element in elements"
-        :key="element.id"
-        ref="elements"
-        :element="element"
-        class="render-element"
-        :class="getElementClass(element)"
-        :style="getElementStyle(element)"
-        @click="selectElement(element)">
-      </render-element>
+      <element-list
+        :elements="elements"
+        @click="clickElementList">
+      </element-list>
     </div>
   </div>
 </template>
 
 <script>
-import RenderElement from '@/components/RenderElement.vue'
+import ElementList from '@/components/ElementList'
 import Mousetrap from 'mousetrap'
 import { mapGetters } from 'vuex'
 import tools from '@/utils/tools.js'
@@ -34,7 +28,8 @@ export default {
 
   data () {
     return {
-      isCaptureElement: false
+      isCaptureElement: false,
+      isKeydownCtrl: false
     }
   },
 
@@ -54,6 +49,13 @@ export default {
     }
   },
 
+  provide () {
+    return {
+      getElementClass: this.getElementClass,
+      getElementStyle: this.getElementStyle
+    }
+  },
+
   mounted () {
     this.init()
   },
@@ -68,16 +70,18 @@ export default {
     },
 
     initMousetrap () {
+      Mousetrap.bind('ctrl', () => this.toggleKeydownCtrl(true), 'keydown')
+      Mousetrap.bind('ctrl', () => this.toggleKeydownCtrl(false), 'keyup')
       Mousetrap.bind('del', this.deleteElement)
     },
 
     mousedownCanvas (e) {
-      const elementEl = tools.getPath(e).find(element => tools.containClass(element, 'render-element'))
+      const elementEl = tools.getPath(e).find(element => tools.containClass(element, 'element-item'))
       const isDragElement = !!elementEl
       if (isDragElement) {
-        const mouseDownTime = tools.getDate().getTime()
+        const mousedownTime = tools.getDate().getTime()
         const id = Number(elementEl.id)
-        const element = this.elements.find(element => element.id === id)
+        const element = tools.deepQuery(this.elements, { value: id })
         const xCoordinateKey = 'data.style.position.xCoordinate'
         const yCoordinateKey = 'data.style.position.yCoordinate'
         tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
@@ -96,9 +100,9 @@ export default {
             ))
           })
         }, (e) => {
-          const mouseUpTime = tools.getDate().getTime()
+          const mouseupTime = tools.getDate().getTime()
           // 快速点击或鼠标在画布外部释放
-          if (mouseUpTime - mouseDownTime < 100 || tools.getPath(e).every(element => !tools.containClass(element, 'canvas'))) {
+          if (mouseupTime - mousedownTime < 100 || tools.getPath(e).every(element => !tools.containClass(element, 'canvas'))) {
             this.isCaptureElement = false
           }
         })
@@ -117,27 +121,53 @@ export default {
       }
     },
 
+    toggleKeydownCtrl (isKeyDownCtrl) {
+      this.isKeydownCtrl = isKeyDownCtrl
+    },
+
     getElementClass (element) {
       return {
         active: this.activeElements.some(activeElement => activeElement.id === element.id)
       }
     },
 
-    getElementStyle (element) {
+    getElementStyle (element, fromCombination, combinationPosition) {
       const { xCoordinate, yCoordinate } = element.data.style.position
       return {
-        left: `${xCoordinate}px`,
-        top: `${yCoordinate}px`
+        // 1px为边框
+        left: `${Number(xCoordinate) - (fromCombination ? Number(combinationPosition.xCoordinate) + 1 : 0)}px`,
+        top: `${Number(yCoordinate) - (fromCombination ? Number(combinationPosition.yCoordinate) + 1 : 0)}px`
       }
     },
 
-    selectElement (element) {
-      // todo single and multiple
-      this.$store.dispatch('setActiveElements', [element])
+    clickElementList (e) {
+      const elementEl = tools.getPath(e).find(element => tools.containClass(element, 'element-item'))
+      const isSelectElement = !!elementEl
+      let activeElements
+      if (isSelectElement) {
+        const id = Number(elementEl.id)
+        const element = tools.deepQuery(this.elements, { value: id })
+        // todo 优化选中逻辑
+        const isSelected = this.activeElements.some(activeElement => activeElement.id === element.id)
+        if (isSelected) {
+          activeElements = this.activeElements.filter(activeElement => activeElement.id !== element.id)
+        } else {
+          activeElements = this.isKeydownCtrl ? this.activeElements.concat([element]) : [element]
+        }
+      } else {
+        activeElements = []
+      }
+      this.$store.dispatch('setActiveElements', activeElements)
     },
 
     deleteElement () {
-      this.$store.dispatch('setElements', this.elements.filter(element => this.activeElements.every(activeElement => activeElement.id !== element.id)))
+      this.$store.dispatch('setElements',
+        this.elements
+          .filter(element =>
+            this.activeElements
+              .every(activeElement => activeElement.id !== element.id)
+          )
+      )
       this.$store.dispatch('setActiveElements', [])
     },
 
@@ -151,7 +181,7 @@ export default {
   },
 
   components: {
-    RenderElement
+    ElementList
   }
 }
 </script>
@@ -174,7 +204,7 @@ export default {
       position: relative;
       border: 10px solid #55c580;
     }
-    .render-element {
+    .element-item {
       position: absolute;
       border: 1px dashed transparent;
       &.active {

@@ -6,3 +6,4 @@ export const UPDATE_ELEMENT = 'UPDATE_ELEMENT'
 
 // edit
 export const SET_ACTIVE_ELEMENTS = 'SET_ACTIVE_ELEMENTS'
+export const COMMAND_CANVAS = 'COMMAND_CANVAS'

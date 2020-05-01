@@ -50,6 +50,7 @@ export default {
           const { default: config } = configRes
           const element = Object.assign({
             id: tools.getId('element'),
+            type: 'component',
             data: tools.deepClone(data),
             config: tools.deepClone(config)
           }, packageItem)

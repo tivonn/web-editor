@@ -1,6 +1,7 @@
 <template>
   <div :class="$style.header">
     <div style="float: right;">
+      <el-button @click="command('combine')">组合</el-button>
       <el-button @click="save">保存</el-button>
       <el-button @click="preview">预览</el-button>
       <el-button @click="download">源码下载</el-button>
@@ -14,12 +15,6 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'EditHeader',
 
-  computed: {
-    ...mapGetters([
-      'elements'
-    ])
-  },
-
   inject: {
     systemId: {
       default: 0
@@ -30,7 +25,17 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters([
+      'elements'
+    ])
+  },
+
   methods: {
+    command (type) {
+      this.$store.dispatch('commandCanvas', type)
+    },
+
     save () {
       const data = {
         systemId: this.systemId,

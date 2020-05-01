@@ -37,6 +37,40 @@ const deepClone = (obj, hash = new WeakMap()) => {
   )
 }
 
+const deepQuery = (tree, options) => {
+  options = Object.assign({}, {
+    value: null,
+    key: 'id'
+  }, options)
+  const { value, key } = options
+  let isGet = false
+  let result = {}
+  const deepQueryChildren = (children) => {
+    for (let i = 0; i < children.length; i++) {
+      if (children[i].children && children[i].children.length > 0) {
+        deepQueryChildren(children[i].children, value)
+      }
+      if (value === children[i][key] || isGet) {
+        isGet || (result = children[i])
+        isGet = true
+        break
+      }
+    }
+  }
+  if (isArray(tree)) {
+    deepQueryChildren(tree)
+  } else if (isPlainObject(tree)) {
+    if (tree[key] === value) {
+      return tree
+    } else {
+      deepQueryChildren(tree.children)
+    }
+  } else {
+    return {}
+  }
+  return result
+}
+
 const drag = (e, container, moveCallback, upCallback) => {
   let pageX = e.screenX
   let pageY = e.screenY
@@ -67,6 +101,10 @@ const importFiles = (r) => {
     modules[nameList.join()] = module.__esModule && module.default ? module.default : module
   })
   return modules
+}
+
+const isArray = (value) => {
+  return Array.isArray(value)
 }
 
 const isEnvironment = (environment) => {
@@ -101,6 +139,7 @@ const getValueFromObj = (obj, key) => {
   let value = obj
   const keyList = key.split('.')
   while (keyList.length) {
+    if (!value) break
     const keyItem = keyList.shift()
     value = value[keyItem]
   }
@@ -158,8 +197,10 @@ export default {
   clamp,
   containClass,
   deepClone,
+  deepQuery,
   drag,
   importFiles,
+  isArray,
   isEnvironment,
   isFunction,
   isPlainObject,

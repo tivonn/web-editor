@@ -2,18 +2,14 @@
   <div
     :class="$style.preview"
     :style="getPreviewStyle">
-    <render-element
-      v-for="element in elements"
-      :key="element.id"
-      :element="element"
-      class="render-element"
-      :style="getElementStyle(element)">
-    </render-element>
+    <element-list
+      :elements="elements">
+    </element-list>
   </div>
 </template>
 
 <script>
-import RenderElement from '@/components/RenderElement.vue'
+import ElementList from '@/components/ElementList.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -35,18 +31,25 @@ export default {
     }
   },
 
+  provide () {
+    return {
+      getElementStyle: this.getElementStyle
+    }
+  },
+
   methods: {
-    getElementStyle (element) {
+    getElementStyle (element, fromCombination, combinationPosition) {
       const { xCoordinate, yCoordinate } = element.data.style.position
       return {
-        left: `${xCoordinate}px`,
-        top: `${yCoordinate}px`
+        // 1px为边框
+        left: `${Number(xCoordinate) - (fromCombination ? Number(combinationPosition.xCoordinate) + 1 : 0)}px`,
+        top: `${Number(yCoordinate) - (fromCombination ? Number(combinationPosition.yCoordinate) + 1 : 0)}px`
       }
     }
   },
 
   components: {
-    RenderElement
+    ElementList
   }
 }
 </script>
@@ -57,7 +60,7 @@ export default {
   height: 100%;
   border: 10px solid #55c580;
   :global {
-    .render-element {
+    .element-item {
       position: absolute;
     }
   }
