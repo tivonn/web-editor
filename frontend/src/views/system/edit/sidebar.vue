@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.sidebar">
-    <p class="package-title">组件</p>
+    <p class="package-title">元件</p>
     <table class="package-table">
       <tr
         v-for="rowIndex in Math.ceil(packages.length / 3)"
@@ -56,7 +56,7 @@ export default {
           }, packageItem)
           this.$store.dispatch('setElements', this.elements.concat([element]))
         })
-        .catch(() => this.$message.error('获取组件数据失败'))
+        .catch(() => this.$message.error('获取元件数据失败'))
     }
   }
 }

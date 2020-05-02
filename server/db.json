@@ -11,7 +11,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 726,
+          "id": 735,
           "type": "component",
           "data": {
             "style": {
@@ -20,8 +20,8 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "163",
-                "yCoordinate": "380"
+                "xCoordinate": "57",
+                "yCoordinate": "358"
               }
             },
             "content": {
@@ -122,7 +122,7 @@
           "value": "m-button"
         },
         {
-          "id": 727,
+          "id": 736,
           "type": "component",
           "data": {
             "style": {
@@ -131,8 +131,8 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "369",
-                "yCoordinate": "317"
+                "xCoordinate": "200",
+                "yCoordinate": "465"
               }
             },
             "content": {
@@ -233,17 +233,17 @@
           "value": "m-button"
         },
         {
-          "id": 730,
+          "id": 737,
           "type": "combination",
           "data": {
             "style": {
               "size": {
-                "width": "236",
-                "height": "96"
+                "width": "227",
+                "height": "122"
               },
               "position": {
-                "xCoordinate": "98",
-                "yCoordinate": "153"
+                "xCoordinate": "89",
+                "yCoordinate": "149"
               }
             }
           },
@@ -285,7 +285,7 @@
           },
           "childrens": [
             {
-              "id": 724,
+              "id": 733,
               "type": "component",
               "data": {
                 "style": {
@@ -294,8 +294,8 @@
                     "height": "50"
                   },
                   "position": {
-                    "xCoordinate": "98",
-                    "yCoordinate": "199"
+                    "xCoordinate": "89",
+                    "yCoordinate": "149"
                   }
                 },
                 "content": {
@@ -394,10 +394,10 @@
               },
               "name": "按钮",
               "value": "m-button",
-              "parentId": 730
+              "parentId": 737
             },
             {
-              "id": 725,
+              "id": 734,
               "type": "component",
               "data": {
                 "style": {
@@ -406,8 +406,8 @@
                     "height": "50"
                   },
                   "position": {
-                    "xCoordinate": "234",
-                    "yCoordinate": "153"
+                    "xCoordinate": "216",
+                    "yCoordinate": "221"
                   }
                 },
                 "content": {
@@ -506,7 +506,7 @@
               },
               "name": "按钮",
               "value": "m-button",
-              "parentId": 730
+              "parentId": 737
             }
           ]
         }

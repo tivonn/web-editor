@@ -69,11 +69,31 @@ const getData = (childrens) => {
   }
 }
 
-const refresh = (parent) => {
-  Vue.set(parent, 'data', getData(parent.childrens))
+const refresh = (element) => {
+  Vue.set(element, 'data', getData(element.childrens))
+}
+
+const uncombine = (element, elements) => {
+  const parent = tools.deepQuery(elements, element.parentId)
+  let elementList
+  if (tools.isArray(parent)) {
+    elementList = parent
+  } else if (tools.isPlainObject(parent)) {
+    elementList = parent.childrens
+  }
+  const index = elementList.findIndex(elementItem => elementItem.id === element.id)
+  elementList.splice(index, 1, ...(element.childrens.map(children => {
+    if (parent.id) {
+      Vue.set(children, 'parentId', parent.id)
+    } else {
+      Vue.delete(children, 'parentId')
+    }
+    return children
+  })))
 }
 
 export default {
   combine,
-  refresh
+  refresh,
+  uncombine
 }

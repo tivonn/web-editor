@@ -50,7 +50,7 @@ const mutations = {
   },
 
   [types.UPDATE_ELEMENT] (state, value) {
-    const element = tools.deepQuery(state.elements, { value: value.id })
+    const element = tools.deepQuery(state.elements, value.id)
     for (const key in value) {
       // todo 装饰器模式
       // before
@@ -83,7 +83,7 @@ const mutations = {
           let current = element
           let hasParent = !!current.parentId
           while (hasParent) {
-            current = tools.deepQuery(state.elements, { value: current.parentId })
+            current = tools.deepQuery(state.elements, current.parentId)
             Combination.refresh(current)
             hasParent = !!current.parentId
           }

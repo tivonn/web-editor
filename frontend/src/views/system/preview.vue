@@ -44,7 +44,7 @@ export default {
       const hasParent = !!element.parentId
       let parentPosition
       if (hasParent) {
-        parentPosition = tools.getValueFromObj(tools.deepQuery(this.elements, { value: element.parentId }), 'data.style.position')
+        parentPosition = tools.getValueFromObj(tools.deepQuery(this.elements, element.parentId), 'data.style.position')
       }
       return {
         // 1px为边框

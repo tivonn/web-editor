@@ -37,12 +37,12 @@ const deepClone = (obj, hash = new WeakMap()) => {
   )
 }
 
-const deepQuery = (tree, options) => {
+const deepQuery = (tree, value, options) => {
+  if (!value) return tree
   options = Object.assign({}, {
-    value: null,
     key: 'id'
   }, options)
-  const { value, key } = options
+  const { key } = options
   let isGet = false
   let result = {}
   const deepQueryChildrens = (childrens) => {

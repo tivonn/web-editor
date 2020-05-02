@@ -2,6 +2,7 @@
   <div :class="$style.header">
     <div style="float: right;">
       <el-button @click="command('combine')">组合</el-button>
+      <el-button @click="command('uncombine')">解除组合</el-button>
       <el-button @click="save">保存</el-button>
       <el-button @click="preview">预览</el-button>
       <el-button @click="download">源码下载</el-button>

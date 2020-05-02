@@ -83,7 +83,7 @@ export default {
       if (isDragElement) {
         const mousedownTime = tools.getDate().getTime()
         const id = Number(elementEl.id)
-        const element = tools.deepQuery(this.elements, { value: id })
+        const element = tools.deepQuery(this.elements, id)
         const xCoordinateKey = 'data.style.position.xCoordinate'
         const yCoordinateKey = 'data.style.position.yCoordinate'
         tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
@@ -132,7 +132,7 @@ export default {
         hover:
           this.hoverElements.some(hoverElement => Number(hoverElement.id) === element.id) ||
           this.activeElements.some(activeElement =>
-            Object.keys(tools.deepQuery(element, { value: Number(activeElement.id) })).length
+            Object.keys(tools.deepQuery(element, Number(activeElement.id))).length
           ),
         active: this.activeElements.some(activeElement => activeElement.id === element.id)
       }
@@ -143,7 +143,7 @@ export default {
       const hasParent = !!element.parentId
       let parentPosition
       if (hasParent) {
-        parentPosition = tools.getValueFromObj(tools.deepQuery(this.elements, { value: element.parentId }), 'data.style.position')
+        parentPosition = tools.getValueFromObj(tools.deepQuery(this.elements, element.parentId), 'data.style.position')
       }
       return {
         // 1px为边框
@@ -158,7 +158,7 @@ export default {
       let activeElements
       if (isSelectElement) {
         const id = Number(elementEl.id)
-        const element = tools.deepQuery(this.elements, { value: id })
+        const element = tools.deepQuery(this.elements, id)
         const isSelected = this.activeElements.some(activeElement => activeElement.id === element.id)
         if (isSelected) {
           activeElements = this.activeElements.filter(activeElement => activeElement.id !== element.id)
