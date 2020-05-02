@@ -27,6 +27,7 @@ const mutations = {
 
   [types.COMMAND_CANVAS] (state, value) {
     switch (value) {
+      // todo 命令模式
       case 'combine': {
         const { elements, activeElements } = this.getters
         if (activeElements.length <= 1) {

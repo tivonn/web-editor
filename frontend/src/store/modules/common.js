@@ -59,8 +59,8 @@ const mutations = {
           continue
         case 'data.style.position.xCoordinate':
         case 'data.style.position.yCoordinate': {
-          const hasChild = !!element.children
-          if (hasChild) {
+          const hasChildren = !!element.childrens
+          if (hasChildren) {
             const elementList = tools.getDeepTraversal(element)
             elementList.shift()
             const offset = Number(value[key]) - Number(tools.getValueFromObj(element, key))

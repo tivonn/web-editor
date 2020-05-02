@@ -11,6 +11,7 @@
 <script>
 import ElementList from '@/components/ElementList.vue'
 import { mapGetters } from 'vuex'
+import tools from '@/utils/tools.js'
 
 export default {
   // todo 复制时动态生成
@@ -38,13 +39,17 @@ export default {
   },
 
   methods: {
-    getElementStyle (element, combinationPosition) {
+    getElementStyle (element) {
       const { xCoordinate, yCoordinate } = element.data.style.position
       const hasParent = !!element.parentId
+      let parentPosition
+      if (hasParent) {
+        parentPosition = tools.getValueFromObj(tools.deepQuery(this.elements, { value: element.parentId }), 'data.style.position')
+      }
       return {
         // 1px为边框
-        left: `${Number(xCoordinate) - (hasParent ? Number(combinationPosition.xCoordinate) + 1 : 0)}px`,
-        top: `${Number(yCoordinate) - (hasParent ? Number(combinationPosition.yCoordinate) + 1 : 0)}px`
+        left: `${Number(xCoordinate) - (hasParent ? Number(parentPosition.xCoordinate) + 1 : 0)}px`,
+        top: `${Number(yCoordinate) - (hasParent ? Number(parentPosition.yCoordinate) + 1 : 0)}px`
       }
     }
   },

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import tools from '@/utils/tools.js'
 
 const combine = (childrens) => {
-  const id = tools.getId('children')
+  const id = tools.getId('element')
   return {
     id,
     type: 'combination',
@@ -36,7 +36,7 @@ const combine = (childrens) => {
       content: [],
       interact: []
     },
-    children: childrens.map(children => Object.assign({}, children, { parentId: id }))
+    childrens: childrens.map(children => Object.assign({}, children, { parentId: id }))
   }
 }
 
@@ -70,7 +70,7 @@ const getData = (childrens) => {
 }
 
 const refresh = (parent) => {
-  Vue.set(parent, 'data', getData(parent.children))
+  Vue.set(parent, 'data', getData(parent.childrens))
 }
 
 export default {

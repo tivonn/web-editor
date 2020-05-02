@@ -45,25 +45,25 @@ const deepQuery = (tree, options) => {
   const { value, key } = options
   let isGet = false
   let result = {}
-  const deepQueryChildren = (children) => {
-    for (let i = 0; i < children.length; i++) {
-      if (children[i].children && children[i].children.length > 0) {
-        deepQueryChildren(children[i].children, value)
+  const deepQueryChildrens = (childrens) => {
+    for (let i = 0; i < childrens.length; i++) {
+      if (childrens[i].childrens && childrens[i].childrens.length > 0) {
+        deepQueryChildrens(childrens[i].childrens, value)
       }
-      if (value === children[i][key] || isGet) {
-        isGet || (result = children[i])
+      if (value === childrens[i][key] || isGet) {
+        isGet || (result = childrens[i])
         isGet = true
         break
       }
     }
   }
   if (isArray(tree)) {
-    deepQueryChildren(tree)
+    deepQueryChildrens(tree)
   } else if (isPlainObject(tree)) {
     if (tree[key] === value) {
       return tree
     } else {
-      deepQueryChildren(tree.children || [])
+      deepQueryChildrens(tree.childrens || [])
     }
   }
   return result
@@ -130,7 +130,7 @@ const getDeepTraversal = (node) => {
     while (stack.length) {
       const item = stack.shift()
       nodes.push(item)
-      const childrens = item.children || []
+      const childrens = item.childrens || []
       childrens.forEach(children => stack.push(children))
     }
   }

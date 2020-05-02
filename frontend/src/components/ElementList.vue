@@ -6,8 +6,7 @@
     <element-item
       v-for="element in elements"
       :key="element.id"
-      :element="element"
-      :combination-position="combinationPosition">
+      :element="element">
     </element-item>
   </div>
 </template>
@@ -23,12 +22,6 @@ export default {
       type: Array,
       required: true,
       default: () => []
-    },
-
-    combinationPosition: {
-      type: Object,
-      required: false,
-      default: () => ({})
     }
   },
 

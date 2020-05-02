@@ -4,18 +4,18 @@
     :id="element.id"
     class="element-item"
     :class="[getElementClass(element)]"
-    :style="[getElementStyle(element, combinationPosition), selfGetElementStyle]">
+    :style="[getElementStyle(element), selfGetElementStyle]">
     <div ref="element"></div>
   </div>
   <element-list
     v-else
     :id="element.id"
-    :elements="element.children"
+    :elements="element.childrens"
     from-combination
     :combination-position="element.data.style.position"
     class="element-item"
     :class="[getElementClass(element)]"
-    :style="[getElementStyle(element, combinationPosition), selfGetElementStyle]">
+    :style="[getElementStyle(element), selfGetElementStyle]">
   </element-list>
 </template>
 
@@ -39,12 +39,6 @@ export default {
     element: {
       type: Object,
       required: true,
-      default: () => ({})
-    },
-
-    combinationPosition: {
-      type: Object,
-      required: false,
       default: () => ({})
     }
   },

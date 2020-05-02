@@ -5,8 +5,9 @@
         v-for="config in configs"
         :key="config.value"
         :label="config.label"
-        :name="config.value">
-        <template v-if="isNoActive">
+        :name="config.value"
+        :disabled="isTabDisabled(config.value)">
+        <template v-if="isSystemActive">
           全局
         </template>
         <template v-else-if="isSingleActive || isCombinationActive">
@@ -74,7 +75,7 @@ export default {
       'activeElements'
     ]),
 
-    isNoActive () {
+    isSystemActive () {
       return !this.activeElements.length
     },
 
@@ -90,9 +91,13 @@ export default {
       return this.activeElements.length > 1
     },
 
+    disabledTabList () {
+      return this.isSingleActive ? [] : ['content', 'interact']
+    },
+
     activeElement () {
       switch (true) {
-        case this.isNoActive:
+        case this.isSystemActive:
           return {}
         case this.isSingleActive:
         case this.isCombinationActive:
@@ -105,7 +110,19 @@ export default {
     }
   },
 
+  watch: {
+    disabledTabList () {
+      if (this.isTabDisabled(this.activeConfig)) {
+        this.activeConfig = this.$options.data().activeConfig
+      }
+    }
+  },
+
   methods: {
+    isTabDisabled (value) {
+      return this.disabledTabList.some(disabledTab => disabledTab === value)
+    },
+
     updateElement (key, value) {
       // todo 多选
       const { id } = this.activeElement
@@ -145,6 +162,11 @@ export default {
         color: $--color-text-regular;
         &.is-active {
           color: $--color-primary;
+        }
+        &.is-disabled {
+          font-weight: unset;
+          color: $--color-disabled;
+          cursor: not-allowed;
         }
       }
       .el-tabs__active-bar {
