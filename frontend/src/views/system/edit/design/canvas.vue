@@ -11,7 +11,8 @@
       :style="getContainerStyle">
       <element-list
         :elements="elements"
-        @click="clickElementList">
+        @click="clickElementList"
+        @mousemove="mousemoveElementList">
       </element-list>
     </div>
   </div>
@@ -29,7 +30,8 @@ export default {
   data () {
     return {
       isCaptureElement: false,
-      isKeydownCtrl: false
+      isKeydownCtrl: false,
+      hoverElements: []
     }
   },
 
@@ -127,16 +129,22 @@ export default {
 
     getElementClass (element) {
       return {
+        hover:
+          this.hoverElements.some(hoverElement => Number(hoverElement.id) === element.id) ||
+          this.activeElements.some(activeElement =>
+            Object.keys(tools.deepQuery(element, { value: Number(activeElement.id) })).length
+          ),
         active: this.activeElements.some(activeElement => activeElement.id === element.id)
       }
     },
 
-    getElementStyle (element, fromCombination, combinationPosition) {
+    getElementStyle (element, combinationPosition) {
       const { xCoordinate, yCoordinate } = element.data.style.position
+      const hasParent = !!element.parentId
       return {
         // 1px为边框
-        left: `${Number(xCoordinate) - (fromCombination ? Number(combinationPosition.xCoordinate) + 1 : 0)}px`,
-        top: `${Number(yCoordinate) - (fromCombination ? Number(combinationPosition.yCoordinate) + 1 : 0)}px`
+        left: `${Number(xCoordinate) - (hasParent ? Number(combinationPosition.xCoordinate) + 1 : 0)}px`,
+        top: `${Number(yCoordinate) - (hasParent ? Number(combinationPosition.yCoordinate) + 1 : 0)}px`
       }
     },
 
@@ -147,7 +155,6 @@ export default {
       if (isSelectElement) {
         const id = Number(elementEl.id)
         const element = tools.deepQuery(this.elements, { value: id })
-        // todo 优化选中逻辑
         const isSelected = this.activeElements.some(activeElement => activeElement.id === element.id)
         if (isSelected) {
           activeElements = this.activeElements.filter(activeElement => activeElement.id !== element.id)
@@ -159,6 +166,10 @@ export default {
       }
       this.$store.dispatch('setActiveElements', activeElements)
     },
+
+    mousemoveElementList: tools.throttle(function (e) {
+      this.hoverElements = tools.getPath(e).filter(element => tools.containClass(element, 'element-item'))
+    }, 100),
 
     deleteElement () {
       this.$store.dispatch('setElements',
@@ -191,8 +202,8 @@ export default {
   width: calc(100% - 400px);
   height: 100%;
   display: inline-block;
-  border-left: 1px solid $--color-border;
-  border-right: 1px solid $--color-border;
+  border-left: 1px solid $--border-color-base;
+  border-right: 1px solid $--border-color-base;
   vertical-align: middle;
   overflow: auto;
   cursor: grab;
@@ -207,8 +218,11 @@ export default {
     .element-item {
       position: absolute;
       border: 1px dashed transparent;
+      &.hover {
+        border-color: $--border-color-base;
+      }
       &.active {
-        border: 1px dashed $--color-border;
+        border-color: $--border-color-dark;
       }
       &.dragging {
         cursor: grabbing;

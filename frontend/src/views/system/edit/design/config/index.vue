@@ -9,7 +9,7 @@
         <template v-if="isNoActive">
           全局
         </template>
-        <template v-else-if="isSingleActive">
+        <template v-else-if="isSingleActive || isCombinationActive">
           <el-collapse
             :value="activeElement.config[config.value].map(block => block.key)"
             class="config-collapse">
@@ -38,9 +38,6 @@
               </el-row>
             </el-collapse-item>
           </el-collapse>
-        </template>
-        <template v-else-if="isCombinationActive">
-          组合
         </template>
         <template v-else-if="isMultipleActive">
           多选
@@ -163,7 +160,7 @@ export default {
         height: 36px;
         padding: 0 6px;
         line-height: 36px;
-        border-color: $--color-border;
+        border-color: $--border-color-base;
         font-weight: bold;
         color: $--color-text-secondary;
       }

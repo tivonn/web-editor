@@ -4,7 +4,7 @@
     :id="element.id"
     class="element-item"
     :class="[getElementClass(element)]"
-    :style="[getElementStyle(element, fromCombination, combinationPosition), selfGetElementStyle]">
+    :style="[getElementStyle(element, combinationPosition), selfGetElementStyle]">
     <div ref="element"></div>
   </div>
   <element-list
@@ -15,7 +15,7 @@
     :combination-position="element.data.style.position"
     class="element-item"
     :class="[getElementClass(element)]"
-    :style="[getElementStyle(element), selfGetElementStyle]">
+    :style="[getElementStyle(element, combinationPosition), selfGetElementStyle]">
   </element-list>
 </template>
 
@@ -40,12 +40,6 @@ export default {
       type: Object,
       required: true,
       default: () => ({})
-    },
-
-    fromCombination: {
-      type: Boolean,
-      required: false,
-      default: false
     },
 
     combinationPosition: {

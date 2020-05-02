@@ -1,10 +1,12 @@
 <template>
-  <div :class="$style.elementList" @click="$emit('click', $event)">
+  <div
+    :class="$style.elementList"
+    @click="$emit('click', $event)"
+    @mousemove="$emit('mousemove', $event)">
     <element-item
       v-for="element in elements"
       :key="element.id"
       :element="element"
-      :from-combination="fromCombination"
       :combination-position="combinationPosition">
     </element-item>
   </div>
@@ -14,19 +16,13 @@
 import ElementItem from '@/components/ElementItem.vue'
 
 export default {
-  name: 'RenderList',
+  name: 'ElementList',
 
   props: {
     elements: {
       type: Array,
       required: true,
       default: () => []
-    },
-
-    fromCombination: {
-      type: Boolean,
-      required: false,
-      default: false
     },
 
     combinationPosition: {

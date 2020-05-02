@@ -66,7 +66,7 @@ export default {
   :global {
     width: 100%;
     height: 48px;
-    border-bottom: 1px solid $--color-border;
+    border-bottom: 1px solid $--border-color-base;
   }
 }
 </style>

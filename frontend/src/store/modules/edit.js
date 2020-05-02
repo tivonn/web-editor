@@ -1,5 +1,6 @@
 import * as types from '@/store/mutation-types.js'
-import tools from '@/utils/tools.js'
+import { Message } from 'element-ui'
+import Combination from '@/core/combination.js'
 
 const state = {
   activeElements: []
@@ -28,38 +29,12 @@ const mutations = {
     switch (value) {
       case 'combine': {
         const { elements, activeElements } = this.getters
-        if (activeElements.length <= 1) return
-        const combination = {
-          id: tools.getId('element'),
-          type: 'combination',
-          data: {
-            style: {
-              size: {
-                width: String(
-                  Math.max(...activeElements.map(activeElement =>
-                    Number(tools.getValueFromObj(activeElement, 'data.style.position.xCoordinate')) + Number(tools.getValueFromObj(activeElement, 'data.style.size.width'))
-                  )) -
-                  Math.min(...activeElements.map(activeElement => tools.getValueFromObj(activeElement, 'data.style.position.xCoordinate')))
-                ),
-                height: String(
-                  Math.max(...activeElements.map(activeElement =>
-                    Number(tools.getValueFromObj(activeElement, 'data.style.position.yCoordinate')) + Number(tools.getValueFromObj(activeElement, 'data.style.size.height'))
-                  )) -
-                  Math.min(...activeElements.map(activeElement => tools.getValueFromObj(activeElement, 'data.style.position.yCoordinate')))
-                )
-              },
-              position: {
-                xCoordinate: String(
-                  Math.min(...activeElements.map(activeElement => tools.getValueFromObj(activeElement, 'data.style.position.xCoordinate')))
-                ),
-                yCoordinate: String(
-                  Math.min(...activeElements.map(activeElement => tools.getValueFromObj(activeElement, 'data.style.position.yCoordinate')))
-                )
-              }
-            }
-          },
-          children: activeElements
+        if (activeElements.length <= 1) {
+          return Message.warning('需选择一个以上组件进行组合')
+        } else if (activeElements.some(element => !!element.parentId)) {
+          return Message.warning('含有已组合元件')
         }
+        const combination = Combination.combine(activeElements)
         this.dispatch('setElements',
           elements
             .filter(element =>
@@ -68,8 +43,11 @@ const mutations = {
             )
             .concat([combination]))
         this.dispatch('setActiveElements', [combination])
+        Message.success('组合成功')
         break
       }
+      default:
+        break
     }
   }
 }

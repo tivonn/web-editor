@@ -78,7 +78,7 @@ export default {
       border-collapse: collapse;
     }
     .package-item {
-      border: 1px solid $--color-border;
+      border: 1px solid $--border-color-base;
       &:nth-child(1) {
         border-left: none;
       }

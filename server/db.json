@@ -20,8 +20,8 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "156",
-                "yCoordinate": "401"
+                "xCoordinate": "264",
+                "yCoordinate": "337"
               }
             },
             "content": {
@@ -131,8 +131,8 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "317",
-                "yCoordinate": "320"
+                "xCoordinate": "174",
+                "yCoordinate": "473"
               }
             },
             "content": {
@@ -233,23 +233,59 @@
           "value": "m-button"
         },
         {
-          "id": 202,
+          "id": 17,
           "type": "combination",
           "data": {
             "style": {
               "size": {
-                "width": "216",
-                "height": "69"
+                "width": "211",
+                "height": "111"
               },
               "position": {
-                "xCoordinate": "103",
-                "yCoordinate": "186"
+                "xCoordinate": "105",
+                "yCoordinate": "152"
               }
             }
           },
+          "config": {
+            "style": [
+              {
+                "label": "位置",
+                "key": "position",
+                "list": [
+                  {
+                    "key": "position-line1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "key": "xCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "x坐标",
+                          "suffix": "px"
+                        }
+                      },
+                      {
+                        "key": "yCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "y坐标",
+                          "suffix": "px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "content": [],
+            "interact": []
+          },
           "children": [
             {
-              "id": 113,
+              "id": 211,
               "type": "component",
               "data": {
                 "style": {
@@ -258,8 +294,8 @@
                     "height": "50"
                   },
                   "position": {
-                    "xCoordinate": "103",
-                    "yCoordinate": "205"
+                    "xCoordinate": "105",
+                    "yCoordinate": "213"
                   }
                 },
                 "content": {
@@ -357,10 +393,11 @@
                 "interact": []
               },
               "name": "按钮",
-              "value": "m-button"
+              "value": "m-button",
+              "parentId": 17
             },
             {
-              "id": 114,
+              "id": 212,
               "type": "component",
               "data": {
                 "style": {
@@ -369,8 +406,8 @@
                     "height": "50"
                   },
                   "position": {
-                    "xCoordinate": "219",
-                    "yCoordinate": "186"
+                    "xCoordinate": "216",
+                    "yCoordinate": "152"
                   }
                 },
                 "content": {
@@ -468,7 +505,8 @@
                 "interact": []
               },
               "name": "按钮",
-              "value": "m-button"
+              "value": "m-button",
+              "parentId": 17
             }
           ]
         }

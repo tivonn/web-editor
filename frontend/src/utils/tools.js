@@ -63,10 +63,8 @@ const deepQuery = (tree, options) => {
     if (tree[key] === value) {
       return tree
     } else {
-      deepQueryChildren(tree.children)
+      deepQueryChildren(tree.children || [])
     }
-  } else {
-    return {}
   }
   return result
 }
@@ -122,6 +120,21 @@ const isPlainObject = (value) => {
 const getDate = () => {
   // todo 结合服务端返回时间差
   return new Date()
+}
+
+const getDeepTraversal = (node) => {
+  const nodes = []
+  if (node) {
+    const stack = []
+    stack.push(node)
+    while (stack.length) {
+      const item = stack.shift()
+      nodes.push(item)
+      const childrens = item.children || []
+      childrens.forEach(children => stack.push(children))
+    }
+  }
+  return nodes
 }
 
 const getId = (type) => {
@@ -205,6 +218,7 @@ export default {
   isFunction,
   isPlainObject,
   getDate,
+  getDeepTraversal,
   getId,
   getPath,
   getValueFromObj,

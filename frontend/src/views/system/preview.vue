@@ -38,12 +38,13 @@ export default {
   },
 
   methods: {
-    getElementStyle (element, fromCombination, combinationPosition) {
+    getElementStyle (element, combinationPosition) {
       const { xCoordinate, yCoordinate } = element.data.style.position
+      const hasParent = !!element.parentId
       return {
         // 1px为边框
-        left: `${Number(xCoordinate) - (fromCombination ? Number(combinationPosition.xCoordinate) + 1 : 0)}px`,
-        top: `${Number(yCoordinate) - (fromCombination ? Number(combinationPosition.yCoordinate) + 1 : 0)}px`
+        left: `${Number(xCoordinate) - (hasParent ? Number(combinationPosition.xCoordinate) + 1 : 0)}px`,
+        top: `${Number(yCoordinate) - (hasParent ? Number(combinationPosition.yCoordinate) + 1 : 0)}px`
       }
     }
   },
