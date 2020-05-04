@@ -6,8 +6,9 @@ const middlewares = jsonServer.defaults()
 server.use(middlewares)
 
 server.get('/userinfo', (req, res) => {
-  res.jsonp({
-    k: 111
+  res.send({
+    name: 'tivonn',
+    time: new Date()
   })
 })
 

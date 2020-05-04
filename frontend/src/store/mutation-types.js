@@ -1,4 +1,5 @@
 // common
+export const SET_USER_INFO = 'SET_USER_INFO'
 export const SET_SYSTEM = 'SET_SYSTEM'
 export const SET_PAGE = 'SET_PAGE'
 export const SET_ELEMENTS = 'SET_ELEMENTS'

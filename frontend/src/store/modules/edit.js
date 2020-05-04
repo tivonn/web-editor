@@ -9,14 +9,14 @@ const getters = {
 }
 
 const actions = {
-  setActiveElements ({ commit }, value) {
-    commit(types.SET_ACTIVE_ELEMENTS, value)
+  setActiveElements ({ commit }, activeElements) {
+    commit(types.SET_ACTIVE_ELEMENTS, activeElements)
   }
 }
 
 const mutations = {
-  [types.SET_ACTIVE_ELEMENTS] (state, value) {
-    state.activeElements = value
+  [types.SET_ACTIVE_ELEMENTS] (state, activeElements) {
+    state.activeElements = activeElements
   }
 }
 

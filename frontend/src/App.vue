@@ -10,7 +10,21 @@ import mixin from '@/app.mixin.js'
 export default {
   name: 'App',
 
-  mixins: [mixin]
+  mixins: [mixin],
+
+  mounted () {
+    this.init()
+  },
+
+  methods: {
+    init () {
+      this.getUserInfo()
+    },
+
+    getUserInfo () {
+      this.$store.dispatch('setUserInfo')
+    }
+  }
 }
 </script>
 

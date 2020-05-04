@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '@/store/index.js'
 import axios from '@/axios.js'
 
 const assert = (condition, message) => {
@@ -119,8 +120,8 @@ const isPlainObject = (value) => {
 }
 
 const getDate = () => {
-  // todo 结合服务端返回时间差
-  return new Date()
+  const { timeDifference } = store.getters.userInfo
+  return new Date(Date.now() - timeDifference)
 }
 
 const getDeepTraversal = (node) => {

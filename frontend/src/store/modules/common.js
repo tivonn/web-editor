@@ -3,54 +3,70 @@ import tools from '@/utils/tools.js'
 import Combination from '@/core/combination.js'
 
 const state = {
+  userInfo: {},
   system: {},
   elements: []
 }
 
 const getters = {
+  userInfo: state => state.userInfo,
   system: state => state.system,
   elements: state => state.elements
 }
 
 const actions = {
-  setSystem ({ commit }, value) {
-    commit(types.SET_SYSTEM, value)
+  setUserInfo ({ commit }) {
+    this._vm.$axios.get('/userinfo')
+      .then(res => {
+        const timeDifference = new Date() - new Date(res.data.time)
+        commit(types.SET_USER_INFO, Object.assign({}, res.data, {
+          timeDifference
+        }))
+      })
   },
 
-  setPage ({ commit }, value) {
-    commit(types.SET_PAGE, value)
+  setSystem ({ commit }, systemId) {
+    this._vm.$axios.get(`/systems/${systemId}`)
+      .then(res => {
+        commit(types.SET_SYSTEM, res.data)
+      })
   },
 
-  setElements ({ commit }, value) {
-    commit(types.SET_ELEMENTS, value)
+  setPage ({ commit }, pageId) {
+    this._vm.$axios.get(`/pages/${pageId}`)
+      .then(res => {
+        commit(types.SET_PAGE, res.data)
+      })
   },
 
-  updateElement ({ commit }, value) {
-    commit(types.UPDATE_ELEMENT, value)
+  setElements ({ commit }, elements) {
+    commit(types.SET_ELEMENTS, elements)
+  },
+
+  updateElement ({ commit }, elementInfo) {
+    commit(types.UPDATE_ELEMENT, elementInfo)
   }
 }
 
 const mutations = {
-  [types.SET_SYSTEM] (state, value) {
-    this._vm.$axios.get(`/systems/${value}`)
-      .then(res => {
-        state.system = res.data
-      })
+  [types.SET_USER_INFO] (state, userInfo) {
+    state.userInfo = userInfo
   },
 
-  [types.SET_PAGE] (state, value) {
-    this._vm.$axios.get(`/pages/${value}`)
-      .then(res => {
-        this.dispatch('setElements', res.data.elements)
-      })
+  [types.SET_SYSTEM] (state, system) {
+    state.system = system
   },
 
-  [types.SET_ELEMENTS] (state, value) {
-    state.elements = value
+  [types.SET_PAGE] (state, page) {
+    this.dispatch('setElements', page.elements)
   },
 
-  [types.UPDATE_ELEMENT] (state, value) {
-    const element = tools.deepQuery(state.elements, value.id)
+  [types.SET_ELEMENTS] (state, elements) {
+    state.elements = elements
+  },
+
+  [types.UPDATE_ELEMENT] (state, elementInfo) {
+    const element = tools.deepQuery(state.elements, elementInfo.id)
     const beforeUpdate = (key) => {
       switch (key) {
         case 'id':
@@ -61,7 +77,7 @@ const mutations = {
           if (hasChildren) {
             const elementList = tools.getDeepTraversal(element)
             elementList.shift()
-            const offset = Number(value[key]) - Number(tools.getValueFromObj(element, key))
+            const offset = Number(elementInfo[key]) - Number(tools.getValueFromObj(element, key))
             elementList.forEach(elementItem => {
               tools.setValueToObj(elementItem, key, String(Number(tools.getValueFromObj(elementItem, key)) + offset))
             })
@@ -91,9 +107,9 @@ const mutations = {
           break
       }
     }
-    for (const key in value) {
+    for (const key in elementInfo) {
       beforeUpdate(key)
-      tools.setValueToObj(element, key, value[key])
+      tools.setValueToObj(element, key, elementInfo[key])
       afterUpdate(key)
     }
   }
