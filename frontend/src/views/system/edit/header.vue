@@ -3,15 +3,16 @@
     <div style="float: right;">
       <el-button @click="command('combine')">组合</el-button>
       <el-button @click="command('uncombine')">解除组合</el-button>
-      <el-button @click="save">保存</el-button>
-      <el-button @click="preview">预览</el-button>
-      <el-button @click="download">源码下载</el-button>
+      <el-button @click="command('save', systemId, pageId, elements)">保存</el-button>
+      <el-button @click="command('preview', systemId, pageId)">预览</el-button>
+      <el-button @click="command('download', systemId)">源码下载</el-button>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Command from '@/core/command.js'
 
 export default {
   name: 'EditHeader',
@@ -33,30 +34,8 @@ export default {
   },
 
   methods: {
-    command (type) {
-      this.$store.dispatch('commandCanvas', type)
-    },
-
-    save () {
-      const data = {
-        systemId: this.systemId,
-        elements: this.elements
-      }
-      this.$axios.put(`/pages/${this.pageId}`, data)
-    },
-
-    preview () {
-      window.open(
-        this.$router.resolve({
-          name: 'Preview',
-          params: { sid: this.systemId, pid: this.pageId }
-        }).href,
-        '_blank'
-      )
-    },
-
-    download () {
-      this.$axios.put(`/build/${this.systemId}`)
+    command (type, ...arg) {
+      Command[type](...arg)
     }
   }
 }

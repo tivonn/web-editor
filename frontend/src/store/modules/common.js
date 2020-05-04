@@ -51,12 +51,10 @@ const mutations = {
 
   [types.UPDATE_ELEMENT] (state, value) {
     const element = tools.deepQuery(state.elements, value.id)
-    for (const key in value) {
-      // todo 装饰器模式
-      // before
+    const beforeUpdate = (key) => {
       switch (key) {
         case 'id':
-          continue
+          return
         case 'data.style.position.xCoordinate':
         case 'data.style.position.yCoordinate': {
           const hasChildren = !!element.childrens
@@ -73,8 +71,8 @@ const mutations = {
         default:
           break
       }
-      tools.setValueToObj(element, key, value[key])
-      // after
+    }
+    const afterUpdate = (key) => {
       switch (key) {
         case 'data.style.size.width':
         case 'data.style.size.height':
@@ -92,6 +90,11 @@ const mutations = {
         default:
           break
       }
+    }
+    for (const key in value) {
+      beforeUpdate(key)
+      tools.setValueToObj(element, key, value[key])
+      afterUpdate(key)
     }
   }
 }

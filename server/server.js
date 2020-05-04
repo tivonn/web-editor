@@ -5,6 +5,17 @@ const middlewares = jsonServer.defaults()
 
 server.use(middlewares)
 
+server.get('/userinfo', (req, res) => {
+  res.jsonp({
+    k: 111
+  })
+})
+
+server.get('/id', (req, res) => {
+  const { type } = req.params
+  res.send({ id: 111 })
+})
+
 server.put('/build/:sid', (req, res) => {
   const fs = require('fs-extra')
   const path = require('path')
@@ -39,7 +50,8 @@ server.put('/build/:sid', (req, res) => {
     // app.mixin.js
     fs.outputFileSync(path.join(systemPath, '/src/app.mixin.js'), require(path.join(serverPath, '/template/app.mixin.js'))(systemId))
     // pages
-    const pages = router.db.get('pages').value().filter(page => page.systemId === systemId)
+    const { db } = router
+    const pages = db.get('pages').value().filter(page => page.systemId === systemId)
     fs.outputFileSync(path.join(systemPath, '/src/router.js'), require(path.join(serverPath, '/template/router.js'))(pages))
     pages.forEach(page => {
       const pageId = page.id

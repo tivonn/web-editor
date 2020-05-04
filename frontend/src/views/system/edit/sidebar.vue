@@ -41,15 +41,17 @@ export default {
   methods: {
     selectPackage (packageItem) {
       Promise.all([
+        tools.getId('element'),
         require(`@/packages/${packageItem.value}/data.js`),
         require(`@/packages/${packageItem.value}/config.js`)
       ])
         .then(res => {
-          const [dataRes, configRes] = res
+          const [idRes, dataRes, configRes] = res
+          const id = idRes
           const { default: data } = dataRes
           const { default: config } = configRes
           const element = Object.assign({
-            id: tools.getId('element'),
+            id,
             type: 'component',
             data: tools.deepClone(data),
             config: tools.deepClone(config)

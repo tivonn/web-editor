@@ -32,5 +32,14 @@ module.exports = {
         options.compilerOptions.preserveWhitespace = false
         return options
       })
+  },
+  devServer: {
+    disableHostCheck: true,
+    proxy: {
+      '/': {
+        target: 'http://localhost:3000',
+        changeOrigin: true
+      }
+    }
   }
 }
