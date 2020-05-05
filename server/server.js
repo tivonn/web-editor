@@ -13,8 +13,12 @@ server.get('/userinfo', (req, res) => {
 })
 
 server.get('/id', (req, res) => {
-  const { type } = req.params
-  res.send({ id: 111 })
+  const { db } = router
+  const { type } = req.query
+  const typeItem = db.get('ids').find({ type })
+  let { max } = typeItem.value()
+  typeItem.update('max', i => ++max).write()
+  res.send({ id: max })
 })
 
 server.put('/build/:sid', (req, res) => {
@@ -52,7 +56,7 @@ server.put('/build/:sid', (req, res) => {
     fs.outputFileSync(path.join(systemPath, '/src/app.mixin.js'), require(path.join(serverPath, '/template/app.mixin.js'))(systemId))
     // pages
     const { db } = router
-    const pages = db.get('pages').value().filter(page => page.systemId === systemId)
+    const pages = db.get('pages').filter({ systemId }).value()
     fs.outputFileSync(path.join(systemPath, '/src/router.js'), require(path.join(serverPath, '/template/router.js'))(pages))
     pages.forEach(page => {
       const pageId = page.id

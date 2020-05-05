@@ -1,8 +1,10 @@
 {
-  "ids": [{
-    "type": "element",
-    "count": 1
-  }],
+  "ids": [
+    {
+      "type": "element",
+      "max": 929
+    }
+  ],
   "systems": [
     {
       "width": 0,

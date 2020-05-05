@@ -144,11 +144,9 @@ const getId = (type) => {
     type
   }
   return axios.get('/id', { params })
-    .then(() => {
-      // todo 改为向服务端获取自增id
-      let max = Number(localStorage.getItem(type)) || 0
-      localStorage.setItem(type, ++max)
-      return Promise.resolve(max)
+    .then(res => {
+      const { id } = res.data
+      return Promise.resolve(id)
     })
 }
 
