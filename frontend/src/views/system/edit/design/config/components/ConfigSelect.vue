@@ -1,18 +1,23 @@
 <template>
-  <div :class="$style.configInput">
+  <div :class="$style.configSelect">
     <p>{{label}}</p>
-    <el-input
+    <el-select
       :value="value"
       @input="$emit('update', $event)"
       size="small">
-      <template slot="suffix">{{suffix}}</template>
-    </el-input>
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ConfigInput',
+  name: 'ConfigSelect',
 
   props: {
     value: {
@@ -27,20 +32,20 @@ export default {
       default: ''
     },
 
-    suffix: {
-      type: String,
-      required: false,
-      default: ''
+    options: {
+      type: Array,
+      required: true,
+      default: () => []
     }
   }
 }
 </script>
 
 <style lang="scss" module>
-.config-input {
+.config-select {
   :global {
-    .el-input__suffix-inner {
-      line-height: 30px;
+    .el-select {
+      width: 100%;
     }
   }
 }

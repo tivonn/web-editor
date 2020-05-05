@@ -11,7 +11,7 @@ export default {
   },
   content: {
     text: {
-      mode: 'static',
+      mode: 'staticData',
       data: '按钮'
     }
   },
