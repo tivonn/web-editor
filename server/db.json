@@ -2,7 +2,7 @@
   "ids": [
     {
       "type": "element",
-      "max": 929
+      "max": 6
     }
   ],
   "systems": [
@@ -17,7 +17,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 735,
+          "id": 4,
           "type": "component",
           "data": {
             "style": {
@@ -26,230 +26,8 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "57",
-                "yCoordinate": "358"
-              }
-            },
-            "content": {
-              "text": {
-                "mode": "static",
-                "data": "按钮3"
-              }
-            },
-            "interact": {}
-          },
-          "config": {
-            "style": [
-              {
-                "label": "尺寸",
-                "key": "size",
-                "list": [
-                  {
-                    "key": "size-line1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "width",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "宽度",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "height",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "高度",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "label": "位置",
-                "key": "position",
-                "list": [
-                  {
-                    "key": "position-line1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "xCoordinate",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "x坐标",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "yCoordinate",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "y坐标",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "文字",
-                "key": "text",
-                "list": [
-                  {
-                    "key": "text-line1",
-                    "list": [
-                      {
-                        "key": "data",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "数据"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "interact": []
-          },
-          "name": "按钮",
-          "value": "m-button"
-        },
-        {
-          "id": 736,
-          "type": "component",
-          "data": {
-            "style": {
-              "size": {
-                "width": "100",
-                "height": "50"
-              },
-              "position": {
-                "xCoordinate": "200",
-                "yCoordinate": "465"
-              }
-            },
-            "content": {
-              "text": {
-                "mode": "static",
-                "data": "按钮4"
-              }
-            },
-            "interact": {}
-          },
-          "config": {
-            "style": [
-              {
-                "label": "尺寸",
-                "key": "size",
-                "list": [
-                  {
-                    "key": "size-line1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "width",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "宽度",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "height",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "高度",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "label": "位置",
-                "key": "position",
-                "list": [
-                  {
-                    "key": "position-line1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "xCoordinate",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "x坐标",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "yCoordinate",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "y坐标",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "文字",
-                "key": "text",
-                "list": [
-                  {
-                    "key": "text-line1",
-                    "list": [
-                      {
-                        "key": "data",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "数据"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "interact": []
-          },
-          "name": "按钮",
-          "value": "m-button"
-        },
-        {
-          "id": 733,
-          "type": "component",
-          "data": {
-            "style": {
-              "size": {
-                "width": "100",
-                "height": "50"
-              },
-              "position": {
-                "xCoordinate": "89",
-                "yCoordinate": "149"
+                "xCoordinate": "111",
+                "yCoordinate": "205"
               }
             },
             "content": {
@@ -350,7 +128,7 @@
           "value": "m-button"
         },
         {
-          "id": 734,
+          "id": 5,
           "type": "component",
           "data": {
             "style": {
@@ -359,8 +137,8 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "216",
-                "yCoordinate": "221"
+                "xCoordinate": "324",
+                "yCoordinate": "289"
               }
             },
             "content": {
@@ -461,75 +239,22 @@
           "value": "m-button"
         },
         {
-          "id": 754,
-          "type": "component",
+          "id": 6,
+          "type": "combination",
           "data": {
             "style": {
               "size": {
-                "width": "50",
-                "height": "22",
-                "fontSize": "14"
+                "width": "294",
+                "height": "158"
               },
               "position": {
-                "xCoordinate": "0",
-                "yCoordinate": "0"
+                "xCoordinate": "239",
+                "yCoordinate": "461"
               }
-            },
-            "content": {
-              "text": {
-                "mode": "static",
-                "data": "文本"
-              }
-            },
-            "interact": {}
+            }
           },
           "config": {
             "style": [
-              {
-                "label": "尺寸",
-                "key": "size",
-                "list": [
-                  {
-                    "key": "size-line1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "width",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "宽度",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "height",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "高度",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "size-line2",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "fontSize",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "字体大小",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
               {
                 "label": "位置",
                 "key": "position",
@@ -561,31 +286,235 @@
                 ]
               }
             ],
-            "content": [
-              {
-                "label": "文字",
-                "key": "text",
-                "list": [
+            "content": [],
+            "interact": []
+          },
+          "childrens": [
+            {
+              "id": 3,
+              "type": "component",
+              "data": {
+                "style": {
+                  "size": {
+                    "width": "100",
+                    "height": "50"
+                  },
+                  "position": {
+                    "xCoordinate": "433",
+                    "yCoordinate": "569"
+                  }
+                },
+                "content": {
+                  "text": {
+                    "mode": "static",
+                    "data": "按钮4"
+                  }
+                },
+                "interact": {}
+              },
+              "config": {
+                "style": [
                   {
-                    "key": "text-line1",
+                    "label": "尺寸",
+                    "key": "size",
                     "list": [
                       {
-                        "key": "data",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "数据"
-                        }
+                        "key": "size-line1",
+                        "gutter": 20,
+                        "list": [
+                          {
+                            "key": "width",
+                            "span": 6,
+                            "component": "config-input",
+                            "props": {
+                              "label": "宽度",
+                              "suffix": "px"
+                            }
+                          },
+                          {
+                            "key": "height",
+                            "span": 6,
+                            "component": "config-input",
+                            "props": {
+                              "label": "高度",
+                              "suffix": "px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "位置",
+                    "key": "position",
+                    "list": [
+                      {
+                        "key": "position-line1",
+                        "gutter": 20,
+                        "list": [
+                          {
+                            "key": "xCoordinate",
+                            "span": 6,
+                            "component": "config-input",
+                            "props": {
+                              "label": "x坐标",
+                              "suffix": "px"
+                            }
+                          },
+                          {
+                            "key": "yCoordinate",
+                            "span": 6,
+                            "component": "config-input",
+                            "props": {
+                              "label": "y坐标",
+                              "suffix": "px"
+                            }
+                          }
+                        ]
                       }
                     ]
                   }
-                ]
-              }
-            ],
-            "interact": []
-          },
-          "name": "文本",
-          "value": "m-text"
+                ],
+                "content": [
+                  {
+                    "label": "文字",
+                    "key": "text",
+                    "list": [
+                      {
+                        "key": "text-line1",
+                        "list": [
+                          {
+                            "key": "data",
+                            "span": 24,
+                            "component": "config-input",
+                            "props": {
+                              "label": "数据"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "interact": []
+              },
+              "name": "按钮",
+              "value": "m-button",
+              "parentId": 6
+            },
+            {
+              "id": 2,
+              "type": "component",
+              "data": {
+                "style": {
+                  "size": {
+                    "width": "100",
+                    "height": "50"
+                  },
+                  "position": {
+                    "xCoordinate": "239",
+                    "yCoordinate": "461"
+                  }
+                },
+                "content": {
+                  "text": {
+                    "mode": "static",
+                    "data": "按钮3"
+                  }
+                },
+                "interact": {}
+              },
+              "config": {
+                "style": [
+                  {
+                    "label": "尺寸",
+                    "key": "size",
+                    "list": [
+                      {
+                        "key": "size-line1",
+                        "gutter": 20,
+                        "list": [
+                          {
+                            "key": "width",
+                            "span": 6,
+                            "component": "config-input",
+                            "props": {
+                              "label": "宽度",
+                              "suffix": "px"
+                            }
+                          },
+                          {
+                            "key": "height",
+                            "span": 6,
+                            "component": "config-input",
+                            "props": {
+                              "label": "高度",
+                              "suffix": "px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "label": "位置",
+                    "key": "position",
+                    "list": [
+                      {
+                        "key": "position-line1",
+                        "gutter": 20,
+                        "list": [
+                          {
+                            "key": "xCoordinate",
+                            "span": 6,
+                            "component": "config-input",
+                            "props": {
+                              "label": "x坐标",
+                              "suffix": "px"
+                            }
+                          },
+                          {
+                            "key": "yCoordinate",
+                            "span": 6,
+                            "component": "config-input",
+                            "props": {
+                              "label": "y坐标",
+                              "suffix": "px"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "content": [
+                  {
+                    "label": "文字",
+                    "key": "text",
+                    "list": [
+                      {
+                        "key": "text-line1",
+                        "list": [
+                          {
+                            "key": "data",
+                            "span": 24,
+                            "component": "config-input",
+                            "props": {
+                              "label": "数据"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "interact": []
+              },
+              "name": "按钮",
+              "value": "m-button",
+              "parentId": 6
+            }
+          ]
         }
       ],
       "id": 1

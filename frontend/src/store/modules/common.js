@@ -1,6 +1,6 @@
 import * as types from '@/store/mutation-types.js'
 import tools from '@/utils/tools.js'
-import Combination from '@/core/combination.js'
+import Update from '@/core/update.js'
 
 const state = {
   userInfo: {},
@@ -65,52 +65,14 @@ const mutations = {
     state.elements = elements
   },
 
-  [types.UPDATE_ELEMENT] (state, elementInfo) {
-    const element = tools.deepQuery(state.elements, elementInfo.id)
-    const beforeUpdate = (key) => {
-      switch (key) {
-        case 'id':
-          return
-        case 'data.style.position.xCoordinate':
-        case 'data.style.position.yCoordinate': {
-          const hasChildren = !!element.childrens
-          if (hasChildren) {
-            const elementList = tools.getDeepTraversal(element)
-            elementList.shift()
-            const offset = Number(elementInfo[key]) - Number(tools.getValueFromObj(element, key))
-            elementList.forEach(elementItem => {
-              tools.setValueToObj(elementItem, key, String(Number(tools.getValueFromObj(elementItem, key)) + offset))
-            })
-          }
-          break
-        }
-        default:
-          break
-      }
-    }
-    const afterUpdate = (key) => {
-      switch (key) {
-        case 'data.style.size.width':
-        case 'data.style.size.height':
-        case 'data.style.position.xCoordinate':
-        case 'data.style.position.yCoordinate': {
-          let current = element
-          let hasParent = !!current.parentId
-          while (hasParent) {
-            current = tools.deepQuery(state.elements, current.parentId)
-            Combination.refresh(current)
-            hasParent = !!current.parentId
-          }
-          break
-        }
-        default:
-          break
-      }
-    }
-    for (const key in elementInfo) {
-      beforeUpdate(key)
-      tools.setValueToObj(element, key, elementInfo[key])
-      afterUpdate(key)
+  [types.UPDATE_ELEMENT] (state, updateObj) {
+    const element = tools.deepQuery(state.elements, updateObj.id)
+    for (const key in updateObj) {
+      new Promise(resolve => resolve())
+        .then(() => Update.before(element, key, updateObj[key]))
+        .then(() => tools.setValueToObj(element, key, updateObj[key]))
+        .then(() => Update.after(element, state.elements, key))
+        .catch(() => {})
     }
   }
 }
