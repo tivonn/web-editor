@@ -4,6 +4,8 @@
     <el-input
       :value="value"
       @input="$emit('update', $event)"
+      :type="type"
+      :rows="rows"
       size="small">
       <template slot="suffix">{{suffix}}</template>
     </el-input>
@@ -25,6 +27,18 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+
+    type: {
+      type: String,
+      required: false,
+      default: 'text'
+    },
+
+    rows: {
+      type: Number,
+      required: false,
+      default: 0
     },
 
     suffix: {

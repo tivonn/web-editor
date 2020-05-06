@@ -76,7 +76,7 @@ export default {
       list: [{
         key: 'data',
         span: 24,
-        component: 'config-input',
+        component: 'config-code',
         props: {
           label: '数据'
         }

@@ -12,7 +12,9 @@ export default {
   content: {
     text: {
       mode: 'staticData',
-      data: '按钮'
+      data: {
+        data: '按钮'
+      }
     }
   },
   interact: {
