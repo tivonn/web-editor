@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.configCode">
-    <p>{{label}}</p>
-    <textarea ref="codemirror"></textarea>
+    <p class="code-label">{{label}}</p>
+    <div ref="editor" class="code-editor"></div>
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
     },
 
     initEditor () {
-      editor = CodeMirror.fromTextArea(this.$refs.codemirror, {
+      editor = CodeMirror(this.$refs.editor, {
         theme: 'monokai',
         mode: 'application/json',
         lineNumbers: true,
@@ -70,7 +70,12 @@ export default {
 <style lang="scss" module>
 .config-code {
   :global {
-
+    .code-label {
+      line-height: 24px;
+    }
+    .code-editor {
+      margin-top: 1px;
+    }
   }
 }
 </style>

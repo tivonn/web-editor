@@ -1,3 +1,5 @@
+import enums from '@/enums/index.js'
+
 export default {
   style: {
     size: {
@@ -14,7 +16,14 @@ export default {
       mode: 'staticData',
       data: {
         data: '按钮'
-      }
+      },
+      parse: [
+        {
+          property: '文本',
+          field: 'data',
+          status: enums.REQUEST_STATUS.success.label
+        }
+      ]
     }
   },
   interact: {

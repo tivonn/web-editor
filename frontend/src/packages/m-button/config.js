@@ -105,6 +105,33 @@ export default {
               }
             }
           ]
+        },
+        {
+          key: 'text-line3',
+          list: [
+            {
+              key: 'parse',
+              span: 24,
+              component: 'config-table',
+              props: {
+                label: '解析',
+                cols: [
+                  {
+                    label: '属性',
+                    prop: 'property'
+                  },
+                  {
+                    label: '字段',
+                    prop: 'field'
+                  },
+                  {
+                    label: '状态',
+                    prop: 'status'
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     }
