@@ -10,6 +10,11 @@ import CodeMirror from 'codemirror'
 import 'codemirror/mode/javascript/javascript.js'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/monokai.css'
+import 'codemirror/addon/lint/lint.js'
+import 'codemirror/addon/lint/lint.css'
+import 'codemirror/addon/lint/json-lint.js'
+import jsonlint from 'jsonlint'
+window.jsonlint = jsonlint
 
 let editor
 
@@ -44,7 +49,9 @@ export default {
         theme: 'monokai',
         mode: 'application/json',
         lineNumbers: true,
-        tabSize: 2
+        tabSize: 2,
+        gutters: ['CodeMirror-lint-markers'],
+        lint: true
       })
       editor.setSize('100%', '200px')
       editor.setValue(JSON.stringify(this.value, null, '\t'))

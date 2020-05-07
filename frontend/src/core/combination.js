@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import tools from '@/utils/tools.js'
+import utils from '@/utils/index.js'
 
 const combine = (childrens) => {
-  return tools.getId('element')
+  return utils.getId('element')
     .then(res => {
       const id = res
       return Promise.resolve({
@@ -10,31 +10,38 @@ const combine = (childrens) => {
         type: 'combination',
         data: getData(childrens),
         config: {
-          style: [{
-            label: '位置',
-            key: 'position',
-            list: [{
-              key: 'position-line1',
-              gutter: 20,
-              list: [{
-                key: 'xCoordinate',
-                span: 6,
-                component: 'config-input',
-                props: {
-                  label: 'x坐标',
-                  suffix: 'px'
+          style: [
+            {
+              label: '位置',
+              key: 'position',
+              list: [
+                {
+                  key: 'position-line1',
+                  gutter: 20,
+                  list: [
+                    {
+                      key: 'xCoordinate',
+                      span: 6,
+                      component: 'config-input',
+                      props: {
+                        label: 'x坐标',
+                        suffix: 'px'
+                      }
+                    },
+                    {
+                      key: 'yCoordinate',
+                      span: 6,
+                      component: 'config-input',
+                      props: {
+                        label: 'y坐标',
+                        suffix: 'px'
+                      }
+                    }
+                  ]
                 }
-              }, {
-                key: 'yCoordinate',
-                span: 6,
-                component: 'config-input',
-                props: {
-                  label: 'y坐标',
-                  suffix: 'px'
-                }
-              }]
-            }]
-          }],
+              ]
+            }
+          ],
           content: [],
           interact: []
         },
@@ -49,23 +56,23 @@ const getData = (childrens) => {
       size: {
         width: String(
           Math.max(...childrens.map(children =>
-            Number(tools.getValueFromObj(children, 'data.style.position.xCoordinate')) + Number(tools.getValueFromObj(children, 'data.style.size.width'))
+            Number(utils.getValueFromObj(children, 'data.style.position.xCoordinate')) + Number(utils.getValueFromObj(children, 'data.style.size.width'))
           )) -
-          Math.min(...childrens.map(children => tools.getValueFromObj(children, 'data.style.position.xCoordinate')))
+          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'data.style.position.xCoordinate')))
         ),
         height: String(
           Math.max(...childrens.map(children =>
-            Number(tools.getValueFromObj(children, 'data.style.position.yCoordinate')) + Number(tools.getValueFromObj(children, 'data.style.size.height'))
+            Number(utils.getValueFromObj(children, 'data.style.position.yCoordinate')) + Number(utils.getValueFromObj(children, 'data.style.size.height'))
           )) -
-          Math.min(...childrens.map(children => tools.getValueFromObj(children, 'data.style.position.yCoordinate')))
+          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'data.style.position.yCoordinate')))
         )
       },
       position: {
         xCoordinate: String(
-          Math.min(...childrens.map(children => tools.getValueFromObj(children, 'data.style.position.xCoordinate')))
+          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'data.style.position.xCoordinate')))
         ),
         yCoordinate: String(
-          Math.min(...childrens.map(children => tools.getValueFromObj(children, 'data.style.position.yCoordinate')))
+          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'data.style.position.yCoordinate')))
         )
       }
     }
@@ -77,11 +84,11 @@ const refresh = (element) => {
 }
 
 const uncombine = (element, elements) => {
-  const parent = tools.deepQuery(elements, element.parentId)
+  const parent = utils.deepQuery(elements, element.parentId)
   let elementList
-  if (tools.isArray(parent)) {
+  if (utils.isArray(parent)) {
     elementList = parent
-  } else if (tools.isPlainObject(parent)) {
+  } else if (utils.isPlainObject(parent)) {
     elementList = parent.childrens
   }
   const index = elementList.findIndex(elementItem => elementItem.id === element.id)

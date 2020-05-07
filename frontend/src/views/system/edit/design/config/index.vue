@@ -50,7 +50,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import tools from '@/utils/tools.js'
+import utils from '@/utils/index.js'
 
 export default {
   name: 'DesignConfig',
@@ -58,16 +58,20 @@ export default {
   data () {
     return {
       activeConfig: 'content',
-      configs: [{
-        label: '内容',
-        value: 'content'
-      }, {
-        label: '样式',
-        value: 'style'
-      }, {
-        label: '交互',
-        value: 'interact'
-      }]
+      configs: [
+        {
+          label: '内容',
+          value: 'content'
+        },
+        {
+          label: '样式',
+          value: 'style'
+        },
+        {
+          label: '交互',
+          value: 'interact'
+        }
+      ]
     }
   },
 
@@ -135,7 +139,7 @@ export default {
   },
 
   components: Object.assign({},
-    tools.importFiles(require.context('@/views/system/edit/design/config/components', false, /\.vue$/))
+    utils.importFiles(require.context('@/views/system/edit/design/config/components', false, /\.vue$/))
   )
 }
 </script>

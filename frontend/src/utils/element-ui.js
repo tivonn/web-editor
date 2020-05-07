@@ -12,6 +12,8 @@ import {
   Row,
   Select,
   Switch,
+  Table,
+  TableColumn,
   Tabs,
   TabPane
 } from 'element-ui'
@@ -30,6 +32,8 @@ export default {
     Vue.use(Row)
     Vue.use(Select)
     Vue.use(Switch)
+    Vue.use(Table)
+    Vue.use(TableColumn)
     Vue.use(Tabs)
     Vue.use(TabPane)
     Vue.prototype.$message = Message

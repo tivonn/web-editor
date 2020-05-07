@@ -1,4 +1,4 @@
-import tools from '@/utils/tools.js'
+import utils from '@/utils/index.js'
 import Combination from '@/core/combination.js'
 
 const before = (element, key, value) => {
@@ -9,11 +9,11 @@ const before = (element, key, value) => {
     case 'data.style.position.yCoordinate': {
       const hasChildren = !!element.childrens
       if (hasChildren) {
-        const elementList = tools.getDeepTraversal(element)
+        const elementList = utils.getDeepTraversal(element)
         elementList.shift()
-        const offset = Number(value) - Number(tools.getValueFromObj(element, key))
+        const offset = Number(value) - Number(utils.getValueFromObj(element, key))
         elementList.forEach(elementItem => {
-          tools.setValueToObj(elementItem, key, String(Number(tools.getValueFromObj(elementItem, key)) + offset))
+          utils.setValueToObj(elementItem, key, String(Number(utils.getValueFromObj(elementItem, key)) + offset))
         })
       }
       break
@@ -32,7 +32,7 @@ const after = (element, elements, key) => {
       let current = element
       let hasParent = !!current.parentId
       while (hasParent) {
-        current = tools.deepQuery(elements, current.parentId)
+        current = utils.deepQuery(elements, current.parentId)
         Combination.refresh(current)
         hasParent = !!current.parentId
       }

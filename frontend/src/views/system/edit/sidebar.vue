@@ -20,7 +20,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import tools from '@/utils/tools.js'
+import utils from '@/utils/index.js'
 import { packages } from '@/views/system/edit/config.js'
 
 export default {
@@ -41,7 +41,7 @@ export default {
   methods: {
     selectPackage (packageItem) {
       Promise.all([
-        tools.getId('element'),
+        utils.getId('element'),
         require(`@/packages/${packageItem.value}/data.js`),
         require(`@/packages/${packageItem.value}/config.js`)
       ])
@@ -53,8 +53,8 @@ export default {
           const element = Object.assign({
             id,
             type: 'component',
-            data: tools.deepClone(data),
-            config: tools.deepClone(config)
+            data: utils.deepClone(data),
+            config: utils.deepClone(config)
           }, packageItem)
           this.$store.dispatch('setElements', this.elements.concat([element]))
         })

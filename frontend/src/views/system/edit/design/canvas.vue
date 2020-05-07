@@ -22,7 +22,7 @@
 import ElementList from '@/components/ElementList'
 import Mousetrap from 'mousetrap'
 import { mapGetters } from 'vuex'
-import tools from '@/utils/tools.js'
+import utils from '@/utils/index.js'
 
 export default {
   name: 'DesignCanvas',
@@ -78,38 +78,38 @@ export default {
     },
 
     mousedownCanvas (e) {
-      const elementEl = tools.getPath(e).find(element => tools.containClass(element, 'element-item'))
+      const elementEl = utils.getPath(e).find(element => utils.containClass(element, 'element-item'))
       const isDragElement = !!elementEl
       if (isDragElement) {
-        const mousedownTime = tools.getDate().getTime()
+        const mousedownTime = utils.getDate().getTime()
         const id = Number(elementEl.id)
-        const element = tools.deepQuery(this.elements, id)
+        const element = utils.deepQuery(this.elements, id)
         const xCoordinateKey = 'data.style.position.xCoordinate'
         const yCoordinateKey = 'data.style.position.yCoordinate'
-        tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
+        utils.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
           this.isCaptureElement = true
           this.$store.dispatch('updateElement', {
             id,
-            [xCoordinateKey]: String(tools.clamp(
-              Number(tools.getValueFromObj(element, xCoordinateKey)) + offsetX,
+            [xCoordinateKey]: String(utils.clamp(
+              Number(utils.getValueFromObj(element, xCoordinateKey)) + offsetX,
               0,
-              this.$refs.container.clientWidth - Number(tools.getValueFromObj(element, 'data.style.size.width')) - 1
+              this.$refs.container.clientWidth - Number(utils.getValueFromObj(element, 'data.style.size.width')) - 1
             )),
-            [yCoordinateKey]: String(tools.clamp(
-              Number(tools.getValueFromObj(element, yCoordinateKey)) + offsetY,
+            [yCoordinateKey]: String(utils.clamp(
+              Number(utils.getValueFromObj(element, yCoordinateKey)) + offsetY,
               0,
-              this.$refs.container.clientHeight - Number(tools.getValueFromObj(element, 'data.style.size.height')) - 1
+              this.$refs.container.clientHeight - Number(utils.getValueFromObj(element, 'data.style.size.height')) - 1
             ))
           })
         }, (e) => {
-          const mouseupTime = tools.getDate().getTime()
+          const mouseupTime = utils.getDate().getTime()
           // 快速点击或鼠标在画布外部释放
-          if (mouseupTime - mousedownTime < 100 || tools.getPath(e).every(element => !tools.containClass(element, 'canvas'))) {
+          if (mouseupTime - mousedownTime < 100 || utils.getPath(e).every(element => !utils.containClass(element, 'canvas'))) {
             this.isCaptureElement = false
           }
         })
       } else {
-        tools.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
+        utils.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
           this.$refs.canvas.scrollLeft -= offsetX
           this.$refs.canvas.scrollTop -= offsetY
         })
@@ -132,7 +132,7 @@ export default {
         hover:
           this.hoverElements.some(hoverElement => Number(hoverElement.id) === element.id) ||
           this.activeElements.some(activeElement =>
-            Object.keys(tools.deepQuery(element, Number(activeElement.id))).length
+            Object.keys(utils.deepQuery(element, Number(activeElement.id))).length
           ),
         active: this.activeElements.some(activeElement => activeElement.id === element.id)
       }
@@ -143,7 +143,7 @@ export default {
       const hasParent = !!element.parentId
       let parentPosition
       if (hasParent) {
-        parentPosition = tools.getValueFromObj(tools.deepQuery(this.elements, element.parentId), 'data.style.position')
+        parentPosition = utils.getValueFromObj(utils.deepQuery(this.elements, element.parentId), 'data.style.position')
       }
       return {
         // 1px为边框
@@ -153,12 +153,12 @@ export default {
     },
 
     clickElementList (e) {
-      const elementEl = tools.getPath(e).find(element => tools.containClass(element, 'element-item'))
+      const elementEl = utils.getPath(e).find(element => utils.containClass(element, 'element-item'))
       const isSelectElement = !!elementEl
       let activeElements
       if (isSelectElement) {
         const id = Number(elementEl.id)
-        const element = tools.deepQuery(this.elements, id)
+        const element = utils.deepQuery(this.elements, id)
         const isSelected = this.activeElements.some(activeElement => activeElement.id === element.id)
         if (isSelected) {
           activeElements = this.activeElements.filter(activeElement => activeElement.id !== element.id)
@@ -171,8 +171,8 @@ export default {
       this.$store.dispatch('setActiveElements', activeElements)
     },
 
-    mousemoveElementList: tools.throttle(function (e) {
-      this.hoverElements = tools.getPath(e).filter(element => tools.containClass(element, 'element-item'))
+    mousemoveElementList: utils.throttle(function (e) {
+      this.hoverElements = utils.getPath(e).filter(element => utils.containClass(element, 'element-item'))
     }, 100),
 
     deleteElement () {

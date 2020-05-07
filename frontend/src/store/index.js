@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import tools from '@/utils/tools.js'
-const modules = tools.importFiles(require.context('@/store/modules', false, /\.js$/))
+import utils from '@/utils/index.js'
+const modules = utils.importFiles(require.context('@/store/modules', false, /\.js$/))
 
 Vue.use(Vuex)
 

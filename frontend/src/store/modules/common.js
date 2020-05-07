@@ -1,5 +1,5 @@
 import * as types from '@/store/mutation-types.js'
-import tools from '@/utils/tools.js'
+import utils from '@/utils/index.js'
 import Update from '@/core/update.js'
 
 const state = {
@@ -66,11 +66,11 @@ const mutations = {
   },
 
   [types.UPDATE_ELEMENT] (state, updateObj) {
-    const element = tools.deepQuery(state.elements, updateObj.id)
+    const element = utils.deepQuery(state.elements, updateObj.id)
     for (const key in updateObj) {
       new Promise(resolve => resolve())
         .then(() => Update.before(element, key, updateObj[key]))
-        .then(() => tools.setValueToObj(element, key, updateObj[key]))
+        .then(() => utils.setValueToObj(element, key, updateObj[key]))
         .then(() => Update.after(element, state.elements, key))
         .catch(() => {})
     }

@@ -11,7 +11,7 @@
 <script>
 import ElementList from '@/components/ElementList.vue'
 import { mapGetters } from 'vuex'
-import tools from '@/utils/tools.js'
+import utils from '@/utils/index.js'
 
 export default {
   // todo 复制时动态生成
@@ -44,7 +44,7 @@ export default {
       const hasParent = !!element.parentId
       let parentPosition
       if (hasParent) {
-        parentPosition = tools.getValueFromObj(tools.deepQuery(this.elements, element.parentId), 'data.style.position')
+        parentPosition = utils.getValueFromObj(utils.deepQuery(this.elements, element.parentId), 'data.style.position')
       }
       return {
         // 1px为边框
