@@ -24,18 +24,20 @@
                 :key="line.key"
                 :gutter="line.gutter"
                 class="config-line">
-                <el-col
-                  v-for="col in line.list"
-                  :key="col.key"
-                  :span="col.span"
-                  :offset="col.offset">
-                  <component
-                    :is="col.component"
-                    :value="activeElement.data[config.value][block.key][col.key]"
-                    v-bind="col.props"
-                    @input="value => updateElement(`data.${config.value}.${block.key}.${col.key}`, value)">
-                  </component>
-                </el-col>
+                <template v-for="col in line.list">
+                  <el-col
+                    v-if="!(col.remove && eval(`this.activeElement.${col.remove}`))"
+                    :key="col.key"
+                    :span="col.span"
+                    :offset="col.offset">
+                    <component
+                      :is="col.component"
+                      :value="activeElement.data[config.value][block.key][col.key]"
+                      @input="value => updateElement(`data.${config.value}.${block.key}.${col.key}`, value)"
+                      v-bind="col.props">
+                    </component>
+                  </el-col>
+                </template>
               </el-row>
             </el-collapse-item>
           </el-collapse>
@@ -135,6 +137,11 @@ export default {
         id,
         [key]: value
       })
+    },
+
+    eval (value) {
+      // eslint-disable-next-line
+      return eval(value)
     }
   },
 

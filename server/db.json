@@ -2,7 +2,7 @@
   "ids": [
     {
       "type": "element",
-      "max": 187
+      "max": 253
     }
   ],
   "systems": [
@@ -17,7 +17,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 177,
+          "id": 198,
           "type": "component",
           "data": {
             "style": {
@@ -26,20 +26,21 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "0",
-                "yCoordinate": "0"
+                "xCoordinate": "51",
+                "yCoordinate": "118"
               }
             },
             "content": {
               "text": {
                 "mode": "staticData",
-                "data": {
+                "staticData": {
                   "data": "按钮"
                 },
+                "suffixApi": "/111",
                 "parses": [
                   {
                     "property": "文本",
-                    "field": "dat",
+                    "field": "data",
                     "status": "成功"
                   }
                 ]
@@ -146,11 +147,11 @@
                     "key": "text-line2",
                     "list": [
                       {
-                        "key": "data",
+                        "key": "staticData",
                         "span": 24,
                         "component": "config-code",
                         "props": {
-                          "label": "数据"
+                          "label": "静态数据"
                         }
                       }
                     ]
@@ -159,11 +160,26 @@
                     "key": "text-line3",
                     "list": [
                       {
+                        "key": "suffixApi",
+                        "span": 24,
+                        "component": "config-input",
+                        "props": {
+                          "label": "接口Api",
+                          "type": "textarea",
+                          "placeholder": "请输入接口Api"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "text-line4",
+                    "list": [
+                      {
                         "key": "parses",
                         "span": 24,
                         "component": "config-table",
                         "props": {
-                          "label": "解析",
+                          "label": "数据解析",
                           "cols": [
                             {
                               "label": "属性",
@@ -182,7 +198,8 @@
                             },
                             {
                               "label": "状态",
-                              "width": 60,
+                              "width": 70,
+                              "align": "right",
                               "prop": {
                                 "key": "status",
                                 "component": "config-text"

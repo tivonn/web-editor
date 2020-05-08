@@ -4,9 +4,10 @@
     <el-input
       :value="value"
       @input="$emit('input', $event)"
+      size="small"
       :type="type"
       :rows="rows"
-      size="small">
+      :placeholder="placeholder">
       <template slot="suffix">{{suffix}}</template>
     </el-input>
   </div>
@@ -41,6 +42,12 @@ export default {
       default: 0
     },
 
+    placeholder: {
+      type: String,
+      required: false,
+      default: ''
+    },
+
     suffix: {
       type: String,
       required: false,
@@ -54,7 +61,7 @@ export default {
 .config-input {
   :global {
     .input-label {
-      line-height: 24px;
+      line-height: 28px;
     }
     .el-input__suffix-inner {
       line-height: 30px;

@@ -45,7 +45,7 @@ export default {
 .config-select {
   :global {
     .select-label {
-      line-height: 24px;
+      line-height: 28px;
     }
     .el-select {
       width: 100%;

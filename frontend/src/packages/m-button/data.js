@@ -14,9 +14,10 @@ export default {
   content: {
     text: {
       mode: 'staticData',
-      data: {
+      staticData: {
         data: '按钮'
       },
+      suffixApi: '',
       parses: [
         {
           property: '文本',

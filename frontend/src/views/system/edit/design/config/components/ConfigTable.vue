@@ -14,8 +14,8 @@
           <component
             :is="col.prop.component"
             :value="value[scope.$index][col.prop.key]"
-            v-bind="col.props"
-            @input="componentValue => updateComponent(componentValue, value[scope.$index], col.prop.key)">
+            @input="componentValue => updateComponent(componentValue, value[scope.$index], col.prop.key)"
+            v-bind="col.props">
           </component>
         </template>
       </el-table-column>
@@ -66,7 +66,7 @@ export default {
 .config-table {
   :global {
     .table-label {
-      line-height: 24px;
+      line-height: 28px;
     }
   }
 }

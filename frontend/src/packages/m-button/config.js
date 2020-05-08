@@ -97,11 +97,12 @@ export default {
           key: 'text-line2',
           list: [
             {
-              key: 'data',
+              key: 'staticData',
+              remove: 'data.content.text.mode !== \'staticData\'',
               span: 24,
               component: 'config-code',
               props: {
-                label: '数据'
+                label: '静态数据'
               }
             }
           ]
@@ -110,11 +111,27 @@ export default {
           key: 'text-line3',
           list: [
             {
+              key: 'suffixApi',
+              remove: 'data.content.text.mode !== \'suffixApi\'',
+              span: 24,
+              component: 'config-input',
+              props: {
+                label: '接口Api',
+                type: 'textarea',
+                placeholder: '请输入接口Api'
+              }
+            }
+          ]
+        },
+        {
+          key: 'text-line4',
+          list: [
+            {
               key: 'parses',
               span: 24,
               component: 'config-table',
               props: {
-                label: '解析',
+                label: '数据解析',
                 cols: [
                   {
                     label: '属性',

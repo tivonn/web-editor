@@ -71,7 +71,7 @@ export default {
 .config-code {
   :global {
     .code-label {
-      line-height: 24px;
+      line-height: 28px;
     }
     .code-editor {
       margin-top: 1px;
