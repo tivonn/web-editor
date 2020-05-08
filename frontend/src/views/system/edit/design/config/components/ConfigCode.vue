@@ -57,7 +57,7 @@ export default {
       editor.setValue(JSON.stringify(this.value, null, '\t'))
       editor.on('blur', () => {
         try {
-          this.$emit('update', JSON.parse(editor.getValue()))
+          this.$emit('input', JSON.parse(editor.getValue()))
         } catch {
           this.$message.warning('格式错误')
         }

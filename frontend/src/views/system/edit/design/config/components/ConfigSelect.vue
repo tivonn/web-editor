@@ -3,7 +3,7 @@
     <p class="select-label">{{label}}</p>
     <el-select
       :value="value"
-      @input="$emit('update', $event)"
+      @input="$emit('input', $event)"
       size="small">
       <el-option
         v-for="item in options"

@@ -3,7 +3,7 @@
     <p class="input-label">{{label}}</p>
     <el-input
       :value="value"
-      @input="$emit('update', $event)"
+      @input="$emit('input', $event)"
       :type="type"
       :rows="rows"
       size="small">

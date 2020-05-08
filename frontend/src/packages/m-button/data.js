@@ -17,7 +17,7 @@ export default {
       data: {
         data: '按钮'
       },
-      parse: [
+      parses: [
         {
           property: '文本',
           field: 'data',

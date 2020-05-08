@@ -110,7 +110,7 @@ export default {
           key: 'text-line3',
           list: [
             {
-              key: 'parse',
+              key: 'parses',
               span: 24,
               component: 'config-table',
               props: {
@@ -118,15 +118,27 @@ export default {
                 cols: [
                   {
                     label: '属性',
-                    prop: 'property'
+                    width: 130,
+                    prop: {
+                      key: 'property',
+                      component: 'config-text'
+                    }
                   },
                   {
                     label: '字段',
-                    prop: 'field'
+                    prop: {
+                      key: 'field',
+                      component: 'config-input'
+                    }
                   },
                   {
                     label: '状态',
-                    prop: 'status'
+                    width: 70,
+                    align: 'right',
+                    prop: {
+                      key: 'status',
+                      component: 'config-text'
+                    }
                   }
                 ]
               }

@@ -31,9 +31,9 @@
                   :offset="col.offset">
                   <component
                     :is="col.component"
-                    v-model="activeElement.data[config.value][block.key][col.key]"
+                    :value="activeElement.data[config.value][block.key][col.key]"
                     v-bind="col.props"
-                    @update="value => updateElement(`data.${config.value}.${block.key}.${col.key}`, value)">
+                    @input="value => updateElement(`data.${config.value}.${block.key}.${col.key}`, value)">
                   </component>
                 </el-col>
               </el-row>

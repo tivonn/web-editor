@@ -1,7 +1,7 @@
 <template>
   <el-button
     :type="type">
-    {{text.data.data}}
+    {{text.data[textField]}}
   </el-button>
 </template>
 
@@ -20,6 +20,12 @@ export default {
       type: String,
       required: false,
       default: 'primary'
+    }
+  },
+
+  computed: {
+    textField () {
+      return this.text.parses.find(parse => parse.property === '文本').field
     }
   }
 }
