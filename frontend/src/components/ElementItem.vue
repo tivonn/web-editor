@@ -48,7 +48,7 @@ export default {
     },
 
     selfGetElementStyle () {
-      const { width, height } = this.element.data.style.size
+      const { width, height } = this.element.style.size
       return {
         width: `${width}px`,
         height: `${height}px`
@@ -68,9 +68,8 @@ export default {
     mountElement () {
       if (!this.isComponent) return
       DataController.init(this.element)
-      const { value, data } = this.element
-      const { style, content, interact } = data
-      const Package = Vue.extend(require(`../packages/${value}/index.vue`).default)
+      const { value, style, content, interact } = this.element
+      const Package = Vue.extend(require(`@/packages/${value}/index.vue`).default)
       new Package({
         propsData: {
           ...style,

@@ -2,7 +2,7 @@
   "ids": [
     {
       "type": "element",
-      "max": 375
+      "max": 404
     }
   ],
   "systems": [
@@ -23,73 +23,20 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 373,
-          "type": "component",
-          "data": {
-            "style": {
-              "size": {
-                "width": "100",
-                "height": "50"
-              },
-              "position": {
-                "xCoordinate": "105",
-                "yCoordinate": "217"
-              }
+          "id": 404,
+          "type": "combination",
+          "style": {
+            "size": {
+              "width": "195",
+              "height": "211"
             },
-            "content": {
-              "data": {
-                "mode": "suffixApi",
-                "staticData": {
-                  "data": "按钮"
-                },
-                "suffixApi": "button",
-                "completeApi": "",
-                "parses": [
-                  {
-                    "property": "文本",
-                    "field": "data",
-                    "status": "成功"
-                  }
-                ],
-                "source": {
-                  "data": "按钮文本"
-                }
-              }
-            },
-            "interact": {}
+            "position": {
+              "xCoordinate": "51",
+              "yCoordinate": "212"
+            }
           },
           "config": {
             "style": [
-              {
-                "label": "尺寸",
-                "key": "size",
-                "list": [
-                  {
-                    "key": "size-row1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "width",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "宽度",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "height",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "高度",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
               {
                 "label": "位置",
                 "key": "position",
@@ -121,578 +68,87 @@
                 ]
               }
             ],
-            "content": [
-              {
-                "label": "数据",
-                "key": "data",
-                "list": [
-                  {
-                    "key": "data-row1",
-                    "list": [
-                      {
-                        "key": "mode",
-                        "span": 24,
-                        "component": "config-select",
-                        "props": {
-                          "label": "模式",
-                          "options": [
-                            {
-                              "value": "staticData",
-                              "label": "静态数据"
-                            },
-                            {
-                              "value": "suffixApi",
-                              "label": "接口Api"
-                            },
-                            {
-                              "value": "completeApi",
-                              "label": "完整Api"
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row2",
-                    "list": [
-                      {
-                        "key": "staticData",
-                        "remove": "data.content.data.mode !== 'staticData'",
-                        "span": 24,
-                        "component": "config-code",
-                        "props": {
-                          "label": "静态数据"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row3",
-                    "list": [
-                      {
-                        "key": "suffixApi",
-                        "remove": "data.content.data.mode !== 'suffixApi'",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "接口Api",
-                          "type": "textarea",
-                          "placeholder": "请输入接口Api"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row4",
-                    "list": [
-                      {
-                        "key": "completeApi",
-                        "remove": "data.content.data.mode !== 'completeApi'",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "完整Api",
-                          "type": "textarea",
-                          "placeholder": "请输入完整Api"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row5",
-                    "list": [
-                      {
-                        "key": "parses",
-                        "span": 24,
-                        "component": "config-table",
-                        "props": {
-                          "label": "数据解析",
-                          "cols": [
-                            {
-                              "label": "属性",
-                              "width": 130,
-                              "prop": {
-                                "key": "property",
-                                "component": "config-text"
-                              }
-                            },
-                            {
-                              "label": "字段",
-                              "prop": {
-                                "key": "field",
-                                "component": "config-input"
-                              }
-                            },
-                            {
-                              "label": "状态",
-                              "width": 70,
-                              "align": "right",
-                              "prop": {
-                                "key": "status",
-                                "component": "config-text"
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
+            "content": [],
             "interact": []
           },
-          "name": "按钮",
-          "value": "m-button"
-        },
-        {
-          "id": 374,
-          "type": "component",
-          "data": {
-            "style": {
-              "size": {
-                "width": "100",
-                "height": "50"
-              },
-              "position": {
-                "xCoordinate": "23",
-                "yCoordinate": "84"
-              }
-            },
-            "content": {
-              "data": {
-                "mode": "staticData",
-                "staticData": {
-                  "data": "按111钮"
+          "childrens": [
+            {
+              "id": 403,
+              "type": "component",
+              "style": {
+                "size": {
+                  "width": "100",
+                  "height": "50"
                 },
-                "suffixApi": "",
-                "completeApi": "",
-                "parses": [
-                  {
-                    "property": "文本",
-                    "field": "data",
-                    "status": "成功"
-                  }
-                ],
-                "source": {
-                  "data": "按111钮"
+                "position": {
+                  "xCoordinate": "51",
+                  "yCoordinate": "373"
                 }
-              }
-            },
-            "interact": {}
-          },
-          "config": {
-            "style": [
-              {
-                "label": "尺寸",
-                "key": "size",
-                "list": [
-                  {
-                    "key": "size-row1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "width",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "宽度",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "height",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "高度",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  }
-                ]
               },
-              {
-                "label": "位置",
-                "key": "position",
-                "list": [
-                  {
-                    "key": "position-row1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "xCoordinate",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "x坐标",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "yCoordinate",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "y坐标",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
+              "content": {
+                "data": {
+                  "mode": "staticData",
+                  "staticData": {
+                    "data": "按钮"
+                  },
+                  "suffixApi": "",
+                  "completeApi": "",
+                  "parses": [
+                    {
+                      "property": "文本",
+                      "field": "data",
+                      "status": "成功"
+                    }
+                  ],
+                  "source": {
+                    "data": "按钮"
                   }
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "数据",
-                "key": "data",
-                "list": [
-                  {
-                    "key": "data-row1",
-                    "list": [
-                      {
-                        "key": "mode",
-                        "span": 24,
-                        "component": "config-select",
-                        "props": {
-                          "label": "模式",
-                          "options": [
-                            {
-                              "value": "staticData",
-                              "label": "静态数据"
-                            },
-                            {
-                              "value": "suffixApi",
-                              "label": "接口Api"
-                            },
-                            {
-                              "value": "completeApi",
-                              "label": "完整Api"
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row2",
-                    "list": [
-                      {
-                        "key": "staticData",
-                        "remove": "data.content.data.mode !== 'staticData'",
-                        "span": 24,
-                        "component": "config-code",
-                        "props": {
-                          "label": "静态数据"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row3",
-                    "list": [
-                      {
-                        "key": "suffixApi",
-                        "remove": "data.content.data.mode !== 'suffixApi'",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "接口Api",
-                          "type": "textarea",
-                          "placeholder": "请输入接口Api"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row4",
-                    "list": [
-                      {
-                        "key": "completeApi",
-                        "remove": "data.content.data.mode !== 'completeApi'",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "完整Api",
-                          "type": "textarea",
-                          "placeholder": "请输入完整Api"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row5",
-                    "list": [
-                      {
-                        "key": "parses",
-                        "span": 24,
-                        "component": "config-table",
-                        "props": {
-                          "label": "数据解析",
-                          "cols": [
-                            {
-                              "label": "属性",
-                              "width": 130,
-                              "prop": {
-                                "key": "property",
-                                "component": "config-text"
-                              }
-                            },
-                            {
-                              "label": "字段",
-                              "prop": {
-                                "key": "field",
-                                "component": "config-input"
-                              }
-                            },
-                            {
-                              "label": "状态",
-                              "width": 70,
-                              "align": "right",
-                              "prop": {
-                                "key": "status",
-                                "component": "config-text"
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "interact": []
-          },
-          "name": "按钮",
-          "value": "m-button"
-        },
-        {
-          "id": 375,
-          "type": "component",
-          "data": {
-            "style": {
-              "size": {
-                "width": "100",
-                "height": "50"
+                }
               },
-              "position": {
-                "xCoordinate": "175",
-                "yCoordinate": "41"
-              }
+              "interact": {},
+              "name": "按钮",
+              "value": "m-button",
+              "parentId": 404
             },
-            "content": {
-              "data": {
-                "mode": "staticData",
-                "staticData": {
-                  "data": "按钮"
+            {
+              "id": 402,
+              "type": "component",
+              "style": {
+                "size": {
+                  "width": "100",
+                  "height": "50"
                 },
-                "suffixApi": "",
-                "completeApi": "",
-                "parses": [
-                  {
-                    "property": "文本",
-                    "field": "data",
-                    "status": "成功"
-                  }
-                ],
-                "source": {
-                  "data": "按钮"
+                "position": {
+                  "xCoordinate": "146",
+                  "yCoordinate": "212"
                 }
-              }
-            },
-            "interact": {}
-          },
-          "config": {
-            "style": [
-              {
-                "label": "尺寸",
-                "key": "size",
-                "list": [
-                  {
-                    "key": "size-row1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "width",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "宽度",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "height",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "高度",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
-                  }
-                ]
               },
-              {
-                "label": "位置",
-                "key": "position",
-                "list": [
-                  {
-                    "key": "position-row1",
-                    "gutter": 20,
-                    "list": [
-                      {
-                        "key": "xCoordinate",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "x坐标",
-                          "suffix": "px"
-                        }
-                      },
-                      {
-                        "key": "yCoordinate",
-                        "span": 6,
-                        "component": "config-input",
-                        "props": {
-                          "label": "y坐标",
-                          "suffix": "px"
-                        }
-                      }
-                    ]
+              "content": {
+                "data": {
+                  "mode": "suffixApi",
+                  "staticData": {
+                    "data": "按钮"
+                  },
+                  "suffixApi": "1",
+                  "completeApi": "",
+                  "parses": [
+                    {
+                      "property": "文本",
+                      "field": "data",
+                      "status": "成功"
+                    }
+                  ],
+                  "source": {
+                    "data": "按钮文本"
                   }
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "数据",
-                "key": "data",
-                "list": [
-                  {
-                    "key": "data-row1",
-                    "list": [
-                      {
-                        "key": "mode",
-                        "span": 24,
-                        "component": "config-select",
-                        "props": {
-                          "label": "模式",
-                          "options": [
-                            {
-                              "value": "staticData",
-                              "label": "静态数据"
-                            },
-                            {
-                              "value": "suffixApi",
-                              "label": "接口Api"
-                            },
-                            {
-                              "value": "completeApi",
-                              "label": "完整Api"
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row2",
-                    "list": [
-                      {
-                        "key": "staticData",
-                        "remove": "data.content.data.mode !== 'staticData'",
-                        "span": 24,
-                        "component": "config-code",
-                        "props": {
-                          "label": "静态数据"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row3",
-                    "list": [
-                      {
-                        "key": "suffixApi",
-                        "remove": "data.content.data.mode !== 'suffixApi'",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "接口Api",
-                          "type": "textarea",
-                          "placeholder": "请输入接口Api"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row4",
-                    "list": [
-                      {
-                        "key": "completeApi",
-                        "remove": "data.content.data.mode !== 'completeApi'",
-                        "span": 24,
-                        "component": "config-input",
-                        "props": {
-                          "label": "完整Api",
-                          "type": "textarea",
-                          "placeholder": "请输入完整Api"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "key": "data-row5",
-                    "list": [
-                      {
-                        "key": "parses",
-                        "span": 24,
-                        "component": "config-table",
-                        "props": {
-                          "label": "数据解析",
-                          "cols": [
-                            {
-                              "label": "属性",
-                              "width": 130,
-                              "prop": {
-                                "key": "property",
-                                "component": "config-text"
-                              }
-                            },
-                            {
-                              "label": "字段",
-                              "prop": {
-                                "key": "field",
-                                "component": "config-input"
-                              }
-                            },
-                            {
-                              "label": "状态",
-                              "width": 70,
-                              "align": "right",
-                              "prop": {
-                                "key": "status",
-                                "component": "config-text"
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "interact": []
-          },
-          "name": "按钮",
-          "value": "m-button"
+                }
+              },
+              "interact": {},
+              "name": "按钮",
+              "value": "m-button",
+              "parentId": 404
+            }
+          ]
         }
       ],
       "id": 1

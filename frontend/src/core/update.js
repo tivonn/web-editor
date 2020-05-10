@@ -4,8 +4,8 @@ import DataController from '@/core/data-controller.js'
 
 const before = (element, key, value) => {
   switch (key) {
-    case 'data.style.position.xCoordinate':
-    case 'data.style.position.yCoordinate': {
+    case 'style.position.xCoordinate':
+    case 'style.position.yCoordinate': {
       const hasChildren = !!element.childrens
       if (hasChildren) {
         const elementList = utils.getDeepTraversal(element)
@@ -24,10 +24,10 @@ const before = (element, key, value) => {
 
 const after = (element, elements, key) => {
   switch (key) {
-    case 'data.style.size.width':
-    case 'data.style.size.height':
-    case 'data.style.position.xCoordinate':
-    case 'data.style.position.yCoordinate': {
+    case 'style.size.width':
+    case 'style.size.height':
+    case 'style.position.xCoordinate':
+    case 'style.position.yCoordinate': {
       let current = element
       let hasParent = !!current.parentId
       while (hasParent) {
@@ -37,14 +37,14 @@ const after = (element, elements, key) => {
       }
       break
     }
-    case 'data.content.data.mode':
+    case 'content.data.mode':
       DataController.init(element)
       break
-    case 'data.content.data.staticData':
+    case 'content.data.staticData':
       DataController.getStaticData(element)
       break
-    case 'data.content.data.suffixApi':
-    case 'data.content.data.completeApi':
+    case 'content.data.suffixApi':
+    case 'content.data.completeApi':
       // todo debounce
       DataController.getApiData(element)
       break

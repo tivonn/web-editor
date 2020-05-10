@@ -84,8 +84,8 @@ export default {
         const mousedownTime = utils.getDate().getTime()
         const id = Number(elementEl.id)
         const element = utils.deepQuery(this.elements, id)
-        const xCoordinateKey = 'data.style.position.xCoordinate'
-        const yCoordinateKey = 'data.style.position.yCoordinate'
+        const xCoordinateKey = 'style.position.xCoordinate'
+        const yCoordinateKey = 'style.position.yCoordinate'
         utils.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
           this.isCaptureElement = true
           this.$store.dispatch('updateElement', {
@@ -93,12 +93,12 @@ export default {
             [xCoordinateKey]: String(utils.clamp(
               Number(utils.getValueFromObj(element, xCoordinateKey)) + offsetX,
               0,
-              this.$refs.container.clientWidth - Number(utils.getValueFromObj(element, 'data.style.size.width')) - 1
+              this.$refs.container.clientWidth - Number(utils.getValueFromObj(element, 'style.size.width')) - 1
             )),
             [yCoordinateKey]: String(utils.clamp(
               Number(utils.getValueFromObj(element, yCoordinateKey)) + offsetY,
               0,
-              this.$refs.container.clientHeight - Number(utils.getValueFromObj(element, 'data.style.size.height')) - 1
+              this.$refs.container.clientHeight - Number(utils.getValueFromObj(element, 'style.size.height')) - 1
             ))
           })
         }, (e) => {
@@ -139,11 +139,11 @@ export default {
     },
 
     getElementStyle (element) {
-      const { xCoordinate, yCoordinate } = element.data.style.position
+      const { xCoordinate, yCoordinate } = element.style.position
       const hasParent = !!element.parentId
       let parentPosition
       if (hasParent) {
-        parentPosition = utils.getValueFromObj(utils.deepQuery(this.elements, element.parentId), 'data.style.position')
+        parentPosition = utils.getValueFromObj(utils.deepQuery(this.elements, element.parentId), 'style.position')
       }
       return {
         // 1px为边框

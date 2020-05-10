@@ -40,11 +40,11 @@ export default {
 
   methods: {
     getElementStyle (element) {
-      const { xCoordinate, yCoordinate } = element.data.style.position
+      const { xCoordinate, yCoordinate } = element.style.position
       const hasParent = !!element.parentId
       let parentPosition
       if (hasParent) {
-        parentPosition = utils.getValueFromObj(utils.deepQuery(this.elements, element.parentId), 'data.style.position')
+        parentPosition = utils.getValueFromObj(utils.deepQuery(this.elements, element.parentId), 'style.position')
       }
       return {
         // 1px为边框

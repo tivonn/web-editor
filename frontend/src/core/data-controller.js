@@ -3,7 +3,7 @@ import store from '@/store/index.js'
 import utils from '@/utils/index.js'
 
 const init = (element) => {
-  const mode = utils.getValueFromObj(element, 'data.content.data.mode')
+  const mode = utils.getValueFromObj(element, 'content.data.mode')
   switch (mode) {
     case 'staticData':
       getStaticData(element)
@@ -18,13 +18,13 @@ const init = (element) => {
 }
 
 const getStaticData = (element) => {
-  const staticData = utils.getValueFromObj(element, 'data.content.data.staticData')
+  const staticData = utils.getValueFromObj(element, 'content.data.staticData')
   updateSource(element, staticData)
 }
 
 const getApiData = (element) => {
-  const mode = utils.getValueFromObj(element, 'data.content.data.mode')
-  const api = utils.getValueFromObj(element, `data.content.data.${mode}`)
+  const mode = utils.getValueFromObj(element, 'content.data.mode')
+  const api = utils.getValueFromObj(element, `content.data.${mode}`)
   if (api === '') return
   let completeUrl
   const isSuffixApi = mode === 'suffixApi'
@@ -46,7 +46,7 @@ const getApiData = (element) => {
 const updateSource = (element, data) => {
   store.dispatch('updateElement', {
     id: element.id,
-    'data.content.data.source': data
+    'content.data.source': data
   })
 }
 

@@ -42,19 +42,16 @@ export default {
     selectPackage (packageItem) {
       Promise.all([
         utils.getId('element'),
-        require(`@/packages/${packageItem.value}/data.js`),
-        require(`@/packages/${packageItem.value}/config.js`)
+        require(`@/packages/${packageItem.value}/data.js`)
       ])
         .then(res => {
-          const [idRes, dataRes, configRes] = res
+          const [idRes, dataRes] = res
           const id = idRes
           const { default: data } = dataRes
-          const { default: config } = configRes
           const element = Object.assign({
             id,
             type: 'component',
-            data: utils.deepClone(data),
-            config: utils.deepClone(config)
+            ...utils.deepClone(data)
           }, packageItem)
           this.$store.dispatch('setElements', this.elements.concat([element]))
         })

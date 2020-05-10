@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import utils from '@/utils/index.js'
+import config from '@/packages/special/combination/config.js'
 
 const combine = (childrens) => {
   return utils.getId('element')
@@ -8,43 +9,8 @@ const combine = (childrens) => {
       return Promise.resolve({
         id,
         type: 'combination',
-        data: getData(childrens),
-        config: {
-          style: [
-            {
-              label: '位置',
-              key: 'position',
-              list: [
-                {
-                  key: 'position-row1',
-                  gutter: 20,
-                  list: [
-                    {
-                      key: 'xCoordinate',
-                      span: 6,
-                      component: 'config-input',
-                      props: {
-                        label: 'x坐标',
-                        suffix: 'px'
-                      }
-                    },
-                    {
-                      key: 'yCoordinate',
-                      span: 6,
-                      component: 'config-input',
-                      props: {
-                        label: 'y坐标',
-                        suffix: 'px'
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          content: [],
-          interact: []
-        },
+        ...getData(childrens),
+        config,
         childrens: childrens.map(children => Object.assign({}, children, { parentId: id }))
       })
     })
@@ -56,23 +22,23 @@ const getData = (childrens) => {
       size: {
         width: String(
           Math.max(...childrens.map(children =>
-            Number(utils.getValueFromObj(children, 'data.style.position.xCoordinate')) + Number(utils.getValueFromObj(children, 'data.style.size.width'))
+            Number(utils.getValueFromObj(children, 'style.position.xCoordinate')) + Number(utils.getValueFromObj(children, 'style.size.width'))
           )) -
-          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'data.style.position.xCoordinate')))
+          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'style.position.xCoordinate')))
         ),
         height: String(
           Math.max(...childrens.map(children =>
-            Number(utils.getValueFromObj(children, 'data.style.position.yCoordinate')) + Number(utils.getValueFromObj(children, 'data.style.size.height'))
+            Number(utils.getValueFromObj(children, 'style.position.yCoordinate')) + Number(utils.getValueFromObj(children, 'style.size.height'))
           )) -
-          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'data.style.position.yCoordinate')))
+          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'style.position.yCoordinate')))
         )
       },
       position: {
         xCoordinate: String(
-          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'data.style.position.xCoordinate')))
+          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'style.position.xCoordinate')))
         ),
         yCoordinate: String(
-          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'data.style.position.yCoordinate')))
+          Math.min(...childrens.map(children => utils.getValueFromObj(children, 'style.position.yCoordinate')))
         )
       }
     }
@@ -80,7 +46,7 @@ const getData = (childrens) => {
 }
 
 const refresh = (element) => {
-  Vue.set(element, 'data', getData(element.childrens))
+  Object.assign(element, getData(element.childrens))
 }
 
 const uncombine = (element, elements) => {

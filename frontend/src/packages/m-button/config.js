@@ -98,7 +98,7 @@ export default {
           list: [
             {
               key: 'staticData',
-              remove: 'data.content.data.mode !== \'staticData\'',
+              remove: 'content.data.mode !== \'staticData\'',
               span: 24,
               component: 'config-code',
               props: {
@@ -112,7 +112,7 @@ export default {
           list: [
             {
               key: 'suffixApi',
-              remove: 'data.content.data.mode !== \'suffixApi\'',
+              remove: 'content.data.mode !== \'suffixApi\'',
               span: 24,
               component: 'config-input',
               props: {
@@ -128,7 +128,7 @@ export default {
           list: [
             {
               key: 'completeApi',
-              remove: 'data.content.data.mode !== \'completeApi\'',
+              remove: 'content.data.mode !== \'completeApi\'',
               span: 24,
               component: 'config-input',
               props: {

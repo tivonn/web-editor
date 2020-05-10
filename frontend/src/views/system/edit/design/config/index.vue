@@ -1,22 +1,22 @@
 <template>
   <div :class="$style.config">
-    <el-tabs v-model="activeConfig" class="config-tabs">
+    <el-tabs v-model="activeTab" class="config-tabs">
       <el-tab-pane
-        v-for="config in configs"
-        :key="config.value"
-        :label="config.label"
-        :name="config.value"
-        :disabled="isTabDisabled(config.value)">
+        v-for="tab in tabs"
+        :key="tab.value"
+        :label="tab.label"
+        :name="tab.value"
+        :disabled="isTabDisabled(tab.value)">
         <template v-if="isSystemActive">
           全局
         </template>
         <template v-else-if="isSingleActive || isCombinationActive">
           <el-collapse
-            v-if="config.value === activeConfig"
-            :value="activeElement.config[config.value].map(block => block.key)"
+            v-if="tab.value === activeTab"
+            :value="activeConfig.map(block => block.key)"
             class="config-collapse">
             <el-collapse-item
-              v-for="(block, blockKey) in filterCollapse(activeElement.config[config.value])"
+              v-for="(block, blockKey) in filterCollapse(activeConfig)"
               :key="blockKey"
               :title="block.label"
               :name="block.key">
@@ -33,8 +33,8 @@
                     :offset="col.offset">
                     <component
                       :is="col.component"
-                      :value="activeElement.data[config.value][block.key][col.key]"
-                      @input="value => updateElement(`data.${config.value}.${block.key}.${col.key}`, value)"
+                      :value="activeElement[tab.value][block.key][col.key]"
+                      @input="value => updateElement(`${tab.value}.${block.key}.${col.key}`, value)"
                       v-bind="col.props">
                     </component>
                   </el-col>
@@ -60,8 +60,8 @@ export default {
 
   data () {
     return {
-      activeConfig: 'content',
-      configs: [
+      activeTab: 'content',
+      tabs: [
         {
           label: '内容',
           value: 'content'
@@ -115,13 +115,18 @@ export default {
         default:
           return {}
       }
+    },
+
+    activeConfig () {
+      const isComponent = this.activeElement.type === 'component'
+      return require(`@/packages/${isComponent ? `${this.activeElement.value}` : `special/${this.activeElement.type}`}/config.js`).default[this.activeTab]
     }
   },
 
   watch: {
     disabledTabList () {
-      if (this.isTabDisabled(this.activeConfig)) {
-        this.activeConfig = this.$options.data().activeConfig
+      if (this.isTabDisabled(this.activeTab)) {
+        this.activeTab = this.$options.data().activeTab
       }
     }
   },
