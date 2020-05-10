@@ -87,6 +87,11 @@ server.put('/build/:sid', (req, res) => {
   res.sendStatus(200)
 })
 
+server.post('/proxy', (req, res) => {
+  // todo proxy
+  res.send({ data: '按钮文本' })
+})
+
 server.use(router)
 server.listen(3000, () => {
   console.log('JSON Server is running')

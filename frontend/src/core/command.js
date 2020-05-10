@@ -1,7 +1,7 @@
 import { Message } from 'element-ui'
+import axios from '@/axios.js'
 import router from '@/router.js'
 import store from '@/store/index.js'
-import axios from '@/axios.js'
 import Combination from '@/core/combination.js'
 
 const combine = () => {
@@ -13,7 +13,6 @@ const combine = () => {
   }
   Combination.combine(activeElements)
     .then(res => {
-      console.log(res)
       const combination = res
       store.dispatch('setElements',
         elements
@@ -47,6 +46,7 @@ const save = (systemId, pageId, elements) => {
     systemId,
     elements
   }
+  // todo 删除datasource和apidata
   axios.put(`/pages/${pageId}`, data)
     .then(() => Message.success('保存成功'))
 }

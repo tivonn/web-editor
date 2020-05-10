@@ -4,13 +4,17 @@ import Update from '@/core/update.js'
 
 const state = {
   userInfo: {},
-  system: {},
+  system: {
+    style: {},
+    envs: []
+  },
   elements: []
 }
 
 const getters = {
   userInfo: state => state.userInfo,
   system: state => state.system,
+  env: state => state.system.envs[0],
   elements: state => state.elements
 }
 
@@ -68,11 +72,10 @@ const mutations = {
   [types.UPDATE_ELEMENT] (state, updateObj) {
     const element = utils.deepQuery(state.elements, updateObj.id)
     for (const key in updateObj) {
-      new Promise(resolve => resolve())
-        .then(() => Update.before(element, key, updateObj[key]))
-        .then(() => utils.setValueToObj(element, key, updateObj[key]))
-        .then(() => Update.after(element, state.elements, key))
-        .catch(() => {})
+      if (key === 'id') continue
+      Update.before(element, key, updateObj[key])
+      utils.setValueToObj(element, key, updateObj[key])
+      Update.after(element, state.elements, key)
     }
   }
 }

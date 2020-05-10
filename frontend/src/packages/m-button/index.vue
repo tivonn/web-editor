@@ -1,7 +1,7 @@
 <template>
   <el-button
     :type="type">
-    {{text.staticData[textField]}}
+    {{data.source[dataField]}}
   </el-button>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   name: 'MButton',
 
   props: {
-    text: {
+    data: {
       type: Object,
       required: false,
       default: () => ({})
@@ -24,8 +24,8 @@ export default {
   },
 
   computed: {
-    textField () {
-      return this.text.parses.find(parse => parse.property === '文本').field
+    dataField () {
+      return this.data.parses.find(parse => parse.property === '文本').field
     }
   }
 }

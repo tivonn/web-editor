@@ -11,8 +11,6 @@
     v-else
     :id="element.id"
     :elements="element.childrens"
-    from-combination
-    :combination-position="element.data.style.position"
     class="element-item"
     :class="[getElementClass(element)]"
     :style="[getElementStyle(element), selfGetElementStyle]">
@@ -21,6 +19,7 @@
 
 <script>
 import Vue from 'vue'
+import DataController from '@/core/data-controller.js'
 
 export default {
   name: 'ElementItem',
@@ -68,6 +67,7 @@ export default {
 
     mountElement () {
       if (!this.isComponent) return
+      DataController.init(this.element)
       const { value, data } = this.element
       const { style, content, interact } = data
       const Package = Vue.extend(require(`../packages/${value}/index.vue`).default)

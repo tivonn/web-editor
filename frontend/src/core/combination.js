@@ -16,7 +16,7 @@ const combine = (childrens) => {
               key: 'position',
               list: [
                 {
-                  key: 'position-line1',
+                  key: 'position-row1',
                   gutter: 20,
                   list: [
                     {

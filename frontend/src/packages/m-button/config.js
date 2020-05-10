@@ -5,7 +5,7 @@ export default {
       key: 'size',
       list: [
         {
-          key: 'size-line1',
+          key: 'size-row1',
           gutter: 20,
           list: [
             {
@@ -35,7 +35,7 @@ export default {
       key: 'position',
       list: [
         {
-          key: 'position-line1',
+          key: 'position-row1',
           gutter: 20,
           list: [
             {
@@ -63,11 +63,11 @@ export default {
   ],
   content: [
     {
-      label: '文本',
-      key: 'text',
+      label: '数据',
+      key: 'data',
       list: [
         {
-          key: 'text-line1',
+          key: 'data-row1',
           list: [
             {
               key: 'mode',
@@ -86,7 +86,7 @@ export default {
                   },
                   {
                     value: 'completeApi',
-                    label: '完整地址'
+                    label: '完整Api'
                   }
                 ]
               }
@@ -94,11 +94,11 @@ export default {
           ]
         },
         {
-          key: 'text-line2',
+          key: 'data-row2',
           list: [
             {
               key: 'staticData',
-              remove: 'data.content.text.mode !== \'staticData\'',
+              remove: 'data.content.data.mode !== \'staticData\'',
               span: 24,
               component: 'config-code',
               props: {
@@ -108,11 +108,11 @@ export default {
           ]
         },
         {
-          key: 'text-line3',
+          key: 'data-row3',
           list: [
             {
               key: 'suffixApi',
-              remove: 'data.content.text.mode !== \'suffixApi\'',
+              remove: 'data.content.data.mode !== \'suffixApi\'',
               span: 24,
               component: 'config-input',
               props: {
@@ -124,7 +124,23 @@ export default {
           ]
         },
         {
-          key: 'text-line4',
+          key: 'data-row4',
+          list: [
+            {
+              key: 'completeApi',
+              remove: 'data.content.data.mode !== \'completeApi\'',
+              span: 24,
+              component: 'config-input',
+              props: {
+                label: '完整Api',
+                type: 'textarea',
+                placeholder: '请输入完整Api'
+              }
+            }
+          ]
+        },
+        {
+          key: 'data-row5',
           list: [
             {
               key: 'parses',

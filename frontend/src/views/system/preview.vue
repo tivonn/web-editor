@@ -24,7 +24,7 @@ export default {
     ]),
 
     getPreviewStyle () {
-      const { width, height } = this.system
+      const { width, height } = this.system.style
       return {
         minWidth: width ? `${width}px` : '100%',
         minHeight: height ? `${height}px` : '100%'

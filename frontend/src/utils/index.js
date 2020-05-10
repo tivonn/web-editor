@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import store from '@/store/index.js'
 import axios from '@/axios.js'
+import store from '@/store/index.js'
 
 const assert = (condition, message) => {
   if (!condition) {
@@ -14,6 +14,14 @@ const clamp = (value, min, max) => {
 
 const containClass = (element, className) => {
   return element.classList && element.classList.contains(className)
+}
+
+const debounce = (fn, minDelay = 250, scope = null) => {
+  let timeout = null
+  return function() {
+    timeout && clearTimeout(timeout)
+    timeout = setTimeout(fn.bind(scope || this, ...arguments), minDelay)
+  }
 }
 
 const deepClone = (obj, hash = new WeakMap()) => {
@@ -92,10 +100,10 @@ const drag = (e, container, moveCallback, upCallback) => {
   window.addEventListener('mouseup', upContainer)
 }
 
-const importFiles = (r) => {
+const importFiles = (context) => {
   const modules = {}
-  r.keys().forEach(key => {
-    const module = r(key)
+  context.keys().forEach(key => {
+    const module = context(key)
     const nameList = key.slice(2).split('.')
     nameList.pop()
     modules[nameList.join()] = module.__esModule && module.default ? module.default : module
@@ -215,6 +223,7 @@ export default {
   assert,
   clamp,
   containClass,
+  debounce,
   deepClone,
   deepQuery,
   drag,

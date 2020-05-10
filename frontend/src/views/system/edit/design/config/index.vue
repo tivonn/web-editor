@@ -12,19 +12,20 @@
         </template>
         <template v-else-if="isSingleActive || isCombinationActive">
           <el-collapse
+            v-if="config.value === activeConfig"
             :value="activeElement.config[config.value].map(block => block.key)"
             class="config-collapse">
             <el-collapse-item
-              v-for="(block, blockKey) in activeElement.config[config.value]"
+              v-for="(block, blockKey) in filterCollapse(activeElement.config[config.value])"
               :key="blockKey"
               :title="block.label"
               :name="block.key">
               <el-row
-                v-for="line in block.list"
-                :key="line.key"
-                :gutter="line.gutter"
-                class="config-line">
-                <template v-for="col in line.list">
+                v-for="row in block.list"
+                :key="row.key"
+                :gutter="row.gutter"
+                class="config-row">
+                <template v-for="col in row.list">
                   <el-col
                     v-if="!(col.remove && eval(`this.activeElement.${col.remove}`))"
                     :key="col.key"
@@ -139,6 +140,11 @@ export default {
       })
     },
 
+    filterCollapse (collapse) {
+      // todo 过滤列
+      return collapse
+    },
+
     eval (value) {
       // eslint-disable-next-line
       return eval(value)
@@ -201,8 +207,8 @@ export default {
       .el-collapse-item__content {
         padding: 10px 6px;
       }
-      .config-line {
-        &+.config-line {
+      .config-row {
+        &+.config-row {
           margin-top: 10px;
         }
       }

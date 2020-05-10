@@ -12,12 +12,13 @@ export default {
     }
   },
   content: {
-    text: {
+    data: {
       mode: 'staticData',
       staticData: {
         data: '按钮'
       },
       suffixApi: '',
+      completeApi: '',
       parses: [
         {
           property: '文本',

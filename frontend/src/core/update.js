@@ -1,10 +1,9 @@
 import utils from '@/utils/index.js'
 import Combination from '@/core/combination.js'
+import DataController from '@/core/data-controller.js'
 
 const before = (element, key, value) => {
   switch (key) {
-    case 'id':
-      return Promise.reject(new Error('return'))
     case 'data.style.position.xCoordinate':
     case 'data.style.position.yCoordinate': {
       const hasChildren = !!element.childrens
@@ -38,6 +37,17 @@ const after = (element, elements, key) => {
       }
       break
     }
+    case 'data.content.data.mode':
+      DataController.init(element)
+      break
+    case 'data.content.data.staticData':
+      DataController.getStaticData(element)
+      break
+    case 'data.content.data.suffixApi':
+    case 'data.content.data.completeApi':
+      // todo debounce
+      DataController.getApiData(element)
+      break
     default:
       break
   }

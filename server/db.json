@@ -2,14 +2,20 @@
   "ids": [
     {
       "type": "element",
-      "max": 253
+      "max": 375
     }
   ],
   "systems": [
     {
-      "width": 0,
-      "height": 0,
-      "id": 1
+      "id": 1,
+      "style": {
+        "width": 0,
+        "height": 0
+      },
+      "envs": [
+        "http://localhost:8080",
+        "http://www.baidu.com"
+      ]
     }
   ],
   "pages": [
@@ -17,7 +23,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 198,
+          "id": 373,
           "type": "component",
           "data": {
             "style": {
@@ -26,24 +32,28 @@
                 "height": "50"
               },
               "position": {
-                "xCoordinate": "51",
-                "yCoordinate": "118"
+                "xCoordinate": "105",
+                "yCoordinate": "217"
               }
             },
             "content": {
-              "text": {
-                "mode": "staticData",
+              "data": {
+                "mode": "suffixApi",
                 "staticData": {
                   "data": "按钮"
                 },
-                "suffixApi": "/111",
+                "suffixApi": "button",
+                "completeApi": "",
                 "parses": [
                   {
                     "property": "文本",
                     "field": "data",
                     "status": "成功"
                   }
-                ]
+                ],
+                "source": {
+                  "data": "按钮文本"
+                }
               }
             },
             "interact": {}
@@ -55,7 +65,7 @@
                 "key": "size",
                 "list": [
                   {
-                    "key": "size-line1",
+                    "key": "size-row1",
                     "gutter": 20,
                     "list": [
                       {
@@ -85,7 +95,7 @@
                 "key": "position",
                 "list": [
                   {
-                    "key": "position-line1",
+                    "key": "position-row1",
                     "gutter": 20,
                     "list": [
                       {
@@ -113,11 +123,11 @@
             ],
             "content": [
               {
-                "label": "文本",
-                "key": "text",
+                "label": "数据",
+                "key": "data",
                 "list": [
                   {
-                    "key": "text-line1",
+                    "key": "data-row1",
                     "list": [
                       {
                         "key": "mode",
@@ -136,7 +146,7 @@
                             },
                             {
                               "value": "completeApi",
-                              "label": "完整地址"
+                              "label": "完整Api"
                             }
                           ]
                         }
@@ -144,10 +154,11 @@
                     ]
                   },
                   {
-                    "key": "text-line2",
+                    "key": "data-row2",
                     "list": [
                       {
                         "key": "staticData",
+                        "remove": "data.content.data.mode !== 'staticData'",
                         "span": 24,
                         "component": "config-code",
                         "props": {
@@ -157,10 +168,11 @@
                     ]
                   },
                   {
-                    "key": "text-line3",
+                    "key": "data-row3",
                     "list": [
                       {
                         "key": "suffixApi",
+                        "remove": "data.content.data.mode !== 'suffixApi'",
                         "span": 24,
                         "component": "config-input",
                         "props": {
@@ -172,7 +184,471 @@
                     ]
                   },
                   {
-                    "key": "text-line4",
+                    "key": "data-row4",
+                    "list": [
+                      {
+                        "key": "completeApi",
+                        "remove": "data.content.data.mode !== 'completeApi'",
+                        "span": 24,
+                        "component": "config-input",
+                        "props": {
+                          "label": "完整Api",
+                          "type": "textarea",
+                          "placeholder": "请输入完整Api"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row5",
+                    "list": [
+                      {
+                        "key": "parses",
+                        "span": 24,
+                        "component": "config-table",
+                        "props": {
+                          "label": "数据解析",
+                          "cols": [
+                            {
+                              "label": "属性",
+                              "width": 130,
+                              "prop": {
+                                "key": "property",
+                                "component": "config-text"
+                              }
+                            },
+                            {
+                              "label": "字段",
+                              "prop": {
+                                "key": "field",
+                                "component": "config-input"
+                              }
+                            },
+                            {
+                              "label": "状态",
+                              "width": 70,
+                              "align": "right",
+                              "prop": {
+                                "key": "status",
+                                "component": "config-text"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "interact": []
+          },
+          "name": "按钮",
+          "value": "m-button"
+        },
+        {
+          "id": 374,
+          "type": "component",
+          "data": {
+            "style": {
+              "size": {
+                "width": "100",
+                "height": "50"
+              },
+              "position": {
+                "xCoordinate": "23",
+                "yCoordinate": "84"
+              }
+            },
+            "content": {
+              "data": {
+                "mode": "staticData",
+                "staticData": {
+                  "data": "按111钮"
+                },
+                "suffixApi": "",
+                "completeApi": "",
+                "parses": [
+                  {
+                    "property": "文本",
+                    "field": "data",
+                    "status": "成功"
+                  }
+                ],
+                "source": {
+                  "data": "按111钮"
+                }
+              }
+            },
+            "interact": {}
+          },
+          "config": {
+            "style": [
+              {
+                "label": "尺寸",
+                "key": "size",
+                "list": [
+                  {
+                    "key": "size-row1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "key": "width",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "宽度",
+                          "suffix": "px"
+                        }
+                      },
+                      {
+                        "key": "height",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "高度",
+                          "suffix": "px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "位置",
+                "key": "position",
+                "list": [
+                  {
+                    "key": "position-row1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "key": "xCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "x坐标",
+                          "suffix": "px"
+                        }
+                      },
+                      {
+                        "key": "yCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "y坐标",
+                          "suffix": "px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "数据",
+                "key": "data",
+                "list": [
+                  {
+                    "key": "data-row1",
+                    "list": [
+                      {
+                        "key": "mode",
+                        "span": 24,
+                        "component": "config-select",
+                        "props": {
+                          "label": "模式",
+                          "options": [
+                            {
+                              "value": "staticData",
+                              "label": "静态数据"
+                            },
+                            {
+                              "value": "suffixApi",
+                              "label": "接口Api"
+                            },
+                            {
+                              "value": "completeApi",
+                              "label": "完整Api"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row2",
+                    "list": [
+                      {
+                        "key": "staticData",
+                        "remove": "data.content.data.mode !== 'staticData'",
+                        "span": 24,
+                        "component": "config-code",
+                        "props": {
+                          "label": "静态数据"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row3",
+                    "list": [
+                      {
+                        "key": "suffixApi",
+                        "remove": "data.content.data.mode !== 'suffixApi'",
+                        "span": 24,
+                        "component": "config-input",
+                        "props": {
+                          "label": "接口Api",
+                          "type": "textarea",
+                          "placeholder": "请输入接口Api"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row4",
+                    "list": [
+                      {
+                        "key": "completeApi",
+                        "remove": "data.content.data.mode !== 'completeApi'",
+                        "span": 24,
+                        "component": "config-input",
+                        "props": {
+                          "label": "完整Api",
+                          "type": "textarea",
+                          "placeholder": "请输入完整Api"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row5",
+                    "list": [
+                      {
+                        "key": "parses",
+                        "span": 24,
+                        "component": "config-table",
+                        "props": {
+                          "label": "数据解析",
+                          "cols": [
+                            {
+                              "label": "属性",
+                              "width": 130,
+                              "prop": {
+                                "key": "property",
+                                "component": "config-text"
+                              }
+                            },
+                            {
+                              "label": "字段",
+                              "prop": {
+                                "key": "field",
+                                "component": "config-input"
+                              }
+                            },
+                            {
+                              "label": "状态",
+                              "width": 70,
+                              "align": "right",
+                              "prop": {
+                                "key": "status",
+                                "component": "config-text"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "interact": []
+          },
+          "name": "按钮",
+          "value": "m-button"
+        },
+        {
+          "id": 375,
+          "type": "component",
+          "data": {
+            "style": {
+              "size": {
+                "width": "100",
+                "height": "50"
+              },
+              "position": {
+                "xCoordinate": "175",
+                "yCoordinate": "41"
+              }
+            },
+            "content": {
+              "data": {
+                "mode": "staticData",
+                "staticData": {
+                  "data": "按钮"
+                },
+                "suffixApi": "",
+                "completeApi": "",
+                "parses": [
+                  {
+                    "property": "文本",
+                    "field": "data",
+                    "status": "成功"
+                  }
+                ],
+                "source": {
+                  "data": "按钮"
+                }
+              }
+            },
+            "interact": {}
+          },
+          "config": {
+            "style": [
+              {
+                "label": "尺寸",
+                "key": "size",
+                "list": [
+                  {
+                    "key": "size-row1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "key": "width",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "宽度",
+                          "suffix": "px"
+                        }
+                      },
+                      {
+                        "key": "height",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "高度",
+                          "suffix": "px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "label": "位置",
+                "key": "position",
+                "list": [
+                  {
+                    "key": "position-row1",
+                    "gutter": 20,
+                    "list": [
+                      {
+                        "key": "xCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "x坐标",
+                          "suffix": "px"
+                        }
+                      },
+                      {
+                        "key": "yCoordinate",
+                        "span": 6,
+                        "component": "config-input",
+                        "props": {
+                          "label": "y坐标",
+                          "suffix": "px"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "数据",
+                "key": "data",
+                "list": [
+                  {
+                    "key": "data-row1",
+                    "list": [
+                      {
+                        "key": "mode",
+                        "span": 24,
+                        "component": "config-select",
+                        "props": {
+                          "label": "模式",
+                          "options": [
+                            {
+                              "value": "staticData",
+                              "label": "静态数据"
+                            },
+                            {
+                              "value": "suffixApi",
+                              "label": "接口Api"
+                            },
+                            {
+                              "value": "completeApi",
+                              "label": "完整Api"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row2",
+                    "list": [
+                      {
+                        "key": "staticData",
+                        "remove": "data.content.data.mode !== 'staticData'",
+                        "span": 24,
+                        "component": "config-code",
+                        "props": {
+                          "label": "静态数据"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row3",
+                    "list": [
+                      {
+                        "key": "suffixApi",
+                        "remove": "data.content.data.mode !== 'suffixApi'",
+                        "span": 24,
+                        "component": "config-input",
+                        "props": {
+                          "label": "接口Api",
+                          "type": "textarea",
+                          "placeholder": "请输入接口Api"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row4",
+                    "list": [
+                      {
+                        "key": "completeApi",
+                        "remove": "data.content.data.mode !== 'completeApi'",
+                        "span": 24,
+                        "component": "config-input",
+                        "props": {
+                          "label": "完整Api",
+                          "type": "textarea",
+                          "placeholder": "请输入完整Api"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "key": "data-row5",
                     "list": [
                       {
                         "key": "parses",

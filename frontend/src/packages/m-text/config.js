@@ -5,7 +5,7 @@ export default {
       key: 'size',
       list: [
         {
-          key: 'size-line1',
+          key: 'size-row1',
           gutter: 20,
           list: [
             {
@@ -29,7 +29,7 @@ export default {
           ]
         },
         {
-          key: 'size-line2',
+          key: 'size-row2',
           gutter: 20,
           list: [
             {
@@ -50,7 +50,7 @@ export default {
       key: 'position',
       list: [
         {
-          key: 'position-line1',
+          key: 'position-row1',
           gutter: 20,
           list: [
             {
@@ -82,7 +82,7 @@ export default {
       key: 'text',
       list: [
         {
-          key: 'text-line1',
+          key: 'text-row1',
           list: [
             {
               key: 'data',

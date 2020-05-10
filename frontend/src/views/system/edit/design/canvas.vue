@@ -43,7 +43,7 @@ export default {
     ]),
 
     getContainerStyle () {
-      const { width, height } = this.system
+      const { width, height } = this.system.style
       return {
         width: width ? `${width}px` : '100%',
         height: height ? `${height}px` : '100%'
