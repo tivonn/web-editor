@@ -42,11 +42,27 @@ const uncombine = () => {
 }
 
 const save = (systemId, pageId, elements) => {
+  const handle = (list) => {
+    return list.map(item => {
+      if (item.childrens) {
+        item.childrens = handle(item.childrens)
+        return item
+      } else {
+        return Object.assign({}, item, {
+          content: {
+            data: Object.assign({}, item.content.data, {
+              source: {}
+            })
+          }
+        })
+      }
+    })
+  }
+  elements = handle(elements)
   const data = {
     systemId,
     elements
   }
-  // todo 删除datasource和apidata
   axios.put(`/pages/${pageId}`, data)
     .then(() => Message.success('保存成功'))
 }

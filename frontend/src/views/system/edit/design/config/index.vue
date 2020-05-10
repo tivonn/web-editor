@@ -25,20 +25,18 @@
                 :key="row.key"
                 :gutter="row.gutter"
                 class="config-row">
-                <template v-for="col in row.list">
-                  <el-col
-                    v-if="!(col.remove && eval(`this.activeElement.${col.remove}`))"
-                    :key="col.key"
-                    :span="col.span"
-                    :offset="col.offset">
-                    <component
-                      :is="col.component"
-                      :value="activeElement[tab.value][block.key][col.key]"
-                      @input="value => updateElement(`${tab.value}.${block.key}.${col.key}`, value)"
-                      v-bind="col.props">
-                    </component>
-                  </el-col>
-                </template>
+                <el-col
+                  v-for="col in row.list"
+                  :key="col.key"
+                  :span="col.span"
+                  :offset="col.offset">
+                  <component
+                    :is="col.component"
+                    :value="activeElement[tab.value][block.key][col.key]"
+                    @input="value => updateElement(`${tab.value}.${block.key}.${col.key}`, value)"
+                    v-bind="col.props">
+                  </component>
+                </el-col>
               </el-row>
             </el-collapse-item>
           </el-collapse>
@@ -146,8 +144,20 @@ export default {
     },
 
     filterCollapse (collapse) {
-      // todo 过滤列
-      return collapse
+      const filter = (list) => {
+        return list.reduce((filterList, filterItem) => {
+          if (filterItem.remove || !filterItem.list) {
+            const filterResult = !(filterItem.remove && this.eval(`this.activeElement.${filterItem.remove}`)) ? [filterItem] : []
+            return filterList.concat(filterResult)
+          } else {
+            const filterResult = Object.assign({}, filterItem, {
+              list: filter(filterItem.list)
+            })
+            return filterList.concat(filterResult.list.length ? [filterResult] : [])
+          }
+        }, [])
+      }
+      return filter(collapse)
     },
 
     eval (value) {

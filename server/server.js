@@ -89,7 +89,12 @@ server.put('/build/:sid', (req, res) => {
 
 server.post('/proxy', (req, res) => {
   // todo proxy
-  res.send({ data: '按钮文本' })
+  const { db } = router
+  const type = 'res'
+  const typeItem = db.get('ids').find({ type })
+  let { max } = typeItem.value()
+  typeItem.update('max', i => ++max).write()
+  res.send({ data: `按钮文本${max}` })
 })
 
 server.use(router)
