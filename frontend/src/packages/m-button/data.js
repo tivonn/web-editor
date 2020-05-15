@@ -17,8 +17,9 @@ export default {
       staticData: {
         data: '按钮'
       },
-      suffixApi: '',
-      completeApi: '',
+      apiScheme: 'relative',
+      relativeApi: '',
+      absoluteApi: '',
       parses: [
         {
           property: '文本',

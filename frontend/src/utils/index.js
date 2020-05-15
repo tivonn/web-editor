@@ -8,6 +8,10 @@ const assert = (condition, message) => {
   }
 }
 
+const capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 const clamp = (value, min, max) => {
   return Math.min(Math.max(min, value), max)
 }
@@ -173,6 +177,10 @@ const getValueFromObj = (obj, key) => {
   return value
 }
 
+const hasProperty = (obj, key) => {
+  return Object.prototype.hasOwnProperty.call(obj, key)
+}
+
 const throttle = (fn, minDelay = 250, scope = null) => {
   let lastCall = 0
   let timer = 0
@@ -221,6 +229,7 @@ const setValueToObj = (obj, key, value) => {
 
 export default {
   assert,
+  capitalize,
   clamp,
   containClass,
   debounce,
@@ -237,6 +246,7 @@ export default {
   getId,
   getPath,
   getValueFromObj,
+  hasProperty,
   throttle,
   setValueToObj
 }

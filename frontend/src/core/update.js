@@ -37,15 +37,25 @@ const after = (element, elements, key) => {
       }
       break
     }
-    case 'content.data.mode':
+    case 'content.data.mode': {
       DataController.init(element)
       break
-    case 'content.data.staticData':
+    }
+    case 'content.data.staticData': {
       DataController.getStaticData(element)
       break
-    case 'content.data.suffixApi':
-    case 'content.data.completeApi': {
+    }
+    case 'content.data.apiScheme': {
+      DataController.getApiData(element)
+      break
+    }
+    case 'content.data.relativeApi':
+    case 'content.data.absoluteApi': {
       getApiData(element)
+      break
+    }
+    case 'content.data.parses': {
+      DataController.updateStatus(element)
       break
     }
     default:

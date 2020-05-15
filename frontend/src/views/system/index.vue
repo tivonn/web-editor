@@ -24,6 +24,7 @@ export default {
   },
 
   watch: {
+    // todo asnyc system and page
     systemId: {
       handler () {
         this.getSystem()

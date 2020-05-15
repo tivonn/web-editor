@@ -5,7 +5,6 @@ export default {
       key: 'size',
       list: [
         {
-          key: 'size-row1',
           gutter: 20,
           list: [
             {
@@ -35,7 +34,6 @@ export default {
       key: 'position',
       list: [
         {
-          key: 'position-row1',
           gutter: 20,
           list: [
             {
@@ -67,7 +65,6 @@ export default {
       key: 'data',
       list: [
         {
-          key: 'data-row1',
           list: [
             {
               key: 'mode',
@@ -81,12 +78,8 @@ export default {
                     label: '静态数据'
                   },
                   {
-                    value: 'suffixApi',
-                    label: '接口Api'
-                  },
-                  {
-                    value: 'completeApi',
-                    label: '完整Api'
+                    value: 'apiData',
+                    label: 'api数据'
                   }
                 ]
               }
@@ -94,11 +87,10 @@ export default {
           ]
         },
         {
-          key: 'data-row2',
           list: [
             {
               key: 'staticData',
-              remove: 'content.data.mode !== \'staticData\'',
+              removes: ['content.data.mode !== \'staticData\''],
               span: 24,
               component: 'config-code',
               props: {
@@ -108,39 +100,59 @@ export default {
           ]
         },
         {
-          key: 'data-row3',
           list: [
             {
-              key: 'suffixApi',
-              remove: 'content.data.mode !== \'suffixApi\'',
+              key: 'apiScheme',
+              removes: ['content.data.mode !== \'apiData\''],
               span: 24,
-              component: 'config-input',
+              component: 'config-select',
               props: {
-                label: '接口Api',
-                type: 'textarea',
-                placeholder: '请输入接口Api'
+                label: 'api方案',
+                options: [
+                  {
+                    value: 'relative',
+                    label: '相对路径'
+                  },
+                  {
+                    value: 'absolute',
+                    label: '绝对路径'
+                  }
+                ]
               }
             }
           ]
         },
         {
-          key: 'data-row4',
           list: [
             {
-              key: 'completeApi',
-              remove: 'content.data.mode !== \'completeApi\'',
+              key: 'relativeApi',
+              removes: ['content.data.mode !== \'apiData\'', 'content.data.apiScheme !== \'relative\''],
               span: 24,
               component: 'config-input',
               props: {
-                label: '完整Api',
+                label: '相对路径',
                 type: 'textarea',
-                placeholder: '请输入完整Api'
+                placeholder: '请输入相对路径'
               }
             }
           ]
         },
         {
-          key: 'data-row5',
+          list: [
+            {
+              key: 'absoluteApi',
+              removes: ['content.data.mode !== \'apiData\'', 'content.data.apiScheme !== \'absolute\''],
+              span: 24,
+              component: 'config-input',
+              props: {
+                label: '绝对路径',
+                type: 'textarea',
+                placeholder: '请输入绝对路径'
+              }
+            }
+          ]
+        },
+        {
           list: [
             {
               key: 'parses',

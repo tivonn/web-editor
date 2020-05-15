@@ -21,8 +21,8 @@
               :title="block.label"
               :name="block.key">
               <el-row
-                v-for="row in block.list"
-                :key="row.key"
+                v-for="(row, rowIndex) in block.list"
+                :key="`${blockKey}-row${rowIndex}`"
                 :gutter="row.gutter"
                 class="config-row">
                 <el-col
@@ -58,7 +58,7 @@ export default {
 
   data () {
     return {
-      activeTab: 'content',
+      activeTab: '',
       tabs: [
         {
           label: '内容',
@@ -124,10 +124,11 @@ export default {
   },
 
   watch: {
-    disabledTabList () {
-      if (this.isTabDisabled(this.activeTab)) {
+    'activeElement.type': {
+      handler () {
         this.activeTab = this.tabs.find(tab => !this.isTabDisabled(tab.value)).value
-      }
+      },
+      immediate: true
     }
   },
 
@@ -149,7 +150,7 @@ export default {
       const filter = (list) => {
         return list.reduce((filterList, filterItem) => {
           if (filterItem.remove || !filterItem.list) {
-            const filterResult = !(filterItem.remove && this.eval(`this.activeElement.${filterItem.remove}`)) ? [filterItem] : []
+            const filterResult = !(filterItem.removes && filterItem.removes.some(remove => this.eval(`this.activeElement.${remove}`))) ? [filterItem] : []
             return filterList.concat(filterResult)
           } else {
             const filterResult = Object.assign({}, filterItem, {

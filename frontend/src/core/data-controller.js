@@ -1,20 +1,12 @@
 import axios from '@/axios.js'
 import store from '@/store/index.js'
 import utils from '@/utils/index.js'
+import enums from '@/enums/index.js'
 
 const init = (element) => {
   const mode = utils.getValueFromObj(element, 'content.data.mode')
-  switch (mode) {
-    case 'staticData':
-      getStaticData(element)
-      break
-    case 'suffixApi':
-    case 'completeApi':
-      getApiData(element)
-      break
-    default:
-      break
-  }
+  // eslint-disable-next-line
+  eval(`get${utils.capitalize(mode)}`)(element)
 }
 
 const getStaticData = (element) => {
@@ -23,24 +15,39 @@ const getStaticData = (element) => {
 }
 
 const getApiData = (element) => {
-  const mode = utils.getValueFromObj(element, 'content.data.mode')
-  const api = utils.getValueFromObj(element, `content.data.${mode}`)
+  const mode = utils.getValueFromObj(element, 'content.data.apiScheme')
+  const api = utils.getValueFromObj(element, `content.data.${mode}Api`)
   if (api === '') return
-  let completeUrl
-  const isSuffixApi = mode === 'suffixApi'
-  if (isSuffixApi) {
+  let absoluteUrl
+  const isRelativeApi = mode === 'relative'
+  if (isRelativeApi) {
     const { env } = store.getters
-    completeUrl = `${env}${env[env.length - 1] === '/' || api[0] === '/' ? '' : '/'}${api}`
+    absoluteUrl = `${env}${env[env.length - 1] === '/' || api[0] === '/' ? '' : '/'}${api}`
   } else {
-    completeUrl = api
+    absoluteUrl = api
   }
   const data = {
-    url: completeUrl
+    url: absoluteUrl
   }
+  updateStatus(element, 'pending')
   axios.post('/proxy', data)
     .then(res => {
       updateSource(element, res.data)
     })
+    .catch(err => {
+      updateSource(element, err.data)
+    })
+}
+
+const updateStatus = (element, type) => {
+  const parses = utils.getValueFromObj(element, 'content.data.parses')
+  parses.forEach(parse => {
+    if (!type) {
+      const source = utils.getValueFromObj(element, 'content.data.source')
+      type = utils.hasProperty(source, parse.field) ? 'success' : 'error'
+    }
+    parse.status = enums.REQUEST_STATUS[type].label
+  })
 }
 
 const updateSource = (element, data) => {
@@ -48,10 +55,12 @@ const updateSource = (element, data) => {
     id: element.id,
     'content.data.source': data
   })
+  updateStatus(element)
 }
 
 export default {
   init,
   getStaticData,
-  getApiData
+  getApiData,
+  updateStatus
 }

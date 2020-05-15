@@ -8,7 +8,6 @@ const config = {
       key: 'position',
       list: [
         {
-          key: 'position-row1',
           gutter: 20,
           list: [
             {
