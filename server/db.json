@@ -2,11 +2,11 @@
   "ids": [
     {
       "type": "element",
-      "max": 431
+      "max": 432
     },
     {
       "type": "res",
-      "max": 10
+      "max": 127
     }
   ],
   "systems": [

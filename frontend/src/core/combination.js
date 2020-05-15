@@ -1,6 +1,42 @@
 import Vue from 'vue'
 import utils from '@/utils/index.js'
-import config from '@/packages/special/combination/config.js'
+
+const config = {
+  style: [
+    {
+      label: '位置',
+      key: 'position',
+      list: [
+        {
+          key: 'position-row1',
+          gutter: 20,
+          list: [
+            {
+              key: 'xCoordinate',
+              span: 6,
+              component: 'config-input',
+              props: {
+                label: 'x坐标',
+                suffix: 'px'
+              }
+            },
+            {
+              key: 'yCoordinate',
+              span: 6,
+              component: 'config-input',
+              props: {
+                label: 'y坐标',
+                suffix: 'px'
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  content: [],
+  interact: []
+}
 
 const combine = (childrens) => {
   return utils.getId('element')
@@ -69,6 +105,7 @@ const uncombine = (element, elements) => {
 }
 
 export default {
+  config,
   combine,
   refresh,
   uncombine

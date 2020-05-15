@@ -117,14 +117,16 @@ export default {
 
     activeConfig () {
       const isComponent = this.activeElement.type === 'component'
-      return require(`@/packages/${isComponent ? `${this.activeElement.value}` : `special/${this.activeElement.type}`}/config.js`).default[this.activeTab]
+      return isComponent
+        ? require(`@/packages/${this.activeElement.value}/config.js`).default[this.activeTab]
+        : require(`@/core/${this.activeElement.type}`).default.config[this.activeTab]
     }
   },
 
   watch: {
     disabledTabList () {
       if (this.isTabDisabled(this.activeTab)) {
-        this.activeTab = this.$options.data().activeTab
+        this.activeTab = this.tabs.find(tab => !this.isTabDisabled(tab.value)).value
       }
     }
   },

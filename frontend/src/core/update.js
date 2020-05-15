@@ -44,14 +44,16 @@ const after = (element, elements, key) => {
       DataController.getStaticData(element)
       break
     case 'content.data.suffixApi':
-    case 'content.data.completeApi':
-      // todo debounce
-      DataController.getApiData(element)
+    case 'content.data.completeApi': {
+      getApiData(element)
       break
+    }
     default:
       break
   }
 }
+
+const getApiData = utils.debounce(element => DataController.getApiData(element))
 
 export default {
   before,
