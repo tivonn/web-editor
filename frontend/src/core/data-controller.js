@@ -11,31 +11,41 @@ const init = (element) => {
 
 const getStaticData = (element) => {
   const staticData = utils.getValueFromObj(element, 'content.data.staticData')
-  updateSource(element, staticData)
+  updateResult(element, staticData)
 }
 
 const getApiData = (element) => {
   const mode = utils.getValueFromObj(element, 'content.data.apiScheme')
   const api = utils.getValueFromObj(element, `content.data.${mode}Api`)
   if (api === '') return
-  let absoluteUrl
+  let url
   const isRelativeApi = mode === 'relative'
   if (isRelativeApi) {
     const { env } = store.getters
-    absoluteUrl = `${env}${env[env.length - 1] === '/' || api[0] === '/' ? '' : '/'}${api}`
+    url = `${env[env.length - 1] === '/' ? env.slice(0, -1) : env}/${api[0] === '/' ? api.slice(1, api.length) : api}`
   } else {
-    absoluteUrl = api
+    url = api
   }
+  let params = {}
+  utils.getValueFromObj(element, 'content.data.params').forEach(param => {
+    if (param.key !== '') {
+      const { key, value } = param
+      params = Object.assign({}, params, {
+        [key]: value
+      })
+    }
+  })
   const data = {
-    url: absoluteUrl
+    url,
+    params
   }
   updateStatus(element, 'pending')
   axios.post('/proxy', data)
     .then(res => {
-      updateSource(element, res.data)
+      updateResult(element, res.data)
     })
     .catch(err => {
-      updateSource(element, err.data)
+      updateResult(element, err.data)
     })
 }
 
@@ -43,17 +53,17 @@ const updateStatus = (element, type) => {
   const parses = utils.getValueFromObj(element, 'content.data.parses')
   parses.forEach(parse => {
     if (!type) {
-      const source = utils.getValueFromObj(element, 'content.data.source')
-      type = utils.hasProperty(source, parse.field) ? 'success' : 'error'
+      const result = utils.getValueFromObj(element, 'content.data.result')
+      type = utils.hasProperty(result, parse.field) ? 'success' : 'error'
     }
     parse.status = enums.REQUEST_STATUS[type].label
   })
 }
 
-const updateSource = (element, data) => {
+const updateResult = (element, data) => {
   store.dispatch('updateElement', {
     id: element.id,
-    'content.data.source': data
+    'content.data.result': data
   })
   updateStatus(element)
 }

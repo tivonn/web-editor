@@ -30,7 +30,7 @@ const actions = {
   },
 
   setSystem ({ commit }, systemId) {
-    this._vm.$axios.get(`/systems/${systemId}`)
+    return this._vm.$axios.get(`/systems/${systemId}`)
       .then(res => {
         commit(types.SET_SYSTEM, res.data)
       })
@@ -49,6 +49,10 @@ const actions = {
 
   updateElement ({ commit }, elementInfo) {
     commit(types.UPDATE_ELEMENT, elementInfo)
+  },
+
+  triggerElement({ commit }, elementInfo) {
+    commit(types.TRIGGER_ELEMENT, elementInfo)
   }
 }
 
@@ -69,14 +73,19 @@ const mutations = {
     state.elements = elements
   },
 
-  [types.UPDATE_ELEMENT] (state, updateObj) {
-    const element = utils.deepQuery(state.elements, updateObj.id)
-    for (const key in updateObj) {
+  [types.UPDATE_ELEMENT] (state, elementInfo) {
+    const element = utils.deepQuery(state.elements, elementInfo.id)
+    for (const key in elementInfo) {
       if (key === 'id') continue
-      Update.before(element, key, updateObj[key])
-      utils.setValueToObj(element, key, updateObj[key])
-      Update.after(element, state.elements, key)
+      Update.before(element, key, elementInfo[key])
+      utils.setValueToObj(element, key, elementInfo[key])
+      Update.after(element, key, state.elements)
     }
+  },
+
+  [types.TRIGGER_ELEMENT] (state, elementInfo) {
+    const element = utils.deepQuery(state.elements, elementInfo.id)
+    Update.trigger(element, elementInfo.key)
   }
 }
 

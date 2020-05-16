@@ -17,3 +17,20 @@ html, body {
 ul, li {
   list-style: none;
 }
+
+.clear-fix {
+  &:after {
+    height: 0;
+    display: block;
+    clear: both;
+    content: '';
+  }
+}
+
+.iconfont {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}

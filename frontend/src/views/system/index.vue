@@ -24,25 +24,21 @@ export default {
   },
 
   watch: {
-    // todo asnyc system and page
-    systemId: {
-      handler () {
-        this.getSystem()
-      },
-      immediate: true
-    },
+    pageId: 'getPage'
+  },
 
-    pageId: {
-      handler () {
-        this.getPage()
-      },
-      immediate: true
-    }
+  mounted () {
+    this.init()
   },
 
   methods: {
+    init () {
+      this.getSystem()
+        .then(() => this.getPage())
+    },
+
     getSystem () {
-      this.$store.dispatch('setSystem', this.systemId)
+      return this.$store.dispatch('setSystem', this.systemId)
     },
 
     getPage () {

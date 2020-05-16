@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.configSelect">
-    <p class="select-label">{{label}}</p>
+    <p class="config-label">{{label}}</p>
     <el-select
       :value="value"
       @input="$emit('input', $event)"
@@ -44,9 +44,6 @@ export default {
 <style lang="scss" module>
 .config-select {
   :global {
-    .select-label {
-      line-height: 28px;
-    }
     .el-select {
       width: 100%;
     }

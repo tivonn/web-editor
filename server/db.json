@@ -2,11 +2,11 @@
   "ids": [
     {
       "type": "element",
-      "max": 458
+      "max": 478
     },
     {
       "type": "res",
-      "max": 243
+      "max": 356
     }
   ],
   "systems": [
@@ -27,7 +27,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 441,
+          "id": 475,
           "type": "component",
           "style": {
             "size": {
@@ -35,18 +35,37 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "23",
-              "yCoordinate": "143"
+              "xCoordinate": "52",
+              "yCoordinate": "300"
             }
           },
           "content": {
             "data": {
               "mode": "apiData",
               "staticData": {
-                "data": "静态按钮"
+                "data": "按钮"
               },
-              "relativeApi": "",
+              "apiScheme": "relative",
+              "relativeApi": "s",
               "absoluteApi": "",
+              "params": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "2"
+                },
+                {
+                  "key": "",
+                  "value": ""
+                },
+                {
+                  "key": "k",
+                  "value": "3"
+                }
+              ],
               "parses": [
                 {
                   "property": "文本",
@@ -54,8 +73,7 @@
                   "status": "成功"
                 }
               ],
-              "source": {},
-              "apiScheme": "relative"
+              "result": {}
             }
           },
           "interact": {},

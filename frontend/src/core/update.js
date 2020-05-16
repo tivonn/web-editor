@@ -22,7 +22,7 @@ const before = (element, key, value) => {
   }
 }
 
-const after = (element, elements, key) => {
+const after = (element, key, elements) => {
   switch (key) {
     case 'style.size.width':
     case 'style.size.height':
@@ -49,9 +49,17 @@ const after = (element, elements, key) => {
       DataController.getApiData(element)
       break
     }
+    default:
+      break
+  }
+}
+
+const trigger = (element, key) => {
+  switch (key) {
     case 'content.data.relativeApi':
-    case 'content.data.absoluteApi': {
-      getApiData(element)
+    case 'content.data.absoluteApi':
+    case 'content.data.params': {
+      DataController.getApiData(element)
       break
     }
     case 'content.data.parses': {
@@ -63,9 +71,8 @@ const after = (element, elements, key) => {
   }
 }
 
-const getApiData = utils.debounce(element => DataController.getApiData(element))
-
 export default {
   before,
-  after
+  after,
+  trigger
 }

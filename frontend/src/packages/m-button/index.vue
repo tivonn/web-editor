@@ -1,7 +1,7 @@
 <template>
   <el-button
     :type="type">
-    {{data.source[dataField]}}
+    {{data.result[dataField]}}
   </el-button>
 </template>
 

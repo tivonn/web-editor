@@ -20,6 +20,7 @@ export default {
       apiScheme: 'relative',
       relativeApi: '',
       absoluteApi: '',
+      params: [],
       parses: [
         {
           property: '文本',

@@ -34,7 +34,8 @@
                     :is="col.component"
                     :value="activeElement[tab.value][block.key][col.key]"
                     @input="value => updateElement(`${tab.value}.${block.key}.${col.key}`, value)"
-                    v-bind="col.props">
+                    v-bind="col.props"
+                    @trigger="triggerElement(`${tab.value}.${block.key}.${col.key}`)">
                   </component>
                 </el-col>
               </el-row>
@@ -146,6 +147,14 @@ export default {
       })
     },
 
+    triggerElement (key) {
+      const { id } = this.activeElement
+      this.$store.dispatch('triggerElement', {
+        id,
+        key
+      })
+    },
+
     filterCollapse (collapse) {
       const filter = (list) => {
         return list.reduce((filterList, filterItem) => {
@@ -223,13 +232,16 @@ export default {
         color: $--color-text-secondary;
       }
       .el-collapse-item__content {
-        padding: 10px 6px;
+        padding: 2px 6px 10px 6px;
       }
-      .config-row {
-        &+.config-row {
-          margin-top: 10px;
-        }
+    }
+    .config-row {
+      &+.config-row {
+        margin-top: 10px;
       }
+    }
+    .config-label {
+      line-height: 36px;
     }
   }
 }

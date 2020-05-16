@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.configCode">
-    <p class="code-label">{{label}}</p>
+    <p class="config-label">{{label}}</p>
     <div ref="editor" class="code-editor"></div>
   </div>
 </template>
@@ -70,9 +70,6 @@ export default {
 <style lang="scss" module>
 .config-code {
   :global {
-    .code-label {
-      line-height: 28px;
-    }
     .code-editor {
       margin-top: 1px;
     }

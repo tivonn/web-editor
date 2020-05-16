@@ -20,7 +20,7 @@ const containClass = (element, className) => {
   return element.classList && element.classList.contains(className)
 }
 
-const debounce = (fn, minDelay = 250, scope = null) => {
+const debounce = (fn, minDelay = 300, scope = null) => {
   let timeout = null
   return function() {
     timeout && clearTimeout(timeout)
@@ -181,7 +181,7 @@ const hasProperty = (obj, key) => {
   return Object.prototype.hasOwnProperty.call(obj, key)
 }
 
-const throttle = (fn, minDelay = 250, scope = null) => {
+const throttle = (fn, minDelay = 300, scope = null) => {
   let lastCall = 0
   let timer = 0
   return function () {

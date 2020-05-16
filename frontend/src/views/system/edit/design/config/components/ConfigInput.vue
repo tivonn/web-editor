@@ -1,13 +1,14 @@
 <template>
   <div :class="$style.configInput">
-    <p class="input-label">{{label}}</p>
+    <p class="config-label">{{label}}</p>
     <el-input
       :value="value"
       @input="$emit('input', $event)"
       size="small"
       :type="type"
       :rows="rows"
-      :placeholder="placeholder">
+      :placeholder="placeholder"
+      @blur="$emit('trigger')">
       <template slot="suffix">{{suffix}}</template>
     </el-input>
   </div>
@@ -60,9 +61,6 @@ export default {
 <style lang="scss" module>
 .config-input {
   :global {
-    .input-label {
-      line-height: 28px;
-    }
     .el-input__suffix-inner {
       line-height: 30px;
     }

@@ -51,7 +51,7 @@ const save = (systemId, pageId, elements) => {
         return Object.assign({}, item, {
           content: {
             data: Object.assign({}, item.content.data, {
-              source: {}
+              result: {}
             })
           }
         })
