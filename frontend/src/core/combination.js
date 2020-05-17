@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import utils from '@/utils/index.js'
 
 const config = {
@@ -45,7 +44,6 @@ const combine = (childrens) => {
         id,
         type: 'combination',
         ...getData(childrens),
-        config,
         childrens: childrens.map(children => Object.assign({}, children, { parentId: id }))
       })
     })
@@ -76,7 +74,9 @@ const getData = (childrens) => {
           Math.min(...childrens.map(children => utils.getValueFromObj(children, 'style.position.yCoordinate')))
         )
       }
-    }
+    },
+    content: {},
+    interact: {}
   }
 }
 
@@ -93,14 +93,18 @@ const uncombine = (element, elements) => {
     elementList = parent.childrens
   }
   const index = elementList.findIndex(elementItem => elementItem.id === element.id)
-  elementList.splice(index, 1, ...(element.childrens.map(children => {
-    if (parent.id) {
-      Vue.set(children, 'parentId', parent.id)
-    } else {
-      Vue.delete(children, 'parentId')
-    }
-    return children
-  })))
+  elementList.splice(
+    index,
+    1,
+    ...(element.childrens.map(children => {
+      if (parent.id) {
+        utils.setValueToObj(children, 'parentId', parent.id)
+      } else {
+        utils.deleteKeyFromObj(children, 'parentId')
+      }
+      return children
+    }))
+  )
 }
 
 export default {

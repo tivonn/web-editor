@@ -39,7 +39,8 @@ export default {
     ...mapGetters([
       'system',
       'elements',
-      'activeElements'
+      'activeElements',
+      'multipleElement'
     ]),
 
     getContainerStyle () {
@@ -86,10 +87,9 @@ export default {
         const element = utils.deepQuery(this.elements, id)
         const xCoordinateKey = 'style.position.xCoordinate'
         const yCoordinateKey = 'style.position.yCoordinate'
-        utils.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
-          this.isCaptureElement = true
+        const update = (element, offsetX, offsetY) => {
           this.$store.dispatch('updateElement', {
-            id,
+            id: element.id,
             updateData: {
               [xCoordinateKey]: String(utils.clamp(
                 Number(utils.getValueFromObj(element, xCoordinateKey)) + offsetX,
@@ -103,6 +103,26 @@ export default {
               ))
             }
           })
+        }
+        utils.drag(e, this.$refs.canvas, (offsetX, offsetY) => {
+          this.isCaptureElement = true
+          if (Object.keys(this.multipleElement).length && this.multipleElement.childrens.some(activeElement => activeElement.id === id)) {
+            this.multipleElement.childrens.forEach(activeElement => {
+              let current = activeElement
+              let hasParent = !!current.parentId
+              let containParent = false
+              while (hasParent && !containParent) {
+                current = utils.deepQuery(this.multipleElement.childrens, current.parentId)
+                containParent = this.multipleElement.childrens.some(activeElement => activeElement.id === current.id)
+                hasParent = !!current.parentId
+              }
+              if (!containParent) {
+                update(activeElement, offsetX, offsetY)
+              }
+            })
+          } else {
+            update(element, offsetX, offsetY)
+          }
         }, (e) => {
           const mouseupTime = utils.getDate().getTime()
           // 快速点击或鼠标在画布外部释放

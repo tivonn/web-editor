@@ -10,7 +10,7 @@
         <template v-if="isSystemActive">
           全局
         </template>
-        <template v-else-if="isSingleActive || isCombinationActive">
+        <template v-else-if="isSingleActive || isMultipleActive">
           <el-collapse
             v-if="tab.value === activeTab"
             :value="activeConfig.map(block => block.key)"
@@ -43,9 +43,6 @@
               </el-row>
             </el-collapse-item>
           </el-collapse>
-        </template>
-        <template v-else-if="isMultipleActive">
-          多选
         </template>
       </el-tab-pane>
     </el-tabs>
@@ -81,7 +78,8 @@ export default {
 
   computed: {
     ...mapGetters([
-      'activeElements'
+      'activeElements',
+      'multipleElement'
     ]),
 
     isSystemActive () {
@@ -89,11 +87,7 @@ export default {
     },
 
     isSingleActive () {
-      return this.activeElements.length === 1 && this.activeElements[0].type === 'component'
-    },
-
-    isCombinationActive () {
-      return this.activeElements.length === 1 && this.activeElements[0].type === 'combination'
+      return this.activeElements.length === 1
     },
 
     isMultipleActive () {
@@ -101,7 +95,20 @@ export default {
     },
 
     disabledTabList () {
-      return this.isSingleActive ? [] : ['content', 'interact']
+      switch (true) {
+        case this.isSystemActive: {
+          return ['content', 'interact']
+        }
+        case this.isSingleActive: {
+          return []
+        }
+        case this.isMultipleActive: {
+          return ['content', 'style', 'interact']
+        }
+        default: {
+          return []
+        }
+      }
     },
 
     activeElement () {
@@ -109,12 +116,11 @@ export default {
         case this.isSystemActive: {
           return {}
         }
-        case this.isSingleActive:
-        case this.isCombinationActive: {
+        case this.isSingleActive: {
           return this.activeElements[0]
         }
         case this.isMultipleActive: {
-          return this.activeElements
+          return this.multipleElement
         }
         default: {
           return {}
@@ -133,7 +139,7 @@ export default {
   watch: {
     'activeElement.type': {
       handler () {
-        this.activeTab = this.tabs.find(tab => !this.isTabDisabled(tab.value)).value
+        this.activeTab = (this.tabs.find(tab => !this.isTabDisabled(tab.value)) || {}).value
       },
       immediate: true
     }
@@ -149,7 +155,6 @@ export default {
     },
 
     updateElement (key, value) {
-      // todo 多选
       const { id } = this.activeElement
       this.$store.dispatch('updateElement', {
         id,

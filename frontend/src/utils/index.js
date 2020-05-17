@@ -83,6 +83,10 @@ const deepQuery = (tree, value, options) => {
   return result
 }
 
+const deleteKeyFromObj = (obj, key) => {
+  Vue.delete(obj, key)
+}
+
 const drag = (e, container, moveCallback, upCallback) => {
   let pageX = e.screenX
   let pageY = e.screenY
@@ -235,6 +239,7 @@ export default {
   debounce,
   deepClone,
   deepQuery,
+  deleteKeyFromObj,
   drag,
   importFiles,
   isArray,

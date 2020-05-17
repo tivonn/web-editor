@@ -2,11 +2,11 @@
   "ids": [
     {
       "type": "element",
-      "max": 494
+      "max": 535
     },
     {
       "type": "res",
-      "max": 645
+      "max": 711
     }
   ],
   "systems": [
@@ -71,6 +71,137 @@
                   "element": ""
                 }
               ],
+              "parses": [
+                {
+                  "property": "文本",
+                  "field": "data",
+                  "status": "成功"
+                }
+              ],
+              "result": {}
+            }
+          },
+          "interact": {},
+          "name": "按钮",
+          "value": "m-button"
+        },
+        {
+          "id": 527,
+          "type": "combination",
+          "style": {
+            "size": {
+              "width": "121",
+              "height": "158"
+            },
+            "position": {
+              "xCoordinate": "25",
+              "yCoordinate": "52"
+            }
+          },
+          "content": {},
+          "interact": {},
+          "childrens": [
+            {
+              "id": 526,
+              "type": "component",
+              "style": {
+                "size": {
+                  "width": "100",
+                  "height": "50"
+                },
+                "position": {
+                  "xCoordinate": "25",
+                  "yCoordinate": "52"
+                }
+              },
+              "content": {
+                "data": {
+                  "mode": "staticData",
+                  "staticData": {
+                    "data": "按钮"
+                  },
+                  "apiScheme": "relative",
+                  "relativeApi": "",
+                  "absoluteApi": "",
+                  "params": [],
+                  "parses": [
+                    {
+                      "property": "文本",
+                      "field": "data",
+                      "status": "成功"
+                    }
+                  ],
+                  "result": {}
+                }
+              },
+              "interact": {},
+              "name": "按钮",
+              "value": "m-button",
+              "parentId": 527
+            },
+            {
+              "id": 525,
+              "type": "component",
+              "style": {
+                "size": {
+                  "width": "100",
+                  "height": "50"
+                },
+                "position": {
+                  "xCoordinate": "46",
+                  "yCoordinate": "160"
+                }
+              },
+              "content": {
+                "data": {
+                  "mode": "staticData",
+                  "staticData": {
+                    "data": "按钮"
+                  },
+                  "apiScheme": "relative",
+                  "relativeApi": "",
+                  "absoluteApi": "",
+                  "params": [],
+                  "parses": [
+                    {
+                      "property": "文本",
+                      "field": "data",
+                      "status": "成功"
+                    }
+                  ],
+                  "result": {}
+                }
+              },
+              "interact": {},
+              "name": "按钮",
+              "value": "m-button",
+              "parentId": 527
+            }
+          ]
+        },
+        {
+          "id": 530,
+          "type": "component",
+          "style": {
+            "size": {
+              "width": "100",
+              "height": "50"
+            },
+            "position": {
+              "xCoordinate": "32",
+              "yCoordinate": "337"
+            }
+          },
+          "content": {
+            "data": {
+              "mode": "staticData",
+              "staticData": {
+                "data": "按钮"
+              },
+              "apiScheme": "relative",
+              "relativeApi": "",
+              "absoluteApi": "",
+              "params": [],
               "parses": [
                 {
                   "property": "文本",
