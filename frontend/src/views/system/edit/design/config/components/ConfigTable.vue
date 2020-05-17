@@ -6,27 +6,32 @@
       size="small">
       <el-table-column
         v-for="col in cols"
-        :key="col.label"
+        :key="col.key"
         :label="col.label"
         :width="col.width"
         :align="col.align">
         <template slot-scope="scope">
-          <component
-            :is="col.prop.component"
-            :value="value[scope.$index][col.prop.key]"
-            @input="componentValue => updateComponent(componentValue, value[scope.$index], col.prop.key)"
-            @trigger="$emit('trigger')"
-            v-bind="col.props">
-          </component>
+          <template
+            v-for="item in col.list">
+            <component
+              v-if="!(item.removes && item.removes.some(remove => remove(value[scope.$index])))"
+              :key="item.key"
+              :is="item.component"
+              :value="value[scope.$index][item.key]"
+              @input="componentValue => updateElement(componentValue, scope.$index, item.key)"
+              v-bind="item.props"
+              @trigger="triggerElement(item.key)">
+            </component>
+          </template>
         </template>
       </el-table-column>
       <el-table-column
         v-if="operations.delete"
-        width="70"
+        :width="operations.delete.width"
         align="right">
         <template slot-scope="scope">
           <icon
-            svgId="iconshanchu"
+            svg-id="iconshanchu"
             size="18px"
             :title="operations.delete.label"
             color="#999"
@@ -58,6 +63,18 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+
+    activeElement: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+
+    currentKey: {
+      type: String,
+      required: true,
+      default: ''
     },
 
     label: {
@@ -119,12 +136,27 @@ export default {
     deleteRow (index) {
       if (!this.canDelete) return
       this.$emit('input', this.value.slice(0, index).concat(this.value.slice(index + 1, this.value.length)))
-      this.$emit('trigger')
+      this.$emit('trigger', 'delete')
     },
 
-    updateComponent (componentValue, row, key) {
-      this.$set(row, key, componentValue)
-      this.$emit('input', this.value)
+    updateElement (componentValue, rowIndex, key) {
+      const { id } = this.activeElement
+      const currentKey = this.currentKey
+      this.$store.dispatch('updateElement', {
+        id,
+        updateData: {
+          [currentKey]: {
+            index: rowIndex,
+            itemUpdateData: {
+              [key]: componentValue
+            }
+          }
+        }
+      })
+    },
+
+    triggerElement (key) {
+      this.$emit('trigger', key)
     }
   },
 

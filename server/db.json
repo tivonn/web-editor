@@ -2,11 +2,11 @@
   "ids": [
     {
       "type": "element",
-      "max": 478
+      "max": 494
     },
     {
       "type": "res",
-      "max": 356
+      "max": 645
     }
   ],
   "systems": [
@@ -27,7 +27,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 475,
+          "id": 492,
           "type": "component",
           "style": {
             "size": {
@@ -35,8 +35,8 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "52",
-              "yCoordinate": "300"
+              "xCoordinate": "62",
+              "yCoordinate": "468"
             }
           },
           "content": {
@@ -46,24 +46,29 @@
                 "data": "按钮"
               },
               "apiScheme": "relative",
-              "relativeApi": "s",
+              "relativeApi": "ss",
               "absoluteApi": "",
               "params": [
                 {
-                  "key": "page",
-                  "value": "1"
-                },
-                {
-                  "key": "size",
-                  "value": "2"
+                  "key": "k",
+                  "mode": "urlParam",
+                  "custom": "3",
+                  "urlParam": "",
+                  "element": ""
                 },
                 {
                   "key": "",
-                  "value": ""
+                  "mode": "custom",
+                  "custom": "",
+                  "urlParam": "",
+                  "element": ""
                 },
                 {
-                  "key": "k",
-                  "value": "3"
+                  "key": "",
+                  "mode": "custom",
+                  "custom": "",
+                  "urlParam": "",
+                  "element": ""
                 }
               ],
               "parses": [

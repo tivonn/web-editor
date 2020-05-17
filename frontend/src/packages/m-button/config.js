@@ -1,3 +1,5 @@
+import store from '@/store/index.js'
+
 export default {
   style: [
     {
@@ -90,7 +92,7 @@ export default {
           list: [
             {
               key: 'staticData',
-              removes: ['content.data.mode !== \'staticData\''],
+              removes: [element => element.content.data.mode !== 'staticData'],
               span: 24,
               component: 'config-code',
               props: {
@@ -103,7 +105,7 @@ export default {
           list: [
             {
               key: 'apiScheme',
-              removes: ['content.data.mode !== \'apiData\''],
+              removes: [element => element.content.data.mode !== 'apiData'],
               span: 24,
               component: 'config-select',
               props: {
@@ -126,7 +128,7 @@ export default {
           list: [
             {
               key: 'relativeApi',
-              removes: ['content.data.mode !== \'apiData\'', 'content.data.apiScheme !== \'relative\''],
+              removes: [element => element.content.data.mode !== 'apiData', element => element.content.data.apiScheme !== 'relative'],
               span: 24,
               component: 'config-input',
               props: {
@@ -141,7 +143,7 @@ export default {
           list: [
             {
               key: 'absoluteApi',
-              removes: ['content.data.mode !== \'apiData\'', 'content.data.apiScheme !== \'absolute\''],
+              removes: [element => element.content.data.mode !== 'apiData', element => element.content.data.apiScheme !== 'absolute'],
               span: 24,
               component: 'config-input',
               props: {
@@ -156,7 +158,7 @@ export default {
           list: [
             {
               key: 'params',
-              removes: ['content.data.mode !== \'apiData\''],
+              removes: [element => element.content.data.mode !== 'apiData'],
               span: 24,
               component: 'config-table',
               props: {
@@ -164,30 +166,80 @@ export default {
                 cols: [
                   {
                     label: '参数名',
+                    width: 100,
+                    list: [
+                      {
+                        key: 'key',
+                        component: 'config-input'
+                      }
+                    ]
+                  },
+                  {
+                    label: '参数值模式',
                     width: 130,
-                    prop: {
-                      key: 'key',
-                      component: 'config-input'
-                    }
+                    list: [
+                      {
+                        key: 'mode',
+                        component: 'config-select',
+                        props: {
+                          options: [
+                            {
+                              value: 'custom',
+                              label: '自定义值'
+                            },
+                            {
+                              value: 'urlParam',
+                              label: '路由参数'
+                            },
+                            {
+                              value: 'element',
+                              label: '页面元件'
+                            }
+                          ]
+                        }
+                      }
+                    ]
                   },
                   {
                     label: '参数值',
-                    prop: {
-                      key: 'value',
-                      component: 'config-input'
-                    }
+                    list: [
+                      {
+                        key: 'custom',
+                        removes: [row => row.mode !== 'custom'],
+                        component: 'config-input'
+                      },
+                      {
+                        key: 'urlParam',
+                        removes: [row => row.mode !== 'urlParam'],
+                        component: 'config-input'
+                      },
+                      {
+                        key: 'element',
+                        removes: [row => row.mode !== 'element'],
+                        component: 'config-select',
+                        props: {
+                          options: store.getters.elements,
+                          optionLabel: 'name',
+                          optionValue: 'id'
+                        }
+                      }
+                    ]
                   }
                 ],
                 default: {
                   key: '',
-                  value: ''
+                  mode: 'custom',
+                  custom: '',
+                  urlParam: '',
+                  element: ''
                 },
                 operations: {
                   add: {
                     label: '添加参数'
                   },
                   delete: {
-                    label: '删除参数'
+                    label: '删除参数',
+                    width: 30
                   }
                 }
               }
@@ -206,26 +258,32 @@ export default {
                   {
                     label: '属性',
                     width: 130,
-                    prop: {
-                      key: 'property',
-                      component: 'config-text'
-                    }
+                    list: [
+                      {
+                        key: 'property',
+                        component: 'config-text'
+                      }
+                    ]
                   },
                   {
                     label: '字段',
-                    prop: {
-                      key: 'field',
-                      component: 'config-input'
-                    }
+                    list: [
+                      {
+                        key: 'field',
+                        component: 'config-input'
+                      }
+                    ]
                   },
                   {
                     label: '状态',
                     width: 70,
                     align: 'right',
-                    prop: {
-                      key: 'status',
-                      component: 'config-text'
-                    }
+                    list: [
+                      {
+                        key: 'status',
+                        component: 'config-text'
+                      }
+                    ]
                   }
                 ]
               }

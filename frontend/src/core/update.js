@@ -17,8 +17,9 @@ const before = (element, key, value) => {
       }
       break
     }
-    default:
+    default: {
       break
+    }
   }
 }
 
@@ -45,12 +46,19 @@ const after = (element, key, elements) => {
       DataController.getStaticData(element)
       break
     }
-    case 'content.data.apiScheme': {
+    case 'content.data.apiScheme':
+    case 'content.data.params.mode':
+    case 'content.data.params.element': {
       DataController.getApiData(element)
       break
     }
-    default:
+    case 'content.data.parses.field': {
+      DataController.updateStatus(element)
       break
+    }
+    default: {
+      break
+    }
   }
 }
 
@@ -58,16 +66,16 @@ const trigger = (element, key) => {
   switch (key) {
     case 'content.data.relativeApi':
     case 'content.data.absoluteApi':
-    case 'content.data.params': {
+    case 'content.data.params.key':
+    case 'content.data.params.custom':
+    case 'content.data.params.urlParam':
+    case 'content.data.params.delete': {
       DataController.getApiData(element)
       break
     }
-    case 'content.data.parses': {
-      DataController.updateStatus(element)
+    default: {
       break
     }
-    default:
-      break
   }
 }
 

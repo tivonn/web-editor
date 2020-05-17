@@ -90,16 +90,18 @@ export default {
           this.isCaptureElement = true
           this.$store.dispatch('updateElement', {
             id,
-            [xCoordinateKey]: String(utils.clamp(
-              Number(utils.getValueFromObj(element, xCoordinateKey)) + offsetX,
-              0,
-              this.$refs.container.clientWidth - Number(utils.getValueFromObj(element, 'style.size.width')) - 1
-            )),
-            [yCoordinateKey]: String(utils.clamp(
-              Number(utils.getValueFromObj(element, yCoordinateKey)) + offsetY,
-              0,
-              this.$refs.container.clientHeight - Number(utils.getValueFromObj(element, 'style.size.height')) - 1
-            ))
+            updateData: {
+              [xCoordinateKey]: String(utils.clamp(
+                Number(utils.getValueFromObj(element, xCoordinateKey)) + offsetX,
+                0,
+                this.$refs.container.clientWidth - Number(utils.getValueFromObj(element, 'style.size.width')) - 1
+              )),
+              [yCoordinateKey]: String(utils.clamp(
+                Number(utils.getValueFromObj(element, yCoordinateKey)) + offsetY,
+                0,
+                this.$refs.container.clientHeight - Number(utils.getValueFromObj(element, 'style.size.height')) - 1
+              ))
+            }
           })
         }, (e) => {
           const mouseupTime = utils.getDate().getTime()

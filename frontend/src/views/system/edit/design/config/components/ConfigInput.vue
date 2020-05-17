@@ -61,6 +61,9 @@ export default {
 <style lang="scss" module>
 .config-input {
   :global {
+    .el-input__inner {
+      padding: 0 15px;
+    }
     .el-input__suffix-inner {
       line-height: 30px;
     }

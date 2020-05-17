@@ -7,9 +7,9 @@
       size="small">
       <el-option
         v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
+        :key="item[optionValue]"
+        :label="item[optionLabel]"
+        :value="item[optionValue]">
       </el-option>
     </el-select>
   </div>
@@ -36,6 +36,18 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+
+    optionLabel: {
+      type: String,
+      required: false,
+      default: 'label'
+    },
+
+    optionValue: {
+      type: String,
+      required: false,
+      default: 'value'
     }
   }
 }

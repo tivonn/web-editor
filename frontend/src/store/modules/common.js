@@ -74,18 +74,37 @@ const mutations = {
   },
 
   [types.UPDATE_ELEMENT] (state, elementInfo) {
-    const element = utils.deepQuery(state.elements, elementInfo.id)
-    for (const key in elementInfo) {
-      if (key === 'id') continue
-      Update.before(element, key, elementInfo[key])
-      utils.setValueToObj(element, key, elementInfo[key])
-      Update.after(element, key, state.elements)
+    const update = (element, updateObj, completeKey, updateKey, value) => {
+      Update.before(element, completeKey, value)
+      utils.setValueToObj(updateObj, updateKey, value)
+      Update.after(element, completeKey, state.elements)
+    }
+    const { id, updateData } = elementInfo
+    const element = utils.deepQuery(state.elements, id)
+    for (const updateDataKey in updateData) {
+      const currentValue = utils.getValueFromObj(element, updateDataKey)
+      const updateValue = updateData[updateDataKey]
+      let key, value
+      if (utils.isArray(currentValue) && utils.isPlainObject(updateValue) && utils.hasProperty(updateValue, 'itemUpdateData')) {
+        const { index, itemUpdateData } = updateValue
+        const updateObj = currentValue[index]
+        for (const itemKey in itemUpdateData) {
+          key = `${updateDataKey}.${itemKey}`
+          value = itemUpdateData[itemKey]
+          update(element, updateObj, key, itemKey, value)
+        }
+      } else {
+        key = updateDataKey
+        value = updateValue
+        update(element, element, key, key, value)
+      }
     }
   },
 
   [types.TRIGGER_ELEMENT] (state, elementInfo) {
-    const element = utils.deepQuery(state.elements, elementInfo.id)
-    Update.trigger(element, elementInfo.key)
+    const { id, key } = elementInfo
+    const element = utils.deepQuery(state.elements, id)
+    Update.trigger(element, key)
   }
 }
 

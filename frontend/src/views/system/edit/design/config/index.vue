@@ -32,10 +32,12 @@
                   :offset="col.offset">
                   <component
                     :is="col.component"
-                    :value="activeElement[tab.value][block.key][col.key]"
-                    @input="value => updateElement(`${tab.value}.${block.key}.${col.key}`, value)"
+                    :value="getValueFromObj(activeElement, getComponentKey(tab, block, col))"
+                    @input="value => updateElement(getComponentKey(tab, block, col), value)"
+                    :active-element="activeElement"
+                    :current-key="getComponentKey(tab, block, col)"
                     v-bind="col.props"
-                    @trigger="triggerElement(`${tab.value}.${block.key}.${col.key}`)">
+                    @trigger="key => triggerElement(`${getComponentKey(tab, block, col)}${key ? `.${key}` : ''}`)">
                   </component>
                 </el-col>
               </el-row>
@@ -104,15 +106,19 @@ export default {
 
     activeElement () {
       switch (true) {
-        case this.isSystemActive:
+        case this.isSystemActive: {
           return {}
+        }
         case this.isSingleActive:
-        case this.isCombinationActive:
+        case this.isCombinationActive: {
           return this.activeElements[0]
-        case this.isMultipleActive:
+        }
+        case this.isMultipleActive: {
           return this.activeElements
-        default:
+        }
+        default: {
           return {}
+        }
       }
     },
 
@@ -138,12 +144,18 @@ export default {
       return this.disabledTabList.some(disabledTab => disabledTab === value)
     },
 
+    getComponentKey (tab, block, col) {
+      return `${tab.value}.${block.key}.${col.key}`
+    },
+
     updateElement (key, value) {
       // todo 多选
       const { id } = this.activeElement
       this.$store.dispatch('updateElement', {
         id,
-        [key]: value
+        updateData: {
+          [key]: value
+        }
       })
     },
 
@@ -159,7 +171,7 @@ export default {
       const filter = (list) => {
         return list.reduce((filterList, filterItem) => {
           if (filterItem.remove || !filterItem.list) {
-            const filterResult = !(filterItem.removes && filterItem.removes.some(remove => this.eval(`this.activeElement.${remove}`))) ? [filterItem] : []
+            const filterResult = !(filterItem.removes && filterItem.removes.some(remove => remove(this.activeElement))) ? [filterItem] : []
             return filterList.concat(filterResult)
           } else {
             const filterResult = Object.assign({}, filterItem, {
@@ -172,9 +184,8 @@ export default {
       return filter(collapse)
     },
 
-    eval (value) {
-      // eslint-disable-next-line
-      return eval(value)
+    getValueFromObj () {
+      return utils.getValueFromObj(...arguments)
     }
   },
 

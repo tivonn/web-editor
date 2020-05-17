@@ -1,4 +1,5 @@
 import axios from '@/axios.js'
+import router from '@/router.js'
 import store from '@/store/index.js'
 import utils from '@/utils/index.js'
 import enums from '@/enums/index.js'
@@ -26,15 +27,7 @@ const getApiData = (element) => {
   } else {
     url = api
   }
-  let params = {}
-  utils.getValueFromObj(element, 'content.data.params').forEach(param => {
-    if (param.key !== '') {
-      const { key, value } = param
-      params = Object.assign({}, params, {
-        [key]: value
-      })
-    }
-  })
+  const params = getParams(element)
   const data = {
     url,
     params
@@ -47,6 +40,41 @@ const getApiData = (element) => {
     .catch(err => {
       updateResult(element, err.data)
     })
+}
+
+const getParams = (element) => {
+  let params = {}
+  utils.getValueFromObj(element, 'content.data.params').forEach(param => {
+    if (param.key !== '') {
+      const { key } = param
+      const value = getParamValue(param)
+      params = Object.assign({}, params, {
+        [key]: value
+      })
+    }
+  })
+  return params
+}
+
+const getParamValue = (param) => {
+  const { mode } = param
+  switch (mode) {
+    case 'custom': {
+      return param.custom
+    }
+    case 'urlParam': {
+      const { urlParam } = param
+      const route = router.app._route
+      return route.query[urlParam] || route.params[urlParam] || ''
+    }
+    case 'element': {
+      // todo get element value
+      return ''
+    }
+    default: {
+      return ''
+    }
+  }
 }
 
 const updateStatus = (element, type) => {
@@ -63,7 +91,9 @@ const updateStatus = (element, type) => {
 const updateResult = (element, data) => {
   store.dispatch('updateElement', {
     id: element.id,
-    'content.data.result': data
+    updateData: {
+      'content.data.result': data
+    }
   })
   updateStatus(element)
 }
