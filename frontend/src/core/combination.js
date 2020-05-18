@@ -1,4 +1,6 @@
+import store from '@/store/index.js'
 import utils from '@/utils/index.js'
+import coreUtils from '@/core/utils.js'
 
 const config = {
   style: [
@@ -40,11 +42,13 @@ const combine = (childrens) => {
   return utils.getId('element')
     .then(res => {
       const id = res
+      const { elements } = store.getters
       return Promise.resolve({
         id,
         type: 'combination',
         ...getData(childrens),
-        childrens: childrens.map(children => Object.assign({}, children, { parentId: id }))
+        childrens: childrens.map(children => Object.assign({}, children, { parentId: id })),
+        name: `组合-${coreUtils.getCount(elements, false) + 1}`
       })
     })
 }

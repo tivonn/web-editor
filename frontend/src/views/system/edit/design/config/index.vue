@@ -1,5 +1,16 @@
 <template>
   <div :class="$style.config">
+    <div class="current-element">
+      <p v-if="isSystemActive">未选中元件</p>
+      <config-input
+        v-else-if="isSingleActive"
+        :value="activeElement.name"
+        @input="value => updateElement('name', value)"
+        toggle
+        placeholder="请输入元件名">
+      </config-input>
+      <p v-else-if="isMultipleActive">多选元件中</p>
+    </div>
     <el-tabs v-model="activeTab" class="config-tabs">
       <el-tab-pane
         v-for="tab in tabs"
@@ -100,7 +111,7 @@ export default {
           return ['content', 'interact']
         }
         case this.isSingleActive: {
-          return []
+          return this.activeElement.type === 'component' ? [] : ['content', 'interact']
         }
         case this.isMultipleActive: {
           return ['content', 'style', 'interact']
@@ -131,7 +142,7 @@ export default {
     activeConfig () {
       const isComponent = this.activeElement.type === 'component'
       return isComponent
-        ? require(`@/packages/${this.activeElement.value}/config.js`).default[this.activeTab]
+        ? require(`@/packages/${this.activeElement.packageType}/config.js`).default[this.activeTab]
         : require(`@/core/${this.activeElement.type}`).default.config[this.activeTab]
     }
   },
@@ -207,8 +218,14 @@ export default {
   display: inline-block;
   vertical-align: middle;
   :global {
+    .current-element {
+      height: 36px;
+      padding: 2px 6px;
+      line-height: 32px;
+      border-bottom: 1px solid $--border-color-base;
+    }
     .config-tabs {
-      height: 100%;
+      height: calc(100% - 36px);
       .el-tabs__header {
         margin-bottom: 0;
       }

@@ -270,7 +270,10 @@ export default {
                     list: [
                       {
                         key: 'field',
-                        component: 'config-input'
+                        component: 'config-input',
+                        props: {
+                          toggle: true
+                        }
                       }
                     ]
                   },

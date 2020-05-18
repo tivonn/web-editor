@@ -21,6 +21,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import utils from '@/utils/index.js'
+import coreUtils from '@/core/utils.js'
 import { packages } from '@/views/system/edit/config.js'
 
 export default {
@@ -48,11 +49,16 @@ export default {
           const [idRes, dataRes] = res
           const id = idRes
           const { default: data } = dataRes
+          const { name, value: packageType } = packageItem
+          const count = coreUtils.getCount(this.elements, true, packageType)
           const element = Object.assign({
             id,
             type: 'component',
             ...utils.deepClone(data)
-          }, packageItem)
+          }, {
+            name: `${name}-${count + 1}`,
+            packageType
+          })
           this.$store.dispatch('setElements', this.elements.concat([element]))
         })
         .catch(() => this.$message.error('获取元件数据失败'))

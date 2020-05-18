@@ -68,8 +68,8 @@ export default {
     mountElement () {
       if (!this.isComponent) return
       DataController.init(this.element)
-      const { value, style, content, interact } = this.element
-      const Package = Vue.extend(require(`@/packages/${value}/index.vue`).default)
+      const { packageType, style, content, interact } = this.element
+      const Package = Vue.extend(require(`@/packages/${packageType}/index.vue`).default)
       new Package({
         propsData: {
           ...style,
