@@ -1,15 +1,48 @@
 <template>
   <div :class="$style.config">
     <div class="current-element">
-      <p v-if="isSystemActive">未选中元件</p>
-      <config-input
-        v-else-if="isSingleActive"
-        :value="activeElement.name"
-        @input="value => updateElement('name', value)"
-        toggle
-        placeholder="请输入元件名">
-      </config-input>
-      <p v-else-if="isMultipleActive">多选元件中</p>
+      <template v-if="isSystemActive">
+        <Icon
+          svg-id="iconfaxianweixuanzhong"
+          size="18px"
+          color="#606266"
+          class="current-icon system-icon">
+        </Icon>
+        <span class="current-text">未选中元件</span>
+      </template>
+      <template v-else-if="isSingleActive">
+        <Icon
+          v-if="isSingleComponentActive"
+          svg-id="iconshow_danxuan"
+          size="16px"
+          color="#606266"
+          class="current-icon single-icon single-component-icon">
+        </Icon>
+        <Icon
+          v-else
+          svg-id="iconzuhe"
+          size="19px"
+          color="#606266"
+          class="current-icon single-icon single-combination-icon">
+        </Icon>
+        <config-input
+          :value="activeElement.name"
+          @input="value => updateElement('name', value)"
+          style="display: inline-block;"
+          can-toggle
+          placeholder="请输入元件名"
+          class="current-input">
+        </config-input>
+      </template>
+      <template v-else-if="isMultipleActive">
+        <Icon
+          svg-id="iconyunongtongduoxuanxuanzhong"
+          size="16px"
+          color="#606266"
+          class="current-icon multiple-icon">
+        </Icon>
+        <span class="current-text">多选元件中</span>
+      </template>
     </div>
     <el-tabs v-model="activeTab" class="config-tabs">
       <el-tab-pane
@@ -101,6 +134,10 @@ export default {
       return this.activeElements.length === 1
     },
 
+    isSingleComponentActive () {
+      return this.isSingleActive && this.activeElement.type === 'component'
+    },
+
     isMultipleActive () {
       return this.activeElements.length > 1
     },
@@ -111,7 +148,7 @@ export default {
           return ['content', 'interact']
         }
         case this.isSingleActive: {
-          return this.activeElement.type === 'component' ? [] : ['content', 'interact']
+          return this.isSingleComponentActive ? [] : ['content', 'interact']
         }
         case this.isMultipleActive: {
           return ['content', 'style', 'interact']
@@ -140,8 +177,7 @@ export default {
     },
 
     activeConfig () {
-      const isComponent = this.activeElement.type === 'component'
-      return isComponent
+      return this.isSingleComponentActive
         ? require(`@/packages/${this.activeElement.packageType}/config.js`).default[this.activeTab]
         : require(`@/core/${this.activeElement.type}`).default.config[this.activeTab]
     }
@@ -221,11 +257,48 @@ export default {
     .current-element {
       height: 36px;
       padding: 2px 6px;
-      line-height: 32px;
-      border-bottom: 1px solid $--border-color-base;
+      line-height: 26px;
+    }
+    .current-icon {
+      vertical-align: middle;
+    }
+    .system-icon {
+      position: relative;
+      top: 1px;
+      margin-right: 3px;
+    }
+    .single-icon {
+      position: relative;
+      bottom: 1px;
+    }
+    .single-component-icon {
+      margin-left: 1px;
+      margin-right: 4px;
+    }
+    .single-combination-icon {
+      margin-right: 3px;
+    }
+    .multiple-icon {
+      position: relative;
+      top: 1px;
+      margin-left: 1px;
+      margin-right: 4px;
+    }
+    .current-text {
+      vertical-align: middle;
+    }
+    .current-input {
+      width: calc(100% - 22px);
+      vertical-align: middle;
+      .input-value {
+        position: relative;
+        bottom: 1px;
+        line-height: 32px;
+      }
     }
     .config-tabs {
       height: calc(100% - 36px);
+      border-top: 1px solid $--border-color-base;
       .el-tabs__header {
         margin-bottom: 0;
       }

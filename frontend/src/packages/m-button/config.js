@@ -272,7 +272,7 @@ export default {
                         key: 'field',
                         component: 'config-input',
                         props: {
-                          toggle: true
+                          canToggle: true
                         }
                       }
                     ]

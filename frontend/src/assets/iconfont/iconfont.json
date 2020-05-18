@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1117446",
+      "name": "裕农通-多选-选中",
+      "font_class": "yunongtongduoxuanxuanzhong",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "2404406",
+      "name": "组合",
+      "font_class": "zuhe",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "8817472",
+      "name": "发现未选中",
+      "font_class": "faxianweixuanzhong",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "11352856",
+      "name": "30show_多选",
+      "font_class": "show_danxuan",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
       "icon_id": "12857167",
       "name": "删除",
       "font_class": "shanchu",

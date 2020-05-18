@@ -1,12 +1,12 @@
 <template>
   <div :class="$style.configInput">
     <p class="config-label">{{label}}</p>
-    <p
-      v-if="toggle && !showInput"
+    <span
+      v-if="canToggle && !showInput"
       class="input-value"
       @click="showInput = true">
       {{value}}
-    </p>
+    </span>
     <el-input
       v-else
       :value="value"
@@ -39,7 +39,7 @@ export default {
       default: ''
     },
 
-    toggle: {
+    canToggle: {
       type: Boolean,
       required: false,
       default: false
@@ -72,14 +72,14 @@ export default {
 
   data () {
     return {
-      showInput: !this.toggle
+      showInput: !this.canToggle
     }
   },
 
   watch: {
     showInput: {
       handler (newValue) {
-        if (newValue && this.toggle) {
+        if (newValue && this.canToggle) {
           this.$nextTick(() => {
             this.$refs.input.focus()
           })
@@ -91,7 +91,7 @@ export default {
 
   methods: {
     blurInput () {
-      if (this.toggle) {
+      if (this.canToggle) {
         this.showInput = false
       }
       this.$emit('trigger')
