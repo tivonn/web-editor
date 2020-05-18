@@ -226,7 +226,7 @@ export default {
 
 <style lang="scss" module>
 .canvas {
-  width: calc(100% - 400px);
+  width: calc(100% - 700px);
   height: 100%;
   display: inline-block;
   border-left: 1px solid $--border-color-base;
