@@ -2,7 +2,7 @@
   "ids": [
     {
       "type": "element",
-      "max": 595
+      "max": 609
     },
     {
       "type": "res",
@@ -367,6 +367,43 @@
           },
           "interact": {},
           "name": "按钮-7",
+          "packageType": "m-button"
+        },
+        {
+          "id": 598,
+          "type": "component",
+          "style": {
+            "size": {
+              "width": "100",
+              "height": "50"
+            },
+            "position": {
+              "xCoordinate": "25",
+              "yCoordinate": "520"
+            }
+          },
+          "content": {
+            "data": {
+              "mode": "staticData",
+              "staticData": {
+                "data": "按钮"
+              },
+              "apiScheme": "relative",
+              "relativeApi": "",
+              "absoluteApi": "",
+              "params": [],
+              "parses": [
+                {
+                  "property": "文本",
+                  "field": "data",
+                  "status": "成功"
+                }
+              ],
+              "result": {}
+            }
+          },
+          "interact": {},
+          "name": "按钮-8",
           "packageType": "m-button"
         }
       ],

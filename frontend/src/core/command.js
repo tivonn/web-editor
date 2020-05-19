@@ -35,7 +35,7 @@ const uncombine = () => {
   }
   const parent = activeElements[0]
   const { childrens } = parent
-  Combination.uncombine(parent, elements)
+  Combination.uncombine(parent)
   store.dispatch('setElements', elements)
   store.dispatch('setActiveElements', childrens)
   Message.success('解除组合成功')

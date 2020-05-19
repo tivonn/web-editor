@@ -17,15 +17,23 @@
               node-key="id"
               :props="{ children: 'childrens', label: 'name' }"
               default-expand-all
-              show-checkbox
-              highlight-current
               :expand-on-click-node="false"
-              check-on-click-node
-              @node-click="clickElement">
-              <span slot-scope="{ data }" class="element-item">
-                <span class="element-name">{{data.name}}</span>
-                <span class="delete-element" @click="deleteElement(data)">delete</span>
-              </span>
+              @mouseout.native="mouseoutElement">
+              <div slot-scope="{ data }" class="element-item">
+                <p class="element-mousemove" @mousemove="mousemoveElement(data)"></p> <!--为了实现宽高100%都能获取到mousemove事件-->
+                <el-checkbox
+                  :value="getElementChecked(data)"
+                  @change="clickElement(data)">
+                  <span class="element-name">{{data.name}}</span>
+                </el-checkbox>
+                <Icon
+                  svg-id="iconshanchu"
+                  color="#999"
+                  title="删除元件"
+                  class="delete-element"
+                  @click="deleteElement(data)">
+                </Icon>
+              </div>
             </el-tree>
           </template>
         </template>
@@ -52,7 +60,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import utils from '@/utils/index.js'
-import coreUtils from '@/core/utils.js'
+import Operation from '@/core/operation.js'
 import { packages } from '@/views/system/edit/config.js'
 
 export default {
@@ -97,51 +105,41 @@ export default {
   },
 
   methods: {
-    clickElement (element, node) {
-      const isSelected = !node.checked
-      let activeElements
-      if (isSelected) {
-        activeElements = this.activeElements.filter(activeElement => activeElement.id !== element.id)
-      } else {
-        activeElements = this.activeElements.concat([element])
+    mousemoveElement: utils.throttle(function (element) {
+      let current = element
+      const hoverElements = [current]
+      let hasParent = !!element.parentId
+      while (hasParent) {
+        current = utils.deepQuery(this.elements, current.parentId)
+        hoverElements.push(current)
+        hasParent = !!current.parentId
       }
+      this.$store.dispatch('setHoverElements', hoverElements)
+    }, 100),
+
+    mouseoutElement () {
+      // 为了解决mousemove的节流导致二次执行hover
+      setTimeout(() => {
+        this.$store.dispatch('setHoverElements', [])
+      }, 100)
+    },
+
+    clickElement (element) {
+      const activeElements = Operation.getActiveElements(element, true)
       this.$store.dispatch('setActiveElements', activeElements)
     },
 
-    selectPackage (packageItem) {
-      Promise.all([
-        utils.getId('element'),
-        require(`@/packages/${packageItem.value}/data.js`)
-      ])
-        .then(res => {
-          const [idRes, dataRes] = res
-          const id = idRes
-          const { default: data } = dataRes
-          const { name, value: packageType } = packageItem
-          const count = coreUtils.getCount(this.elements, true, packageType)
-          const element = Object.assign({
-            id,
-            type: 'component',
-            ...utils.deepClone(data)
-          }, {
-            name: `${name}-${count + 1}`,
-            packageType
-          })
-          this.$store.dispatch('setElements', this.elements.concat([element]))
-        })
-        .catch(() => this.$message.error('获取元件数据失败'))
+    getElementChecked (element) {
+      return this.activeElements.some(activeElement => activeElement.id === element.id)
     },
 
-    deleteElement (data) {
-      console.log(data)
-      // this.$store.dispatch('setElements',
-      //   this.elements
-      //     .filter(element =>
-      //       this.activeElements
-      //         .every(activeElement => activeElement.id !== element.id)
-      //     )
-      // )
-      // this.$store.dispatch('setActiveElements', [])
+    deleteElement (element) {
+      Operation.deleteElements([element])
+    },
+
+    selectPackage (packageItem) {
+      const { name, value } = packageItem
+      Operation.createElement(name, value)
     }
   }
 }
@@ -187,21 +185,47 @@ export default {
       }
       .el-tree-node__content {
         height: 32px;
+        position: relative;
+        &:hover {
+          .delete-element {
+            display: inline-block;
+          }
+        }
       }
     }
     .element-item {
       width: 100%;
-      display: inline-block;
+      height: 100%;
+      position: relative;
+      line-height: 32px;
+      .el-checkbox__label {
+        width: 100%;
+      }
+    }
+    .element-mousemove {
+      width: 300px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
     }
     .element-name {
-      width: 170px;
+      max-width: 170px;
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      vertical-align: middle;
     }
     .delete-element {
-      float: right;
+      display: none;
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
+      &:hover {
+        fill: $--color-danger !important;
+      }
     }
     .package-title {
       padding: 0 10px;

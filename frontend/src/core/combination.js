@@ -1,6 +1,6 @@
 import store from '@/store/index.js'
 import utils from '@/utils/index.js'
-import coreUtils from '@/core/utils.js'
+import Operation from '@/core/operation.js'
 
 const config = {
   style: [
@@ -48,7 +48,7 @@ const combine = (childrens) => {
         type: 'combination',
         ...getData(childrens),
         childrens: childrens.map(children => Object.assign({}, children, { parentId: id })),
-        name: `组合-${coreUtils.getCount(elements, false) + 1}`
+        name: `组合-${Operation.getElementCount(elements, false) + 1}`
       })
     })
 }
@@ -84,11 +84,8 @@ const getData = (childrens) => {
   }
 }
 
-const refresh = (element) => {
-  Object.assign(element, getData(element.childrens))
-}
-
-const uncombine = (element, elements) => {
+const uncombine = (element) => {
+  const { elements } = store.getters
   const parent = utils.deepQuery(elements, element.parentId)
   let elementList
   if (utils.isArray(parent)) {
@@ -109,6 +106,10 @@ const uncombine = (element, elements) => {
       return children
     }))
   )
+}
+
+const refresh = (element) => {
+  Object.assign(element, getData(element.childrens))
 }
 
 export default {

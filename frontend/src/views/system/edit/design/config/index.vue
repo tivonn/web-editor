@@ -6,6 +6,7 @@
           svg-id="iconfaxianweixuanzhong"
           size="18px"
           color="#606266"
+          title="未选中"
           class="current-icon system-icon">
         </Icon>
         <span class="current-text">未选中</span>
@@ -16,6 +17,7 @@
           svg-id="iconshow_danxuan"
           size="16px"
           color="#606266"
+          title="元件"
           class="current-icon single-icon single-component-icon">
         </Icon>
         <Icon
@@ -23,6 +25,7 @@
           svg-id="iconzuhe"
           size="19px"
           color="#606266"
+          title="组合"
           class="current-icon single-icon single-combination-icon">
         </Icon>
         <config-input
@@ -39,9 +42,10 @@
           svg-id="iconyunongtongduoxuanxuanzhong"
           size="16px"
           color="#606266"
+          title="多选"
           class="current-icon multiple-icon">
         </Icon>
-        <span class="current-text">多选中</span>
+        <span class="current-text">多选</span>
       </template>
     </div>
     <el-tabs v-model="activeTab" class="config-tabs">

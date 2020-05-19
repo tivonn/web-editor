@@ -23,6 +23,7 @@ import ElementList from '@/components/ElementList'
 import Mousetrap from 'mousetrap'
 import { mapGetters } from 'vuex'
 import utils from '@/utils/index.js'
+import Operation from '@/core/operation.js'
 
 export default {
   name: 'DesignCanvas',
@@ -30,8 +31,7 @@ export default {
   data () {
     return {
       isCaptureElement: false,
-      isKeydownCtrl: false,
-      hoverElements: []
+      isKeydownCtrl: false
     }
   },
 
@@ -39,6 +39,7 @@ export default {
     ...mapGetters([
       'system',
       'elements',
+      'hoverElements',
       'activeElements',
       'multipleElement'
     ]),
@@ -181,12 +182,7 @@ export default {
       if (isSelectElement) {
         const id = Number(elementEl.id)
         const element = utils.deepQuery(this.elements, id)
-        const isSelected = this.activeElements.some(activeElement => activeElement.id === element.id)
-        if (isSelected) {
-          activeElements = this.activeElements.filter(activeElement => activeElement.id !== element.id)
-        } else {
-          activeElements = this.isKeydownCtrl ? this.activeElements.concat([element]) : [element]
-        }
+        activeElements = Operation.getActiveElements(element, this.isKeydownCtrl)
       } else {
         activeElements = []
       }
@@ -194,19 +190,11 @@ export default {
     },
 
     mousemoveElementList: utils.throttle(function (e) {
-      this.hoverElements = utils.getPath(e).filter(element => utils.containClass(element, 'element-item'))
+      this.$store.dispatch('setHoverElements', utils.getPath(e).filter(element => utils.containClass(element, 'element-item')))
     }, 100),
 
     deleteElement () {
-      // todo 组合情况
-      this.$store.dispatch('setElements',
-        this.elements
-          .filter(element =>
-            this.activeElements
-              .every(activeElement => activeElement.id !== element.id)
-          )
-      )
-      this.$store.dispatch('setActiveElements', [])
+      Operation.deleteElements(this.activeElements)
     },
 
     reset () {
