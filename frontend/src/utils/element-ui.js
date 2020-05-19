@@ -15,7 +15,8 @@ import {
   Table,
   TableColumn,
   Tabs,
-  TabPane
+  TabPane,
+  Tree
 } from 'element-ui'
 import '@/assets/css/element-variables.scss'
 
@@ -36,6 +37,7 @@ export default {
     Vue.use(TableColumn)
     Vue.use(Tabs)
     Vue.use(TabPane)
+    Vue.use(Tree)
     Vue.prototype.$message = Message
   }
 }

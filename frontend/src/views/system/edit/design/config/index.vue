@@ -8,7 +8,7 @@
           color="#606266"
           class="current-icon system-icon">
         </Icon>
-        <span class="current-text">未选中元件</span>
+        <span class="current-text">未选中</span>
       </template>
       <template v-else-if="isSingleActive">
         <Icon
@@ -41,7 +41,7 @@
           color="#606266"
           class="current-icon multiple-icon">
         </Icon>
-        <span class="current-text">多选元件中</span>
+        <span class="current-text">多选中</span>
       </template>
     </div>
     <el-tabs v-model="activeTab" class="config-tabs">
@@ -51,42 +51,43 @@
         :label="tab.label"
         :name="tab.value"
         :disabled="isTabDisabled(tab.value)">
-        <template v-if="isSystemActive">
-          全局
-        </template>
-        <template v-else-if="isSingleActive || isMultipleActive">
-          <el-collapse
-            v-if="tab.value === activeTab"
-            :value="activeConfig.map(block => block.key)"
-            class="config-collapse">
-            <el-collapse-item
-              v-for="(block, blockKey) in filterCollapse(activeConfig)"
-              :key="blockKey"
-              :title="block.label"
-              :name="block.key">
-              <el-row
-                v-for="(row, rowIndex) in block.list"
-                :key="`${blockKey}-row${rowIndex}`"
-                :gutter="row.gutter"
-                class="config-row">
-                <el-col
-                  v-for="col in row.list"
-                  :key="col.key"
-                  :span="col.span"
-                  :offset="col.offset">
-                  <component
-                    :is="col.component"
-                    :value="getValueFromObj(activeElement, getComponentKey(tab, block, col))"
-                    @input="value => updateElement(getComponentKey(tab, block, col), value)"
-                    :active-element="activeElement"
-                    :current-key="getComponentKey(tab, block, col)"
-                    v-bind="col.props"
-                    @trigger="key => triggerElement(`${getComponentKey(tab, block, col)}${key ? `.${key}` : ''}`)">
-                  </component>
-                </el-col>
-              </el-row>
-            </el-collapse-item>
-          </el-collapse>
+        <template v-if="tab.value === activeTab">
+          <template v-if="isSystemActive">
+            全局
+          </template>
+          <template v-else-if="isSingleActive || isMultipleActive">
+            <el-collapse
+              :value="activeConfig.map(block => block.key)"
+              class="config-collapse">
+              <el-collapse-item
+                v-for="(block, blockKey) in filterCollapse(activeConfig)"
+                :key="blockKey"
+                :title="block.label"
+                :name="block.key">
+                <el-row
+                  v-for="(row, rowIndex) in block.list"
+                  :key="`${blockKey}-row${rowIndex}`"
+                  :gutter="row.gutter"
+                  class="config-row">
+                  <el-col
+                    v-for="col in row.list"
+                    :key="col.key"
+                    :span="col.span"
+                    :offset="col.offset">
+                    <component
+                      :is="col.component"
+                      :value="getValueFromObj(activeElement, getComponentKey(tab, block, col))"
+                      @input="value => updateElement(getComponentKey(tab, block, col), value)"
+                      :active-element="activeElement"
+                      :current-key="getComponentKey(tab, block, col)"
+                      v-bind="col.props"
+                      @trigger="key => triggerElement(`${getComponentKey(tab, block, col)}${key ? `.${key}` : ''}`)">
+                    </component>
+                  </el-col>
+                </el-row>
+              </el-collapse-item>
+            </el-collapse>
+          </template>
         </template>
       </el-tab-pane>
     </el-tabs>
