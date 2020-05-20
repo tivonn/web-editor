@@ -19,11 +19,14 @@
               default-expand-all
               :expand-on-click-node="false"
               @mouseout.native="mouseoutElement">
-              <div slot-scope="{ data }" class="element-item">
-                <p class="element-mousemove" @mousemove="mousemoveElement(data)"></p> <!--为了实现宽高100%都能获取到mousemove事件-->
+              <div
+                slot-scope="{ node, data }"
+                class="element-item"
+                :style="getElementStyle(node)"
+                @mousemove="mousemoveElement(data)">
                 <el-checkbox
                   :value="getElementChecked(data)"
-                  @change="clickElement(data)">
+                  @change="clickElement(data, node)">
                   <span class="element-name">{{data.name}}</span>
                 </el-checkbox>
                 <Icon
@@ -105,6 +108,12 @@ export default {
   },
 
   methods: {
+    getElementStyle (node) {
+      return {
+        paddingLeft: `${8 + node.level * 18}px`
+      }
+    },
+
     mousemoveElement: utils.throttle(function (element) {
       let current = element
       const hoverElements = [current]
@@ -196,21 +205,19 @@ export default {
     .element-item {
       width: 100%;
       height: 100%;
-      position: relative;
-      line-height: 32px;
-      .el-checkbox__label {
-        width: 100%;
-      }
-    }
-    .element-mousemove {
-      width: 300px;
-      height: 100%;
       position: absolute;
       top: 0;
-      right: 0;
+      left: 0;
+      line-height: 32px;
+      .el-checkbox {
+        width: calc(100% - 20px);
+      }
+      .el-checkbox__label {
+        width: calc(100% - 14px);
+      }
     }
     .element-name {
-      max-width: 170px;
+      width: 100%;
       display: inline-block;
       overflow: hidden;
       text-overflow: ellipsis;
