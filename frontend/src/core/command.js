@@ -6,11 +6,6 @@ import Combination from '@/core/combination.js'
 
 const combine = () => {
   const { elements, activeElements } = store.getters
-  if (activeElements.length <= 1) {
-    return Message.warning('请选择一个以上元件')
-  } else if (activeElements.some(element => !!element.parentId)) {
-    return Message.warning('请选择未组合元件')
-  }
   Combination.combine(activeElements)
     .then(res => {
       const combination = res
@@ -30,12 +25,9 @@ const uncombine = () => {
   const { elements, activeElements } = store.getters
   if (activeElements.length !== 1) {
     return Message.warning('请选择一个元件')
-  } else if (activeElements[0].type !== 'combination') {
-    return Message.warning('请选择已组合元件')
   }
   const parent = activeElements[0]
-  const { childrens } = parent
-  Combination.uncombine(parent)
+  const childrens = Combination.uncombine(parent)
   store.dispatch('setElements', elements)
   store.dispatch('setActiveElements', childrens)
   Message.success('解除组合成功')

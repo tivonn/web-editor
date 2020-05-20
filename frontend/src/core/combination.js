@@ -1,6 +1,7 @@
 import store from '@/store/index.js'
 import utils from '@/utils/index.js'
 import Operation from '@/core/operation.js'
+import { Message } from 'element-ui'
 
 const config = {
   style: [
@@ -39,6 +40,11 @@ const config = {
 }
 
 const combine = (childrens) => {
+  if (childrens.length <= 1) {
+    return Message.warning('请选择一个以上元件')
+  } else if (childrens.some(element => !!element.parentId)) {
+    return Message.warning('请选择未组合元件')
+  }
   return utils.getId('element')
     .then(res => {
       const id = res
@@ -85,6 +91,9 @@ const getData = (childrens) => {
 }
 
 const uncombine = (element) => {
+  if (element.type !== 'combination') {
+    return Message.warning('请选择已组合元件')
+  }
   const { elements } = store.getters
   const parent = utils.deepQuery(elements, element.parentId)
   let elementList
@@ -94,10 +103,11 @@ const uncombine = (element) => {
     elementList = parent.childrens
   }
   const index = elementList.findIndex(elementItem => elementItem.id === element.id)
+  const { childrens } = element
   elementList.splice(
     index,
     1,
-    ...(element.childrens.map(children => {
+    ...(childrens.map(children => {
       if (parent.id) {
         utils.setValueToObj(children, 'parentId', parent.id)
       } else {
@@ -106,6 +116,7 @@ const uncombine = (element) => {
       return children
     }))
   )
+  return childrens
 }
 
 const refresh = (element) => {
