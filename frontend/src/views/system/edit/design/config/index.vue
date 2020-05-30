@@ -61,6 +61,7 @@
           </template>
           <template v-else-if="isSingleActive || isMultipleActive">
             <el-collapse
+              v-if="tab.value === 'content' || tab.value === 'style'"
               :value="activeConfig.map(block => block.key)"
               class="config-collapse">
               <el-collapse-item
@@ -91,6 +92,41 @@
                 </el-row>
               </el-collapse-item>
             </el-collapse>
+            <template v-else>
+              <ul>
+                <li v-for="interact in activeElement.interacts" :key="interact.action">
+                  <config-select
+                    :value="interact.action"
+                    @input="value => interact.action = value"
+                    label="触发行为"
+                    :options="activeConfig.actions.filter(action => action.value === interact.action || activeElement.interacts.every(interact => interact.action !== action.value))">
+                  </config-select>
+                  <template v-if="interact.action">
+                    <div v-for="event in interact.events" :key="event.value">
+                      <config-select
+                        :value="event.value"
+                        @input="$event => selectEvent($event, event)"
+                        label="触发事件"
+                        :options="activeConfig.actions.find(action => action.value === interact.action).events">
+                      </config-select>
+                      <ul>
+                        <li v-for="row in activeConfig.events[event.value]" :key="row.key">
+                          <!--todo @trigger-->
+                          <component
+                            :is="row.component"
+                            :value="event[row.key]"
+                            @input="value => event[row.key] = value"
+                            v-bind="row.props">
+                          </component>
+                        </li>
+                      </ul>
+                    </div>
+                    <el-button @click="addEvent(interact)">添加事件</el-button>
+                  </template>
+                </li>
+              </ul>
+              <el-button :disabled="interactDisabled" @click="addInteract">添加交互</el-button>
+            </template>
           </template>
         </template>
       </el-tab-pane>
@@ -185,6 +221,10 @@ export default {
       return this.isSingleComponentActive
         ? require(`@/packages/${this.activeElement.packageType}/config.js`).default[this.activeTab]
         : require(`@/core/${this.activeElement.type}`).default.config[this.activeTab]
+    },
+
+    interactDisabled () {
+      return this.activeElement.interacts.length >= this.activeConfig.actions.length
     }
   },
 
@@ -243,6 +283,28 @@ export default {
 
     getValueFromObj () {
       return utils.getValueFromObj(...arguments)
+    },
+
+    addInteract () {
+      this.activeElement.interacts.push({
+        action: '',
+        events: []
+      })
+    },
+
+    addEvent (interact) {
+      interact.events.push({
+        value: ''
+      })
+    },
+
+    selectEvent (value, event) {
+      this.$set(event, 'value', value)
+      this.activeConfig.events[event.value].forEach(row => {
+        if (!utils.hasProperty(event, row.key)) {
+          this.$set(event, row.key, row.default)
+        }
+      })
     }
   },
 

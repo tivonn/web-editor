@@ -2,7 +2,7 @@
   "ids": [
     {
       "type": "element",
-      "max": 632
+      "max": 635
     },
     {
       "type": "res",
@@ -27,23 +27,23 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 610,
+          "id": 633,
           "type": "component",
           "style": {
             "size": {
-              "width": "50",
+              "width": "100",
               "height": "50"
             },
             "position": {
-              "xCoordinate": "-5",
-              "yCoordinate": "110"
+              "xCoordinate": "43",
+              "yCoordinate": "108"
             }
           },
           "content": {
             "data": {
               "mode": "staticData",
               "staticData": {
-                "data": "11"
+                "data": "111"
               },
               "apiScheme": "relative",
               "relativeApi": "",
@@ -59,28 +59,28 @@
               "result": {}
             }
           },
-          "interact": {},
+          "interacts": [],
           "name": "按钮-1",
           "packageType": "m-button"
         },
         {
-          "id": 611,
+          "id": 634,
           "type": "component",
           "style": {
             "size": {
-              "width": "50",
+              "width": "100",
               "height": "50"
             },
             "position": {
-              "xCoordinate": "-5",
-              "yCoordinate": "201"
+              "xCoordinate": "87",
+              "yCoordinate": "202"
             }
           },
           "content": {
             "data": {
               "mode": "staticData",
               "staticData": {
-                "data": "22"
+                "data": "222"
               },
               "apiScheme": "relative",
               "relativeApi": "",
@@ -96,28 +96,28 @@
               "result": {}
             }
           },
-          "interact": {},
+          "interacts": [],
           "name": "按钮-2",
           "packageType": "m-button"
         },
         {
-          "id": 612,
+          "id": 635,
           "type": "component",
           "style": {
             "size": {
-              "width": "50",
+              "width": "100",
               "height": "50"
             },
             "position": {
-              "xCoordinate": "-5",
-              "yCoordinate": "419"
+              "xCoordinate": "128",
+              "yCoordinate": "323"
             }
           },
           "content": {
             "data": {
               "mode": "staticData",
               "staticData": {
-                "data": "33"
+                "data": "333"
               },
               "apiScheme": "relative",
               "relativeApi": "",
@@ -133,7 +133,7 @@
               "result": {}
             }
           },
-          "interact": {},
+          "interacts": [],
           "name": "按钮-3",
           "packageType": "m-button"
         }

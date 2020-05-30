@@ -76,12 +76,12 @@ export default {
                 label: '模式',
                 options: [
                   {
-                    value: 'staticData',
-                    label: '静态数据'
+                    label: '静态数据',
+                    value: 'staticData'
                   },
                   {
-                    value: 'apiData',
-                    label: '接口数据'
+                    label: '接口数据',
+                    value: 'apiData'
                   }
                 ]
               }
@@ -112,12 +112,12 @@ export default {
                 label: '接口方案',
                 options: [
                   {
-                    value: 'relative',
-                    label: '相对路径'
+                    label: '相对路径',
+                    value: 'relative'
                   },
                   {
-                    value: 'absolute',
-                    label: '绝对路径'
+                    label: '绝对路径',
+                    value: 'absolute'
                   }
                 ]
               }
@@ -184,16 +184,16 @@ export default {
                         props: {
                           options: [
                             {
-                              value: 'custom',
-                              label: '自定义值'
+                              label: '自定义值',
+                              value: 'custom'
                             },
                             {
-                              value: 'urlParam',
-                              label: '路由参数'
+                              label: '路由参数',
+                              value: 'urlParam'
                             },
                             {
-                              value: 'element',
-                              label: '页面元件'
+                              label: '页面元件',
+                              value: 'element'
                             }
                           ]
                         }
@@ -296,5 +296,44 @@ export default {
       ]
     }
   ],
-  interact: []
+  interact: {
+    actions: [
+      {
+        label: '单击',
+        value: 'click',
+        events: [
+          {
+            label: '跳转页面',
+            value: 'link'
+          },
+          {
+            label: '提交数据/请求',
+            value: 'ajax'
+          }
+        ]
+      },
+      {
+        label: '双击',
+        value: 'dbclick',
+        events: [
+          {
+            label: '跳转页面',
+            value: 'link'
+          }
+        ]
+      }
+    ],
+    events: {
+      link: [
+        {
+          key: 'target',
+          component: 'config-input',
+          default: '',
+          props: {
+            label: '目标页面'
+          }
+        }
+      ]
+    }
+  }
 }
