@@ -92,40 +92,51 @@
                 </el-row>
               </el-collapse-item>
             </el-collapse>
-            <template v-else>
+            <template v-else-if="tab.value === 'interact'">
               <ul>
                 <li v-for="interact in activeElement.interacts" :key="interact.action">
+                  <!--todo 触发vuex-->
                   <config-select
                     :value="interact.action"
-                    @input="value => interact.action = value"
+                    @input="value => { interact.action = value; updateInteract() }"
                     label="触发行为"
-                    :options="activeConfig.actions.filter(action => action.value === interact.action || activeElement.interacts.every(interact => interact.action !== action.value))">
+                    :options="getActionOptions(interact)">
                   </config-select>
                   <template v-if="interact.action">
-                    <div v-for="event in interact.events" :key="event.value">
+                    <div v-for="event in interact.events" :key="event.type">
                       <config-select
-                        :value="event.value"
-                        @input="$event => selectEvent($event, event)"
+                        :value="event.type"
+                        @input="type => { selectEvent(type, event); updateInteract() }"
                         label="触发事件"
-                        :options="activeConfig.actions.find(action => action.value === interact.action).events">
+                        :options="getEventOptions(interact, event)">
                       </config-select>
                       <ul>
-                        <li v-for="row in activeConfig.events[event.value]" :key="row.key">
-                          <!--todo @trigger-->
+                        <li v-for="config in getEventConfigs(event)" :key="config.key">
                           <component
-                            :is="row.component"
-                            :value="event[row.key]"
-                            @input="value => event[row.key] = value"
-                            v-bind="row.props">
+                            :is="config.component"
+                            :value="event.value[config.key]"
+                            @input="value => { event.value[config.key] = value; updateInteract() }"
+                            v-bind="config.props">
                           </component>
                         </li>
                       </ul>
                     </div>
-                    <el-button @click="addEvent(interact)">添加事件</el-button>
+                    <el-button
+                      :disabled="isAddEventDisabled(interact)"
+                      @click="addEvent(interact)">
+                      添加事件
+                    </el-button>
                   </template>
                 </li>
               </ul>
-              <el-button :disabled="interactDisabled" @click="addInteract">添加交互</el-button>
+              <el-button
+                size="small"
+                type="primary"
+                :disabled="isAddInteractDisabled"
+                class="add-interact"
+                @click="addInteract">
+                添加交互
+              </el-button>
             </template>
           </template>
         </template>
@@ -223,8 +234,8 @@ export default {
         : require(`@/core/${this.activeElement.type}`).default.config[this.activeTab]
     },
 
-    interactDisabled () {
-      return this.activeElement.interacts.length >= this.activeConfig.actions.length
+    isAddInteractDisabled () {
+      return this.activeElement.interacts.length >= this.activeConfig.actionOptions.length
     }
   },
 
@@ -285,26 +296,62 @@ export default {
       return utils.getValueFromObj(...arguments)
     },
 
+    setValueToObj () {
+      return utils.setValueToObj(...arguments)
+    },
+
     addInteract () {
       this.activeElement.interacts.push({
         action: '',
         events: []
       })
+      this.updateInteract()
+    },
+
+    getActionOptions (interact) {
+      return this.activeConfig.actionOptions.filter(actionOption =>
+        actionOption.value === interact.action ||
+        this.activeElement.interacts.every(interact => interact.action !== actionOption.value)
+      )
     },
 
     addEvent (interact) {
       interact.events.push({
-        value: ''
+        type: ''
       })
+      this.updateInteract()
     },
 
-    selectEvent (value, event) {
-      this.$set(event, 'value', value)
-      this.activeConfig.events[event.value].forEach(row => {
-        if (!utils.hasProperty(event, row.key)) {
-          this.$set(event, row.key, row.default)
-        }
-      })
+    isAddEventDisabled (interact) {
+      return interact.events.length >= this.getEventAllOptions(interact).length
+    },
+
+    getEventAllOptions (interact) {
+      return this.activeConfig.actionOptions.find(actionOption => actionOption.value === interact.action).eventOptions
+    },
+
+    getEventOptions (interact, event) {
+      return this.getEventAllOptions(interact)
+        .filter(eventOption =>
+          eventOption.value === event.type ||
+          interact.events.every(event => event.type !== eventOption.value)
+        )
+    },
+
+    selectEvent (type, event) {
+      this.$set(event, 'type', type)
+      this.$set(event, 'value', this.getEventConfigs(event).reduce((value, config) => {
+        value[config.key] = config.default
+        return value
+      }, {}))
+    },
+
+    getEventConfigs (event) {
+      return this.activeConfig.eventOptions[event.type]
+    },
+
+    updateInteract () {
+      this.updateElement('interacts', this.activeElement.interacts)
     }
   },
 
@@ -415,6 +462,10 @@ export default {
     }
     .config-label {
       line-height: 36px;
+    }
+    .add-interact {
+      width: calc(100% - 24px);
+      margin: 18px 12px 0 12px;
     }
   }
 }

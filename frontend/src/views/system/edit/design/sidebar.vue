@@ -67,7 +67,7 @@ import Operation from '@/core/operation.js'
 import { packages } from '@/views/system/edit/config.js'
 
 export default {
-  name: 'EditSidebar',
+  name: 'DesignSidebar',
 
   data () {
     return {

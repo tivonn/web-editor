@@ -297,11 +297,11 @@ export default {
     }
   ],
   interact: {
-    actions: [
+    actionOptions: [
       {
         label: '单击',
         value: 'click',
-        events: [
+        eventOptions: [
           {
             label: '跳转页面',
             value: 'link'
@@ -315,7 +315,7 @@ export default {
       {
         label: '双击',
         value: 'dbclick',
-        events: [
+        eventOptions: [
           {
             label: '跳转页面',
             value: 'link'
@@ -323,14 +323,32 @@ export default {
         ]
       }
     ],
-    events: {
+    eventOptions: {
       link: [
         {
-          key: 'target',
+          key: 'page',
           component: 'config-input',
           default: '',
           props: {
             label: '目标页面'
+          }
+        },
+        {
+          key: 'blank',
+          component: 'config-whether',
+          default: false,
+          props: {
+            label: '新标签页打开'
+          }
+        }
+      ],
+      ajax: [
+        {
+          key: 'api',
+          component: 'config-input',
+          default: '',
+          props: {
+            label: '接口'
           }
         }
       ]
