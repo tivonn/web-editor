@@ -23,7 +23,7 @@
         class="delete-interact"
         @click="deleteInteract(interactIndex)">
       </Icon>
-      <template v-if="interact.isAble">
+      <template v-if="interact.event && interact.isAble">
         <draggable
           :list="interact.actions">
           <div
@@ -50,7 +50,7 @@
               @click="deleteAction(interact, actionIndex)">
             </Icon>
             <ul
-              v-if="action.isAble && getActionConfigs(action).length"
+              v-if="action.type && action.isAble"
               class="config-list">
               <li
                 v-for="config in getActionConfigs(action)"
@@ -89,6 +89,7 @@
 <script>
 import draggable from 'vuedraggable'
 import utils from '@/utils/index.js'
+import InteractController from '@/core/interact-controller.js'
 
 export default {
   name: 'ConfigInteract',
@@ -110,6 +111,16 @@ export default {
   computed: {
     isAddInteractDisabled () {
       return this.activeElement.interacts.length >= this.activeConfig.eventOptions.length
+    },
+
+    eventAllOptions () {
+      return InteractController.options.event
+        .filter(eventOption => this.activeConfig.eventOptions.includes(eventOption.value))
+    },
+
+    actionAllOptions () {
+      return InteractController.options.action
+        .filter(actionOption => this.activeConfig.actionOptions.includes(actionOption.value))
     }
   },
 
@@ -143,7 +154,7 @@ export default {
     },
 
     getEventOptions (interact) {
-      return this.activeConfig.eventOptions.filter(eventOption =>
+      return this.eventAllOptions.filter(eventOption =>
         eventOption.value === interact.event ||
         this.activeElement.interacts.every(interact => interact.event !== eventOption.value)
       )
@@ -163,21 +174,16 @@ export default {
     },
 
     isAddActionDisabled (interact) {
-      return interact.actions.length >= this.getActionAllOptions(interact).length
-    },
-
-    getActionAllOptions (interact) {
-      return interact.event
-        ? this.activeConfig.eventOptions.find(eventOption => eventOption.value === interact.event).actionOptions
-        : []
+      return interact.actions.length >= this.actionAllOptions.length
     },
 
     getActionOptions (interact, action) {
-      return this.getActionAllOptions(interact)
-        .filter(actionOption =>
+      return interact.event
+        ? this.actionAllOptions.filter(actionOption =>
           actionOption.value === action.type ||
-          interact.actions.every(action => action.type !== actionOption.value)
+            interact.actions.every(action => action.type !== actionOption.value)
         )
+        : []
     },
 
     selectAction (type, action) {
@@ -193,7 +199,7 @@ export default {
     },
 
     getActionConfigs (action) {
-      return this.activeConfig.actionOptions[action.type] || []
+      return InteractController.config[action.type]
     }
   },
 
@@ -218,6 +224,10 @@ export default {
       position: absolute;
       top: 16px;
       right: 35px;
+    }
+    .add-interact {
+      width: calc(100% - 12px);
+      margin: 18px 6px 0 6px;
     }
     .delete-interact {
       position: absolute;
@@ -259,6 +269,10 @@ export default {
       top: 14px;
       right: 28px;
     }
+    .add-action {
+      margin-top: 6px;
+      float: right;
+    }
     .delete-action {
       position: absolute;
       top: 16px;
@@ -274,14 +288,6 @@ export default {
     }
     .config-item {
       padding-top: 6px;
-    }
-    .add-action {
-      margin-top: 6px;
-      float: right;
-    }
-    .add-interact {
-      width: calc(100% - 12px);
-      margin: 18px 6px 0 6px;
     }
   }
 }

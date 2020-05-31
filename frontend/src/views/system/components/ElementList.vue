@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ElementItem from '@/components/ElementItem.vue'
+import ElementItem from '@/views/system/components/ElementItem.vue'
 
 export default {
   name: 'ElementList',

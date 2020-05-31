@@ -299,61 +299,7 @@ export default {
     }
   ],
   interact: {
-    eventOptions: [
-      {
-        label: '单击',
-        value: 'click',
-        actionOptions: [
-          {
-            label: '跳转页面',
-            value: 'link'
-          },
-          {
-            label: '提交数据/请求',
-            value: 'ajax'
-          }
-        ]
-      },
-      {
-        label: '双击',
-        value: 'dblclick',
-        actionOptions: [
-          {
-            label: '跳转页面',
-            value: 'link'
-          }
-        ]
-      }
-    ],
-    actionOptions: {
-      link: [
-        {
-          key: 'page',
-          component: 'config-input',
-          default: '',
-          props: {
-            label: '目标页面'
-          }
-        },
-        {
-          key: 'blank',
-          component: 'config-whether',
-          default: false,
-          props: {
-            label: '新标签页打开'
-          }
-        }
-      ],
-      ajax: [
-        {
-          key: 'api',
-          component: 'config-input',
-          default: '',
-          props: {
-            label: '接口'
-          }
-        }
-      ]
-    }
+    eventOptions: ['click', 'dblclick'],
+    actionOptions: ['link', 'ajax']
   }
 }

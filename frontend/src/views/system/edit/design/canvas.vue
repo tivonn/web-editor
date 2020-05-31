@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import ElementList from '@/components/ElementList'
+import ElementList from '@/views/system/components/ElementList.vue'
 import Mousetrap from 'mousetrap'
 import { mapGetters } from 'vuex'
 import utils from '@/utils/index.js'

@@ -88,7 +88,7 @@ export default {
   },
 
   components: {
-    ElementList: () => import('@/components/ElementList.vue') // 为了解决递归调用时报Unknown custom element的错误
+    ElementList: () => import('@/views/system/components/ElementList.vue') // 为了解决递归调用时报Unknown custom element的错误
   }
 }
 </script>

@@ -1,4 +1,4 @@
-import enums from '@/enums/index.js'
+import DataController from '@/core/data-controller.js'
 
 export default {
   style: {
@@ -25,7 +25,7 @@ export default {
         {
           property: '文本',
           field: 'data',
-          status: enums.REQUEST_STATUS.success.label
+          status: DataController.getStatus('success').label
         }
       ]
     }

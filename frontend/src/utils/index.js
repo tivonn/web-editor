@@ -108,13 +108,36 @@ const drag = (e, container, moveCallback, upCallback) => {
   window.addEventListener('mouseup', upContainer)
 }
 
+const formatDate = (date, fmt) => {
+  const o = {
+    'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
+    'M+': date.getMonth() + 1, // 月份
+    'd+': date.getDate(), // 日
+    'h+': date.getHours(), // 小时
+    'm+': date.getMinutes(), // 分
+    's+': date.getSeconds(), // 秒
+    S: date.getMilliseconds() // 毫秒
+  }
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+  }
+  for (const k in o) {
+    if (new RegExp('(' + k + ')').test(fmt)) {
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+    }
+  }
+  return fmt
+}
+
 const importFiles = (context) => {
   const modules = {}
   context.keys().forEach(key => {
     const module = context(key)
     const nameList = key.slice(2).split('.')
     nameList.pop()
-    modules[nameList.join()] = module.__esModule && module.default ? module.default : module
+    const name = nameList.join()
+    const childName = name.split('/').pop()
+    modules[childName] = module.__esModule && module.default ? module.default : module
   })
   return modules
 }
@@ -241,6 +264,7 @@ export default {
   deepQuery,
   deleteKeyFromObj,
   drag,
+  formatDate,
   importFiles,
   isArray,
   isEnvironment,

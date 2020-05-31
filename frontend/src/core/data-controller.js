@@ -2,7 +2,6 @@ import axios from '@/axios.js'
 import router from '@/router.js'
 import store from '@/store/index.js'
 import utils from '@/utils/index.js'
-import enums from '@/enums/index.js'
 
 const init = (element) => {
   const mode = utils.getValueFromObj(element, 'content.data.mode')
@@ -77,6 +76,32 @@ const getParamValue = (param) => {
   }
 }
 
+const getStatus = (type) => {
+  switch (type) {
+    case 'pending': {
+      return {
+        label: '匹配中',
+        value: 1
+      }
+    }
+    case 'success': {
+      return {
+        label: '成功',
+        value: 2
+      }
+    }
+    case 'error': {
+      return {
+        label: '失败',
+        value: 3
+      }
+    }
+    default: {
+      return {}
+    }
+  }
+}
+
 const updateStatus = (element, type) => {
   const parses = utils.getValueFromObj(element, 'content.data.parses')
   parses.forEach(parse => {
@@ -84,7 +109,7 @@ const updateStatus = (element, type) => {
       const result = utils.getValueFromObj(element, 'content.data.result')
       type = utils.hasProperty(result, parse.field) ? 'success' : 'error'
     }
-    parse.status = enums.REQUEST_STATUS[type].label
+    parse.status = getStatus(type).label
   })
 }
 
@@ -102,5 +127,6 @@ export default {
   init,
   getStaticData,
   getApiData,
+  getStatus,
   updateStatus
 }

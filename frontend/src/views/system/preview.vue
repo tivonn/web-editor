@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ElementList from '@/components/ElementList.vue'
+import ElementList from '@/views/system/components/ElementList.vue'
 import { mapGetters } from 'vuex'
 import utils from '@/utils/index.js'
 
