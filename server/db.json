@@ -6,11 +6,11 @@
     },
     {
       "type": "interact",
-      "max": 38
+      "max": 40
     },
     {
       "type": "action",
-      "max": 51
+      "max": 58
     }
   ],
   "systems": [
@@ -70,8 +70,16 @@
               "event": "click",
               "actions": [
                 {
+                  "id": 54,
+                  "isAble": true,
+                  "type": "ajax",
+                  "value": {
+                    "api": ""
+                  }
+                },
+                {
                   "id": 44,
-                  "isAble": false,
+                  "isAble": true,
                   "type": "link",
                   "value": {
                     "page": "https://free.modao.cc/app/design/pbkaumgykga1igbl",
@@ -162,15 +170,15 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "-38",
-              "yCoordinate": "53"
+              "xCoordinate": "57",
+              "yCoordinate": "68"
             }
           },
           "content": {
             "data": {
               "mode": "staticData",
               "staticData": {
-                "data": "按钮"
+                "data": "按2钮"
               },
               "apiScheme": "relative",
               "relativeApi": "",
@@ -198,13 +206,21 @@
                   "type": "link",
                   "value": {
                     "page": "8",
-                    "blank": false
+                    "blank": true
+                  }
+                },
+                {
+                  "id": 57,
+                  "isAble": true,
+                  "type": "ajax",
+                  "value": {
+                    "api": "5"
                   }
                 }
               ]
             }
           ],
-          "name": "按钮-3",
+          "name": "按钮-33",
           "packageType": "m-button"
         }
       ],

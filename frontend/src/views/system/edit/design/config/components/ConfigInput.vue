@@ -121,6 +121,9 @@ export default {
       font-size: 13px;
     }
     .input-value {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
       line-height: 32px;
       cursor: pointer;
     }
