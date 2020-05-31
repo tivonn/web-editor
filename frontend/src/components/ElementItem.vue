@@ -1,11 +1,12 @@
 <template>
   <div
     v-if="isComponent"
+    ref="element"
     :id="element.id"
     class="element-item"
     :class="[getElementClass(element)]"
     :style="[getElementStyle(element), selfGetElementStyle]">
-    <div ref="element"></div>
+    <div ref="mount"></div>
   </div>
   <element-list
     v-else
@@ -20,11 +21,16 @@
 <script>
 import Vue from 'vue'
 import DataController from '@/core/data-controller.js'
+import InteractController from '@/core/interact-controller.js'
 
 export default {
   name: 'ElementItem',
 
   inject: {
+    isEdit: {
+      default: false
+    },
+
     getElementClass: {
       default: () => () => {}
     },
@@ -68,6 +74,7 @@ export default {
     mountElement () {
       if (!this.isComponent) return
       DataController.init(this.element)
+      !this.isEdit && InteractController.init(this.element, this.$refs.element)
       const { packageType, style, content, interact } = this.element
       const Package = Vue.extend(require(`@/packages/${packageType}/index.vue`).default)
       new Package({
@@ -76,7 +83,7 @@ export default {
           ...content,
           ...interact
         }
-      }).$mount(this.$refs.element)
+      }).$mount(this.$refs.mount)
     }
   },
 

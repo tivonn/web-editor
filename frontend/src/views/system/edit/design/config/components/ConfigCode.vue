@@ -70,6 +70,10 @@ export default {
 <style lang="scss" module>
 .config-code {
   :global {
+    .config-label {
+      line-height: 32px;
+      font-size: 13px;
+    }
     .code-editor {
       margin-top: 1px;
     }

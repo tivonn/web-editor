@@ -1,10 +1,11 @@
 <template>
   <div :class="$style.configSelect">
-    <p class="config-label">{{label}}</p>
+    <span v-if="label" class="config-label">{{label}}</span>
     <el-select
       :value="value"
       @input="$emit('input', $event)"
-      size="small">
+      size="small"
+      :style="getSelectStyle">
       <el-option
         v-for="item in options"
         :key="item[optionValue]"
@@ -49,6 +50,15 @@ export default {
       required: false,
       default: 'value'
     }
+  },
+
+  computed: {
+    getSelectStyle () {
+      return {
+        width: !this.label ? '100%' : 'calc(100% - 65px)',
+        marginLeft: !this.label ? '0' : '10px'
+      }
+    }
   }
 }
 </script>
@@ -56,8 +66,12 @@ export default {
 <style lang="scss" module>
 .config-select {
   :global {
-    .el-select {
-      width: 100%;
+    .config-label {
+      width: 55px;
+      display: inline-block;
+      line-height: 32px;
+      vertical-align: top;
+      font-size: 13px;
     }
   }
 }

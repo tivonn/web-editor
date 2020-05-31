@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.configInput">
-    <p class="config-label">{{label}}</p>
+    <span v-if="label" class="config-label">{{label}}</span>
     <span
       v-if="canToggle && !showInput"
       class="input-value"
@@ -16,6 +16,7 @@
       :type="type"
       :rows="rows"
       :placeholder="placeholder"
+      :style="getInputStyle"
       @blur="blurInput">
       <template slot="suffix">{{suffix}}</template>
     </el-input>
@@ -76,6 +77,15 @@ export default {
     }
   },
 
+  computed: {
+    getInputStyle () {
+      return {
+        width: !this.label ? '100%' : 'calc(100% - 65px)',
+        marginLeft: !this.label ? '0' : '10px'
+      }
+    }
+  },
+
   watch: {
     showInput: {
       handler (newValue) {
@@ -103,6 +113,13 @@ export default {
 <style lang="scss" module>
 .config-input {
   :global {
+    .config-label {
+      width: 55px;
+      display: inline-block;
+      line-height: 32px;
+      vertical-align: top;
+      font-size: 13px;
+    }
     .input-value {
       line-height: 32px;
       cursor: pointer;

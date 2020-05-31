@@ -160,6 +160,7 @@ export default {
   height: 100%;
   display: inline-block;
   vertical-align: middle;
+  overflow: auto;
   :global {
     .sidebar-tabs {
       height: 410px;

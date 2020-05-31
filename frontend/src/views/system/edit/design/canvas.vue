@@ -55,6 +55,7 @@ export default {
 
   provide () {
     return {
+      isEdit: true,
       getElementClass: this.getElementClass,
       getElementStyle: this.getElementStyle
     }

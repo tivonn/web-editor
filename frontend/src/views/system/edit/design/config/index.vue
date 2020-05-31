@@ -92,43 +92,79 @@
                 </el-row>
               </el-collapse-item>
             </el-collapse>
-            <template v-else-if="tab.value === 'interact'">
-              <ul>
-                <li v-for="interact in activeElement.interacts" :key="interact.action">
-                  <!--todo 触发vuex-->
-                  <config-select
-                    :value="interact.action"
-                    @input="value => { interact.action = value; updateInteract() }"
-                    label="触发行为"
-                    :options="getActionOptions(interact)">
-                  </config-select>
-                  <template v-if="interact.action">
-                    <div v-for="event in interact.events" :key="event.type">
-                      <config-select
-                        :value="event.type"
-                        @input="type => { selectEvent(type, event); updateInteract() }"
-                        label="触发事件"
-                        :options="getEventOptions(interact, event)">
-                      </config-select>
-                      <ul>
-                        <li v-for="config in getEventConfigs(event)" :key="config.key">
-                          <component
-                            :is="config.component"
-                            :value="event.value[config.key]"
-                            @input="value => { event.value[config.key] = value; updateInteract() }"
-                            v-bind="config.props">
-                          </component>
-                        </li>
-                      </ul>
-                    </div>
-                    <el-button
-                      :disabled="isAddEventDisabled(interact)"
-                      @click="addEvent(interact)">
-                      添加事件
-                    </el-button>
-                  </template>
-                </li>
-              </ul>
+            <div v-else-if="tab.value === 'interact'" class="interact-container">
+              <div
+                v-for="(interact, interactIndex) in activeElement.interacts"
+                :key="interact.id"
+                class="interact-item clear-fix">
+                <config-select
+                  :value="interact.event"
+                  @input="value => interact.event = value "
+                  label="事件"
+                  :options="getEventOptions(interact)"
+                  class="event-select">
+                </config-select>
+                <el-switch
+                  v-model="interact.isAble"
+                  :disabled="!interact.event"
+                  class="interact-switch">
+                </el-switch>
+                <Icon
+                  svg-id="iconshanchu"
+                  color="#999"
+                  title="删除交互"
+                  class="delete-interact"
+                  @click="deleteInteract(interactIndex)">
+                </Icon>
+                <template v-if="interact.isAble">
+                  <div
+                    v-for="(action, actionIndex) in interact.actions"
+                    :key="action.id"
+                    class="action-item">
+                    <config-select
+                      :value="action.type"
+                      @input="type => selectAction(type, action)"
+                      :label="`行为${ interact.actions.length > 1 ? actionIndex + 1 : '' }`"
+                      :options="getActionOptions(interact, action)"
+                      class="action-select">
+                    </config-select>
+                    <el-switch
+                      v-model="action.isAble"
+                      :disabled="!action.type"
+                      class="action-switch">
+                    </el-switch>
+                    <Icon
+                      svg-id="iconshanchu"
+                      color="#999"
+                      title="删除行为"
+                      class="delete-action"
+                      @click="deleteAction(interact, actionIndex)">
+                    </Icon>
+                    <ul
+                      v-if="action.isAble && getActionConfigs(action).length"
+                      class="config-list">
+                      <li
+                        v-for="config in getActionConfigs(action)"
+                        :key="config.key"
+                        class="config-item">
+                        <component
+                          :is="config.component"
+                          :value="action.value[config.key]"
+                          @input="value => action.value[config.key] = value"
+                          v-bind="config.props">
+                        </component>
+                      </li>
+                    </ul>
+                  </div>
+                  <el-button
+                    size="small"
+                    :disabled="isAddActionDisabled(interact)"
+                    class="add-action"
+                    @click="addAction(interact)">
+                    添加行为
+                  </el-button>
+                </template>
+              </div>
               <el-button
                 size="small"
                 type="primary"
@@ -137,7 +173,7 @@
                 @click="addInteract">
                 添加交互
               </el-button>
-            </template>
+            </div>
           </template>
         </template>
       </el-tab-pane>
@@ -235,7 +271,7 @@ export default {
     },
 
     isAddInteractDisabled () {
-      return this.activeElement.interacts.length >= this.activeConfig.actionOptions.length
+      return this.activeElement.interacts.length >= this.activeConfig.eventOptions.length
     }
   },
 
@@ -245,6 +281,13 @@ export default {
         this.activeTab = (this.tabs.find(tab => !this.isTabDisabled(tab.value)) || {}).value
       },
       immediate: true
+    },
+
+    'activeElement.interacts': {
+      handler () {
+        this.updateInteract()
+      },
+      deep: true
     }
   },
 
@@ -279,14 +322,18 @@ export default {
       const filter = (list) => {
         return list.reduce((filterList, filterItem) => {
           if (filterItem.remove || !filterItem.list) {
-            const filterResult = !(filterItem.removes && filterItem.removes.some(remove => remove(this.activeElement))) ? [filterItem] : []
-            return filterList.concat(filterResult)
+            if (!(filterItem.removes && filterItem.removes.some(remove => remove(this.activeElement)))) {
+              filterList.push(filterItem)
+            }
           } else {
             const filterResult = Object.assign({}, filterItem, {
               list: filter(filterItem.list)
             })
-            return filterList.concat(filterResult.list.length ? [filterResult] : [])
+            if (filterResult.list.length) {
+              filterList.push(filterResult)
+            }
           }
+          return filterList
         }, [])
       }
       return filter(collapse)
@@ -296,58 +343,77 @@ export default {
       return utils.getValueFromObj(...arguments)
     },
 
-    setValueToObj () {
-      return utils.setValueToObj(...arguments)
-    },
-
     addInteract () {
-      this.activeElement.interacts.push({
-        action: '',
-        events: []
-      })
-      this.updateInteract()
+      const { interacts } = this.activeElement
+      utils.getId('interact')
+        .then(res => {
+          const id = res
+          interacts.push({
+            id,
+            isAble: true,
+            event: '',
+            actions: []
+          })
+          this.addAction(interacts[interacts.length - 1])
+        })
     },
 
-    getActionOptions (interact) {
-      return this.activeConfig.actionOptions.filter(actionOption =>
-        actionOption.value === interact.action ||
-        this.activeElement.interacts.every(interact => interact.action !== actionOption.value)
+    deleteInteract (interactIndex) {
+      this.activeElement.interacts.splice(interactIndex, 1)
+    },
+
+    getEventOptions (interact) {
+      return this.activeConfig.eventOptions.filter(eventOption =>
+        eventOption.value === interact.event ||
+        this.activeElement.interacts.every(interact => interact.event !== eventOption.value)
       )
     },
 
-    addEvent (interact) {
-      interact.events.push({
-        type: ''
-      })
-      this.updateInteract()
+    addAction (interact) {
+      utils.getId('action')
+        .then(res => {
+          const id = res
+          interact.actions.push({
+            id,
+            isAble: true,
+            type: '',
+            value: {}
+          })
+        })
     },
 
-    isAddEventDisabled (interact) {
-      return interact.events.length >= this.getEventAllOptions(interact).length
+    isAddActionDisabled (interact) {
+      return interact.actions.length >= this.getActionAllOptions(interact).length
     },
 
-    getEventAllOptions (interact) {
-      return this.activeConfig.actionOptions.find(actionOption => actionOption.value === interact.action).eventOptions
+    getActionAllOptions (interact) {
+      return interact.event
+        ? this.activeConfig.eventOptions.find(eventOption => eventOption.value === interact.event).actionOptions
+        : []
     },
 
-    getEventOptions (interact, event) {
-      return this.getEventAllOptions(interact)
-        .filter(eventOption =>
-          eventOption.value === event.type ||
-          interact.events.every(event => event.type !== eventOption.value)
+    getActionOptions (interact, action) {
+      return this.getActionAllOptions(interact)
+        .filter(actionOption =>
+          actionOption.value === action.type ||
+          interact.actions.every(action => action.type !== actionOption.value)
         )
     },
 
-    selectEvent (type, event) {
-      this.$set(event, 'type', type)
-      this.$set(event, 'value', this.getEventConfigs(event).reduce((value, config) => {
+    selectAction (type, action) {
+      this.$set(action, 'type', type)
+      this.$set(action, 'value', this.getActionConfigs(action).reduce((value, config) => {
         value[config.key] = config.default
         return value
       }, {}))
     },
 
-    getEventConfigs (event) {
-      return this.activeConfig.eventOptions[event.type]
+    deleteAction (interact, actionIndex) {
+      interact.actions.splice(actionIndex, 1)
+    },
+
+    getActionConfigs (action) {
+      return this.activeConfig.actionOptions[action.type] || []
     },
 
     updateInteract () {
@@ -449,23 +515,94 @@ export default {
         line-height: 36px;
         border-color: $--border-color-base;
         font-weight: bold;
-        color: $--color-text-secondary;
+        color: $--color-primary;
       }
       .el-collapse-item__content {
-        padding: 2px 6px 10px 6px;
+        padding: 10px 6px;
       }
     }
     .config-row {
-      &+.config-row {
+      & + .config-row {
         margin-top: 10px;
       }
     }
-    .config-label {
-      line-height: 36px;
+    .interact-container {
+      padding-bottom: 10px;
+    }
+    .interact-item {
+      position: relative;
+      padding: 10px 6px;
+      & + .interact-item {
+        border-top: 1px solid $--border-color-base;
+      }
+    }
+    .interact-switch {
+      position: absolute;
+      top: 16px;
+      right: 35px;
+    }
+    .delete-interact {
+      position: absolute;
+      top: 18px;
+      right: 13px;
+      cursor: pointer;
+      &:hover {
+        fill: $--color-danger !important;
+      }
+    }
+    .event-select {
+      .config-label {
+        padding: 0 6px;
+        font-weight: bold;
+        color: $--color-primary;
+      }
+      .el-select {
+        width: calc(100% - 150px) !important;
+        margin-left: 16px !important;
+      }
+    }
+    .action-item {
+      position: relative;
+      margin-top: 10px;
+      padding: 8px 6px;
+      background-color: $--hover-color-primary;
+      .el-input__inner {
+        background-color: $--hover-color-primary;
+      }
+    }
+    .action-select {
+      .el-select {
+        width: calc(100% - 138px) !important;
+      }
+    }
+    .action-switch {
+      position: absolute;
+      top: 14px;
+      right: 28px;
+    }
+    .delete-action {
+      position: absolute;
+      top: 16px;
+      right: 6px;
+      cursor: pointer;
+      &:hover {
+        fill: $--color-danger !important;
+      }
+    }
+    .config-list {
+      margin-top: 8px;
+      border-top: 1px solid $--border-color-base;
+    }
+    .config-item {
+      padding-top: 6px;
+    }
+    .add-action {
+      margin-top: 6px;
+      float: right;
     }
     .add-interact {
-      width: calc(100% - 24px);
-      margin: 18px 12px 0 12px;
+      width: calc(100% - 12px);
+      margin: 18px 6px 0 6px;
     }
   }
 }

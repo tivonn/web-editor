@@ -169,8 +169,16 @@ export default {
 <style lang="scss" module>
 .config-table {
   :global {
+    .config-label {
+      line-height: 32px;
+      font-size: 13px;
+    }
     th {
       padding-top: 0;
+      .cell {
+        font-size: 13px;
+        font-weight: normal;
+      }
     }
     .delete-row {
       vertical-align: -0.3em;

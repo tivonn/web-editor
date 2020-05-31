@@ -34,6 +34,7 @@ export default {
 
   provide () {
     return {
+      isEdit: false,
       getElementStyle: this.getElementStyle
     }
   },

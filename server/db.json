@@ -2,15 +2,15 @@
   "ids": [
     {
       "type": "element",
-      "max": 636
+      "max": 665
     },
     {
-      "type": "res",
-      "max": 733
+      "type": "interact",
+      "max": 38
     },
     {
-      "type": "event",
-      "max": 1
+      "type": "action",
+      "max": 51
     }
   ],
   "systems": [
@@ -31,7 +31,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 636,
+          "id": 662,
           "type": "component",
           "style": {
             "size": {
@@ -39,8 +39,8 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "0",
-              "yCoordinate": "0"
+              "xCoordinate": "44",
+              "yCoordinate": "145"
             }
           },
           "content": {
@@ -65,19 +65,146 @@
           },
           "interacts": [
             {
-              "action": "click",
-              "events": [
+              "id": 33,
+              "isAble": true,
+              "event": "click",
+              "actions": [
                 {
+                  "id": 44,
+                  "isAble": false,
                   "type": "link",
                   "value": {
-                    "page": "555",
-                    "blank": false
+                    "page": "https://free.modao.cc/app/design/pbkaumgykga1igbl",
+                    "blank": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": 34,
+              "isAble": true,
+              "event": "dblclick",
+              "actions": [
+                {
+                  "id": 46,
+                  "isAble": true,
+                  "type": "link",
+                  "value": {
+                    "page": "https://www.cnblogs.com/wcx-20151115-hzz/p/10149615.html",
+                    "blank": true
                   }
                 }
               ]
             }
           ],
           "name": "按钮-1",
+          "packageType": "m-button"
+        },
+        {
+          "id": 664,
+          "type": "component",
+          "style": {
+            "size": {
+              "width": "100",
+              "height": "50"
+            },
+            "position": {
+              "xCoordinate": "-38",
+              "yCoordinate": "298"
+            }
+          },
+          "content": {
+            "data": {
+              "mode": "staticData",
+              "staticData": {
+                "data": "按钮"
+              },
+              "apiScheme": "relative",
+              "relativeApi": "",
+              "absoluteApi": "",
+              "params": [],
+              "parses": [
+                {
+                  "property": "文本",
+                  "field": "data",
+                  "status": "成功"
+                }
+              ],
+              "result": {}
+            }
+          },
+          "interacts": [
+            {
+              "id": 35,
+              "isAble": true,
+              "event": "click",
+              "actions": [
+                {
+                  "id": 47,
+                  "isAble": true,
+                  "type": "ajax",
+                  "value": {
+                    "api": "/h"
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "按钮-2",
+          "packageType": "m-button"
+        },
+        {
+          "id": 665,
+          "type": "component",
+          "style": {
+            "size": {
+              "width": "100",
+              "height": "50"
+            },
+            "position": {
+              "xCoordinate": "-38",
+              "yCoordinate": "53"
+            }
+          },
+          "content": {
+            "data": {
+              "mode": "staticData",
+              "staticData": {
+                "data": "按钮"
+              },
+              "apiScheme": "relative",
+              "relativeApi": "",
+              "absoluteApi": "",
+              "params": [],
+              "parses": [
+                {
+                  "property": "文本",
+                  "field": "data",
+                  "status": "成功"
+                }
+              ],
+              "result": {}
+            }
+          },
+          "interacts": [
+            {
+              "id": 38,
+              "isAble": true,
+              "event": "click",
+              "actions": [
+                {
+                  "id": 51,
+                  "isAble": true,
+                  "type": "link",
+                  "value": {
+                    "page": "8",
+                    "blank": false
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "按钮-3",
           "packageType": "m-button"
         }
       ],

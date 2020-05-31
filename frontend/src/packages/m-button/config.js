@@ -11,7 +11,7 @@ export default {
           list: [
             {
               key: 'width',
-              span: 6,
+              span: 10,
               component: 'config-input',
               props: {
                 label: '宽度',
@@ -20,7 +20,8 @@ export default {
             },
             {
               key: 'height',
-              span: 6,
+              span: 10,
+              offset: 2,
               component: 'config-input',
               props: {
                 label: '高度',
@@ -40,7 +41,7 @@ export default {
           list: [
             {
               key: 'xCoordinate',
-              span: 6,
+              span: 10,
               component: 'config-input',
               props: {
                 label: 'x坐标',
@@ -49,7 +50,8 @@ export default {
             },
             {
               key: 'yCoordinate',
-              span: 6,
+              span: 10,
+              offset: 2,
               component: 'config-input',
               props: {
                 label: 'y坐标',
@@ -297,11 +299,11 @@ export default {
     }
   ],
   interact: {
-    actionOptions: [
+    eventOptions: [
       {
         label: '单击',
         value: 'click',
-        eventOptions: [
+        actionOptions: [
           {
             label: '跳转页面',
             value: 'link'
@@ -314,8 +316,8 @@ export default {
       },
       {
         label: '双击',
-        value: 'dbclick',
-        eventOptions: [
+        value: 'dblclick',
+        actionOptions: [
           {
             label: '跳转页面',
             value: 'link'
@@ -323,7 +325,7 @@ export default {
         ]
       }
     ],
-    eventOptions: {
+    actionOptions: {
       link: [
         {
           key: 'page',

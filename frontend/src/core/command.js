@@ -41,11 +41,21 @@ const save = (systemId, pageId, elements) => {
         return item
       } else {
         return Object.assign({}, item, {
+          // 删除获取的数据
           content: {
             data: Object.assign({}, item.content.data, {
               result: {}
             })
-          }
+          },
+          // 过滤交互
+          interacts: item.interacts.reduce((interacts, interact) => {
+            if (interact.event) {
+              interacts.push(Object.assign({}, interact, {
+                actions: interact.actions.filter(action => action.type)
+              }))
+            }
+            return interacts
+          }, [])
         })
       }
     })
