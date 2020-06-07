@@ -1,7 +1,6 @@
-import axios from '@/axios.js'
-import router from '@/router.js'
 import store from '@/store/index.js'
 import utils from '@/utils/index.js'
+import RequestController from '@/core/request-controller.js'
 
 const init = (element) => {
   const mode = utils.getValueFromObj(element, 'content.data.mode')
@@ -15,65 +14,24 @@ const getStaticData = (element) => {
 }
 
 const getApiData = (element) => {
-  const mode = utils.getValueFromObj(element, 'content.data.apiScheme')
-  const api = utils.getValueFromObj(element, `content.data.${mode}Api`)
+  const apiScheme = utils.getValueFromObj(element, 'content.data.apiScheme')
+  const api = utils.getValueFromObj(element, `content.data.${apiScheme}Api`)
   if (api === '') return
-  let url
-  const isRelativeApi = mode === 'relative'
-  if (isRelativeApi) {
-    const { env } = store.getters
-    url = `${env[env.length - 1] === '/' ? env.slice(0, -1) : env}/${api[0] === '/' ? api.slice(1, api.length) : api}`
-  } else {
-    url = api
-  }
-  const params = getParams(element)
+  const url = RequestController.getUrl(apiScheme, api)
+  const originalParams = utils.getValueFromObj(element, 'content.data.params')
+  const params = RequestController.getParams(originalParams)
   const data = {
     url,
     params
   }
   updateStatus(element, 'pending')
-  axios.post('/proxy', data)
+  RequestController.request('post', '/proxy', data)
     .then(res => {
       updateResult(element, res.data)
     })
     .catch(err => {
       updateResult(element, err.data)
     })
-}
-
-const getParams = (element) => {
-  let params = {}
-  utils.getValueFromObj(element, 'content.data.params').forEach(param => {
-    if (param.key !== '') {
-      const { key } = param
-      const value = getParamValue(param)
-      params = Object.assign({}, params, {
-        [key]: value
-      })
-    }
-  })
-  return params
-}
-
-const getParamValue = (param) => {
-  const { mode } = param
-  switch (mode) {
-    case 'custom': {
-      return param.custom
-    }
-    case 'urlParam': {
-      const { urlParam } = param
-      const route = router.app._route
-      return route.query[urlParam] || route.params[urlParam] || ''
-    }
-    case 'element': {
-      // todo get element value
-      return ''
-    }
-    default: {
-      return ''
-    }
-  }
 }
 
 const getStatus = (type) => {

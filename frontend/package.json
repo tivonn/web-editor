@@ -63,7 +63,7 @@
       "no-mixed-operators": 0
     }
   },
-  "eslintIgnode": [
+  "eslintIgnore": [
     "src/assets/iconfont"
   ],
   "browserslist": [

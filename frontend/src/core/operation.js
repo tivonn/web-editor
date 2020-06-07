@@ -29,11 +29,22 @@ const createElement = (name, packageType) => {
 
 const getElementCount = (elements, isComponent, packageType) => {
   return elements.reduce((count, element) => {
-    count += utils.getDeepTraversal(element).filter(item => {
+    count += utils.getBFS(element).filter(item => {
       return isComponent ? item.packageType === packageType : item.type === 'combination'
     }).length
     return count
   }, 0)
+}
+
+const getBFSElements = (element) => {
+  if (utils.isArray(element)) {
+    return element.reduce((elements, node) => {
+      elements.push(...utils.getBFS(node).filter(item => item.type === 'component'))
+      return elements
+    }, [])
+  } else if (utils.isPlainObject(element)) {
+    return utils.getBFS(element).filter(item => item.type === 'component')
+  }
 }
 
 const getActiveElements = (element, isMultiple) => {
@@ -78,6 +89,7 @@ const deleteElements = (deleteElements) => {
 export default {
   createElement,
   getElementCount,
+  getBFSElements,
   getActiveElements,
   deleteElements
 }

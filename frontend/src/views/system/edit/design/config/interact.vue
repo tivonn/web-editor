@@ -30,36 +30,39 @@
             v-for="(action, actionIndex) in interact.actions"
             :key="action.id"
             class="action-item">
-            <config-select
-              :value="action.type"
-              @input="type => selectAction(type, action)"
-              :label="`行为${ interact.actions.length > 1 ? actionIndex + 1 : '' }`"
-              :options="getActionOptions(interact, action)"
-              class="action-select">
-            </config-select>
-            <el-switch
-              v-model="action.isAble"
-              :disabled="!action.type"
-              class="action-switch">
-            </el-switch>
-            <Icon
-              svg-id="iconshanchu"
-              color="#999"
-              title="删除行为"
-              class="delete-action"
-              @click="deleteAction(interact, actionIndex)">
-            </Icon>
+            <template>
+              <config-select
+                :value="action.type"
+                @input="type => selectAction(type, action)"
+                :label="`行为${ interact.actions.length > 1 ? actionIndex + 1 : '' }`"
+                :options="getActionOptions(interact, action)"
+                class="action-select">
+              </config-select>
+              <el-switch
+                v-model="action.isAble"
+                :disabled="!action.type"
+                class="action-switch">
+              </el-switch>
+              <Icon
+                svg-id="iconshanchu"
+                color="#999"
+                title="删除行为"
+                class="delete-action"
+                @click="deleteAction(interact, actionIndex)">
+              </Icon>
+            </template>
             <ul
               v-if="action.type && action.isAble"
               class="config-list">
               <li
-                v-for="config in getActionConfigs(action)"
+                v-for="config in filterActionConfigs(action)"
                 :key="config.key"
                 class="config-item">
                 <component
                   :is="config.component"
                   :value="action.value[config.key]"
                   @input="value => action.value[config.key] = value"
+                  @update-item="value => Object.assign(action.value[config.key][value.index], value.itemUpdateData)"
                   v-bind="config.props">
                 </component>
               </li>
@@ -200,6 +203,10 @@ export default {
 
     getActionConfigs (action) {
       return InteractController.config[action.type]
+    },
+
+    filterActionConfigs (action) {
+      return this.getActionConfigs(action).filter(config => !(config.removes && config.removes.some(remove => remove(action))))
     }
   },
 
@@ -255,7 +262,7 @@ export default {
       padding: 8px 6px;
       background-color: $--hover-color-primary;
       cursor: move;
-      .el-input__inner {
+      .el-input__inner, .el-textarea__inner, .el-radio-button:not(.is-active) .el-radio-button__inner, .el-table th, .el-table td, .el-button {
         background-color: $--hover-color-primary;
       }
     }

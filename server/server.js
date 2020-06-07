@@ -88,7 +88,6 @@ server.put('/build/:sid', (req, res) => {
 })
 
 server.post('/proxy', (req, res) => {
-  // todo proxy
   const { db } = router
   const type = 'res'
   const typeItem = db.get('ids').find({ type })

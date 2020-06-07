@@ -12,13 +12,12 @@
         :align="col.align">
         <template slot-scope="scope">
           <template
-            v-for="item in col.list">
+            v-for="item in getComponents(col, scope)">
             <component
-              v-if="!(item.removes && item.removes.some(remove => remove(value[scope.$index])))"
               :key="item.key"
               :is="item.component"
               :value="value[scope.$index][item.key]"
-              @input="componentValue => updateElement(componentValue, scope.$index, item.key)"
+              @input="componentValue => updateRow(componentValue, scope.$index, item.key)"
               v-bind="item.props"
               @trigger="triggerElement(item.key)">
             </component>
@@ -65,21 +64,9 @@ export default {
       default: () => []
     },
 
-    activeElement: {
-      type: Object,
-      required: true,
-      default: () => ({})
-    },
-
-    currentKey: {
-      type: String,
-      required: true,
-      default: ''
-    },
-
     label: {
       type: String,
-      required: false,
+      required: true,
       default: ''
     },
 
@@ -139,20 +126,17 @@ export default {
       this.$emit('trigger', 'delete')
     },
 
-    updateElement (componentValue, rowIndex, key) {
-      const { id } = this.activeElement
-      const currentKey = this.currentKey
-      this.$store.dispatch('updateElement', {
-        id,
-        updateData: {
-          [currentKey]: {
-            index: rowIndex,
-            itemUpdateData: {
-              [key]: componentValue
-            }
-          }
+    updateRow (componentValue, rowIndex, key) {
+      this.$emit('update-item', {
+        index: rowIndex,
+        itemUpdateData: {
+          [key]: componentValue
         }
       })
+    },
+
+    getComponents (col, scope) {
+      return col.list.filter(item => !(item.removes && item.removes.some(remove => remove(this.value[scope.$index]))))
     },
 
     triggerElement (key) {

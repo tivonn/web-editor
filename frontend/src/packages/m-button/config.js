@@ -1,5 +1,3 @@
-import store from '@/store/index.js'
-
 export default {
   style: [
     {
@@ -72,7 +70,6 @@ export default {
           list: [
             {
               key: 'mode',
-              span: 24,
               component: 'config-select',
               props: {
                 label: '模式',
@@ -95,7 +92,6 @@ export default {
             {
               key: 'staticData',
               removes: [element => element.content.data.mode !== 'staticData'],
-              span: 24,
               component: 'config-code',
               props: {
                 label: '静态数据'
@@ -108,7 +104,6 @@ export default {
             {
               key: 'apiScheme',
               removes: [element => element.content.data.mode !== 'apiData'],
-              span: 24,
               component: 'config-select',
               props: {
                 label: '接口方案',
@@ -131,7 +126,6 @@ export default {
             {
               key: 'relativeApi',
               removes: [element => element.content.data.mode !== 'apiData', element => element.content.data.apiScheme !== 'relative'],
-              span: 24,
               component: 'config-input',
               props: {
                 label: '相对路径',
@@ -146,7 +140,6 @@ export default {
             {
               key: 'absoluteApi',
               removes: [element => element.content.data.mode !== 'apiData', element => element.content.data.apiScheme !== 'absolute'],
-              span: 24,
               component: 'config-input',
               props: {
                 label: '绝对路径',
@@ -161,7 +154,6 @@ export default {
             {
               key: 'params',
               removes: [element => element.content.data.mode !== 'apiData'],
-              span: 24,
               component: 'config-table',
               props: {
                 label: '参数配置',
@@ -218,9 +210,9 @@ export default {
                       {
                         key: 'element',
                         removes: [row => row.mode !== 'element'],
-                        component: 'config-select',
+                        component: 'config-cascader',
                         props: {
-                          options: store.getters.elements,
+                          options: 'elements',
                           optionLabel: 'name',
                           optionValue: 'id'
                         }
@@ -233,7 +225,7 @@ export default {
                   mode: 'custom',
                   custom: '',
                   urlParam: '',
-                  element: ''
+                  element: []
                 },
                 operations: {
                   add: {
@@ -252,7 +244,6 @@ export default {
           list: [
             {
               key: 'parses',
-              span: 24,
               component: 'config-table',
               props: {
                 label: '数据解析',
@@ -300,6 +291,6 @@ export default {
   ],
   interact: {
     eventOptions: ['click', 'dblclick'],
-    actionOptions: ['link', 'ajax']
+    actionOptions: ['link', 'request']
   }
 }

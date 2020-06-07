@@ -163,7 +163,7 @@ const getDate = () => {
   return new Date(Date.now() - timeDifference)
 }
 
-const getDeepTraversal = (node) => {
+const getBFS = (node) => {
   const nodes = []
   if (node) {
     const stack = []
@@ -271,7 +271,7 @@ export default {
   isFunction,
   isPlainObject,
   getDate,
-  getDeepTraversal,
+  getBFS,
   getId,
   getPath,
   getValueFromObj,

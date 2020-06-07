@@ -30,7 +30,7 @@ export default {
 
     label: {
       type: String,
-      required: false,
+      required: true,
       default: ''
     }
   },

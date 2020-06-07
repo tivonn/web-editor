@@ -8,7 +8,7 @@ const before = (element, key, value) => {
     case 'style.position.yCoordinate': {
       const hasChildren = !!element.childrens
       if (hasChildren) {
-        const elementList = utils.getDeepTraversal(element)
+        const elementList = utils.getBFS(element)
         elementList.shift()
         const offset = Number(value) - Number(utils.getValueFromObj(element, key))
         elementList.forEach(elementItem => {

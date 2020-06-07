@@ -21,8 +21,7 @@
             :is="col.component"
             :value="getValueFromObj(activeElement, getComponentKey(block, col))"
             @input="value => $emit('update-element', getComponentKey(block, col), value)"
-            :active-element="activeElement"
-            :current-key="getComponentKey(block, col)"
+            @update-item="value => $emit('update-element', getComponentKey(block, col), value)"
             v-bind="col.props"
             @trigger="key => triggerElement(`${getComponentKey(block, col)}${key ? `.${key}` : ''}`)">
           </component>

@@ -1,6 +1,7 @@
 // todo 按需加载，并区分dev/production
 import {
   Button,
+  Cascader,
   Checkbox,
   CheckboxGroup,
   Col,
@@ -9,6 +10,8 @@ import {
   Input,
   Message,
   Option,
+  RadioButton,
+  RadioGroup,
   Row,
   Select,
   Switch,
@@ -23,6 +26,7 @@ import '@/assets/css/element-variables.scss'
 export default {
   install (Vue) {
     Vue.use(Button)
+    Vue.use(Cascader)
     Vue.use(Checkbox)
     Vue.use(CheckboxGroup)
     Vue.use(Col)
@@ -30,6 +34,8 @@ export default {
     Vue.use(CollapseItem)
     Vue.use(Input)
     Vue.use(Option)
+    Vue.use(RadioButton)
+    Vue.use(RadioGroup)
     Vue.use(Row)
     Vue.use(Select)
     Vue.use(Switch)

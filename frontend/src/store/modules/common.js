@@ -86,6 +86,7 @@ const mutations = {
       const updateValue = updateData[updateDataKey]
       let key, value
       if (utils.isArray(currentValue) && utils.isPlainObject(updateValue) && utils.hasProperty(updateValue, 'itemUpdateData')) {
+        // 更新数组中某项
         const { index, itemUpdateData } = updateValue
         const updateObj = currentValue[index]
         for (const itemKey in itemUpdateData) {
@@ -94,6 +95,7 @@ const mutations = {
           update(element, updateObj, key, itemKey, value)
         }
       } else {
+        // 全量更新
         key = updateDataKey
         value = updateValue
         update(element, element, key, key, value)

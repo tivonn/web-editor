@@ -1,18 +1,15 @@
 <template>
   <div :class="$style.configSelect">
     <span v-if="label" class="config-label">{{label}}</span>
-    <el-select
+    <el-cascader
       :value="value"
       @input="$emit('input', $event)"
       size="small"
+      :options="actualOptions"
+      :show-all-levels="false"
+      :props="{ label: optionLabel, value: optionValue, children: 'childrens' }"
       :style="getSelectStyle">
-      <el-option
-        v-for="item in actualOptions"
-        :key="item[optionValue]"
-        :label="item[optionLabel]"
-        :value="item[optionValue]">
-      </el-option>
-    </el-select>
+    </el-cascader>
   </div>
 </template>
 
@@ -21,13 +18,13 @@ import store from '@/store/index.js'
 import utils from '@/utils/index.js'
 
 export default {
-  name: 'ConfigSelect',
+  name: 'ConfigCascader',
 
   props: {
     value: {
-      type: [String, Number],
+      type: Array,
       required: true,
-      default: ''
+      default: () => []
     },
 
     label: {
@@ -72,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-.config-select {
+.config-cascader {
   :global {
     .config-label {
       width: 55px;
