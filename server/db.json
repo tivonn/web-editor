@@ -6,15 +6,15 @@
     },
     {
       "type": "interact",
-      "max": 99
+      "max": 100
     },
     {
       "type": "action",
-      "max": 158
+      "max": 162
     },
     {
       "type": "res",
-      "max": 265
+      "max": 296
     }
   ],
   "systems": [
@@ -44,7 +44,7 @@
             },
             "position": {
               "xCoordinate": "105",
-              "yCoordinate": "176"
+              "yCoordinate": "175"
             }
           },
           "content": {
@@ -82,6 +82,52 @@
                       745
                     ]
                   }
+                },
+                {
+                  "id": 159,
+                  "isAble": true,
+                  "type": "refresh",
+                  "value": {
+                    "element": [
+                      746
+                    ]
+                  }
+                },
+                {
+                  "id": 160,
+                  "isAble": false,
+                  "type": "link",
+                  "value": {
+                    "page": "/s",
+                    "params": [
+                      {
+                        "key": "",
+                        "mode": "custom",
+                        "custom": "",
+                        "urlParam": "",
+                        "element": []
+                      }
+                    ],
+                    "blank": true
+                  }
+                },
+                {
+                  "id": 161,
+                  "isAble": false,
+                  "type": "link",
+                  "value": {
+                    "page": "/b",
+                    "params": [
+                      {
+                        "key": "",
+                        "mode": "custom",
+                        "custom": "",
+                        "urlParam": "",
+                        "element": []
+                      }
+                    ],
+                    "blank": true
+                  }
                 }
               ]
             }
@@ -109,7 +155,7 @@
                 "data": "按钮"
               },
               "apiScheme": "relative",
-              "relativeApi": "/ss",
+              "relativeApi": "/b",
               "absoluteApi": "",
               "params": [
                 {
@@ -131,7 +177,7 @@
             }
           },
           "interacts": [],
-          "name": "按钮-2",
+          "name": "bbb",
           "packageType": "m-button"
         },
         {
@@ -143,8 +189,8 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "311",
-              "yCoordinate": "242"
+              "xCoordinate": "106",
+              "yCoordinate": "291"
             }
           },
           "content": {
@@ -176,7 +222,7 @@
             }
           },
           "interacts": [],
-          "name": "按钮-3",
+          "name": "ss",
           "packageType": "m-button"
         }
       ],

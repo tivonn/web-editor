@@ -35,7 +35,7 @@
                 :value="action.type"
                 @input="type => selectAction(type, action)"
                 :label="`行为${ interact.actions.length > 1 ? actionIndex + 1 : '' }`"
-                :options="getActionOptions(interact, action)"
+                :options="actionAllOptions"
                 class="action-select">
               </config-select>
               <el-switch
@@ -71,7 +71,6 @@
         </draggable>
         <el-button
           size="small"
-          :disabled="isAddActionDisabled(interact)"
           class="add-action"
           @click="addAction(interact)">
           添加行为
@@ -174,19 +173,6 @@ export default {
             value: {}
           })
         })
-    },
-
-    isAddActionDisabled (interact) {
-      return interact.actions.length >= this.actionAllOptions.length
-    },
-
-    getActionOptions (interact, action) {
-      return interact.event
-        ? this.actionAllOptions.filter(actionOption =>
-          actionOption.value === action.type ||
-            interact.actions.every(action => action.type !== actionOption.value)
-        )
-        : []
     },
 
     selectAction (type, action) {
