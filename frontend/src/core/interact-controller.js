@@ -1,3 +1,6 @@
+import store from '@/store/index.js'
+import utils from '@/utils/index.js'
+import DataController from '@/core/data-controller.js'
 import RequestController from '@/core/request-controller.js'
 
 const options = {
@@ -13,121 +16,21 @@ const options = {
   ],
   action: [
     {
-      label: '跳转页面',
-      value: 'link'
-    },
-    {
       label: '提交数据/请求',
       value: 'request'
+    },
+    {
+      label: '刷新目标数据',
+      value: 'refresh'
+    },
+    {
+      label: '跳转页面',
+      value: 'link'
     }
   ]
 }
 
 const config = {
-  link: [
-    {
-      key: 'page',
-      component: 'config-input',
-      props: {
-        label: '目标页面'
-      },
-      default: ''
-    },
-    {
-      key: 'params',
-      component: 'config-table',
-      props: {
-        label: '参数配置',
-        cols: [
-          {
-            label: '参数名',
-            width: 100,
-            list: [
-              {
-                key: 'key',
-                component: 'config-input'
-              }
-            ]
-          },
-          {
-            label: '参数值模式',
-            width: 130,
-            list: [
-              {
-                key: 'mode',
-                component: 'config-select',
-                props: {
-                  options: [
-                    {
-                      label: '自定义值',
-                      value: 'custom'
-                    },
-                    {
-                      label: '路由参数',
-                      value: 'urlParam'
-                    },
-                    {
-                      label: '页面元件',
-                      value: 'element'
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            label: '参数值',
-            list: [
-              {
-                key: 'custom',
-                removes: [row => row.mode !== 'custom'],
-                component: 'config-input'
-              },
-              {
-                key: 'urlParam',
-                removes: [row => row.mode !== 'urlParam'],
-                component: 'config-input'
-              },
-              {
-                key: 'element',
-                removes: [row => row.mode !== 'element'],
-                component: 'config-cascader',
-                props: {
-                  options: 'elements',
-                  optionLabel: 'name',
-                  optionValue: 'id'
-                }
-              }
-            ]
-          }
-        ],
-        default: {
-          key: '',
-          mode: 'custom',
-          custom: '',
-          urlParam: '',
-          element: []
-        },
-        operations: {
-          add: {
-            label: '添加参数'
-          },
-          delete: {
-            label: '删除参数',
-            width: 30
-          }
-        }
-      }
-    },
-    {
-      key: 'blank',
-      component: 'config-whether',
-      props: {
-        label: '新标签页打开'
-      },
-      default: false
-    }
-  ],
   request: [
     {
       key: 'method',
@@ -279,6 +182,122 @@ const config = {
         }
       }
     }
+  ],
+  refresh: [
+    {
+      key: 'element',
+      component: 'config-cascader',
+      props: {
+        label: '目标元件',
+        options: 'elements',
+        optionLabel: 'name',
+        optionValue: 'id'
+      }
+    }
+  ],
+  link: [
+    {
+      key: 'page',
+      component: 'config-input',
+      props: {
+        label: '目标页面'
+      },
+      default: ''
+    },
+    {
+      key: 'params',
+      component: 'config-table',
+      props: {
+        label: '参数配置',
+        cols: [
+          {
+            label: '参数名',
+            width: 100,
+            list: [
+              {
+                key: 'key',
+                component: 'config-input'
+              }
+            ]
+          },
+          {
+            label: '参数值模式',
+            width: 130,
+            list: [
+              {
+                key: 'mode',
+                component: 'config-select',
+                props: {
+                  options: [
+                    {
+                      label: '自定义值',
+                      value: 'custom'
+                    },
+                    {
+                      label: '路由参数',
+                      value: 'urlParam'
+                    },
+                    {
+                      label: '页面元件',
+                      value: 'element'
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            label: '参数值',
+            list: [
+              {
+                key: 'custom',
+                removes: [row => row.mode !== 'custom'],
+                component: 'config-input'
+              },
+              {
+                key: 'urlParam',
+                removes: [row => row.mode !== 'urlParam'],
+                component: 'config-input'
+              },
+              {
+                key: 'element',
+                removes: [row => row.mode !== 'element'],
+                component: 'config-cascader',
+                props: {
+                  options: 'elements',
+                  optionLabel: 'name',
+                  optionValue: 'id'
+                }
+              }
+            ]
+          }
+        ],
+        default: {
+          key: '',
+          mode: 'custom',
+          custom: '',
+          urlParam: '',
+          element: []
+        },
+        operations: {
+          add: {
+            label: '添加参数'
+          },
+          delete: {
+            label: '删除参数',
+            width: 30
+          }
+        }
+      }
+    },
+    {
+      key: 'blank',
+      component: 'config-whether',
+      props: {
+        label: '新标签页打开'
+      },
+      default: false
+    }
   ]
 }
 
@@ -297,6 +316,25 @@ const getAction = (action) => {
 }
 
 // eslint-disable-next-line
+const request = (value) => {
+  const { apiScheme } = value
+  const api = value[`${apiScheme}Api`]
+  if (api === '') return
+  const url = RequestController.getUrl(apiScheme, api)
+  const { method, params: originalParams } = value
+  const params = RequestController.getParams(originalParams)
+  RequestController.request(method, url, params)
+}
+
+// eslint-disable-next-line
+const refresh = (value) => {
+  const { element } = value
+  const id = element[element.length - 1]
+  const targetElement = utils.deepQuery(store.getters.elements, id)
+  DataController.getApiData(targetElement)
+}
+
+// eslint-disable-next-line
 const link = (value) => {
   const { page, params: originalParams, blank } = value
   const params = RequestController.getParams(originalParams)
@@ -308,17 +346,6 @@ const link = (value) => {
     url = page
   }
   window.open(url, blank ? '_blank' : '_self')
-}
-
-// eslint-disable-next-line
-const request = (value) => {
-  const { apiScheme } = value
-  const api = value[`${apiScheme}Api`]
-  if (api === '') return
-  const url = RequestController.getUrl(apiScheme, api)
-  const { method, params: originalParams } = value
-  const params = RequestController.getParams(originalParams)
-  RequestController.request(method, url, params)
 }
 
 export default {

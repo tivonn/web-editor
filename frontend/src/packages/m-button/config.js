@@ -291,6 +291,6 @@ export default {
   ],
   interact: {
     eventOptions: ['click', 'dblclick'],
-    actionOptions: ['link', 'request']
+    actionOptions: ['request', 'refresh', 'link']
   }
 }

@@ -2,19 +2,19 @@
   "ids": [
     {
       "type": "element",
-      "max": 742
+      "max": 746
     },
     {
       "type": "interact",
-      "max": 97
+      "max": 99
     },
     {
       "type": "action",
-      "max": 155
+      "max": 158
     },
     {
       "type": "res",
-      "max": 246
+      "max": 265
     }
   ],
   "systems": [
@@ -35,7 +35,7 @@
       "systemId": 1,
       "elements": [
         {
-          "id": 721,
+          "id": 744,
           "type": "component",
           "style": {
             "size": {
@@ -43,15 +43,15 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "129",
-              "yCoordinate": "358"
+              "xCoordinate": "105",
+              "yCoordinate": "176"
             }
           },
           "content": {
             "data": {
               "mode": "staticData",
               "staticData": {
-                "data": "按钮1"
+                "data": "按钮"
               },
               "apiScheme": "relative",
               "relativeApi": "",
@@ -69,25 +69,17 @@
           },
           "interacts": [
             {
-              "id": 96,
+              "id": 99,
               "isAble": true,
               "event": "click",
               "actions": [
                 {
-                  "id": 154,
+                  "id": 158,
                   "isAble": true,
-                  "type": "link",
+                  "type": "refresh",
                   "value": {
-                    "page": "http://www.baidu.com",
-                    "blank": true,
-                    "params": [
-                      {
-                        "key": "",
-                        "mode": "custom",
-                        "custom": "",
-                        "urlParam": "",
-                        "element": []
-                      }
+                    "element": [
+                      745
                     ]
                   }
                 }
@@ -98,7 +90,7 @@
           "packageType": "m-button"
         },
         {
-          "id": 722,
+          "id": 745,
           "type": "component",
           "style": {
             "size": {
@@ -106,20 +98,28 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "150",
-              "yCoordinate": "182"
+              "xCoordinate": "195",
+              "yCoordinate": "370"
             }
           },
           "content": {
             "data": {
-              "mode": "staticData",
+              "mode": "apiData",
               "staticData": {
-                "data": "按钮2"
+                "data": "按钮"
               },
               "apiScheme": "relative",
-              "relativeApi": "",
+              "relativeApi": "/ss",
               "absoluteApi": "",
-              "params": [],
+              "params": [
+                {
+                  "key": "",
+                  "mode": "custom",
+                  "custom": "",
+                  "urlParam": "",
+                  "element": []
+                }
+              ],
               "parses": [
                 {
                   "property": "文本",
@@ -130,34 +130,53 @@
               "result": {}
             }
           },
-          "interacts": [
-            {
-              "id": 97,
-              "isAble": true,
-              "event": "click",
-              "actions": [
-                {
-                  "id": 155,
-                  "isAble": true,
-                  "type": "link",
-                  "value": {
-                    "page": "http://www.baidu.com",
-                    "params": [
-                      {
-                        "key": "ss",
-                        "mode": "custom",
-                        "custom": "1",
-                        "urlParam": "",
-                        "element": []
-                      }
-                    ],
-                    "blank": true
-                  }
-                }
-              ]
-            }
-          ],
+          "interacts": [],
           "name": "按钮-2",
+          "packageType": "m-button"
+        },
+        {
+          "id": 746,
+          "type": "component",
+          "style": {
+            "size": {
+              "width": "100",
+              "height": "50"
+            },
+            "position": {
+              "xCoordinate": "311",
+              "yCoordinate": "242"
+            }
+          },
+          "content": {
+            "data": {
+              "mode": "apiData",
+              "staticData": {
+                "data": "按钮"
+              },
+              "apiScheme": "relative",
+              "relativeApi": "s",
+              "absoluteApi": "",
+              "params": [
+                {
+                  "key": "",
+                  "mode": "custom",
+                  "custom": "",
+                  "urlParam": "",
+                  "element": []
+                }
+              ],
+              "parses": [
+                {
+                  "property": "文本",
+                  "field": "data",
+                  "status": "成功"
+                }
+              ],
+              "result": {}
+            }
+          },
+          "interacts": [],
+          "name": "按钮-3",
           "packageType": "m-button"
         }
       ],

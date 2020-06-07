@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.configSelect">
+  <div :class="$style.configCascader">
     <span v-if="label" class="config-label">{{label}}</span>
     <el-cascader
       :value="value"
@@ -8,7 +8,7 @@
       :options="actualOptions"
       :show-all-levels="false"
       :props="{ label: optionLabel, value: optionValue, children: 'childrens' }"
-      :style="getSelectStyle">
+      :style="getCascaderStyle">
     </el-cascader>
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
   },
 
   computed: {
-    getSelectStyle () {
+    getCascaderStyle () {
       return {
         width: !this.label ? '100%' : 'calc(100% - 65px)',
         marginLeft: !this.label ? '0' : '10px'
