@@ -6,11 +6,11 @@
     },
     {
       "type": "interact",
-      "max": 95
+      "max": 97
     },
     {
       "type": "action",
-      "max": 153
+      "max": 155
     },
     {
       "type": "res",
@@ -67,7 +67,33 @@
               "result": {}
             }
           },
-          "interacts": [],
+          "interacts": [
+            {
+              "id": 96,
+              "isAble": true,
+              "event": "click",
+              "actions": [
+                {
+                  "id": 154,
+                  "isAble": true,
+                  "type": "link",
+                  "value": {
+                    "page": "http://www.baidu.com",
+                    "blank": true,
+                    "params": [
+                      {
+                        "key": "",
+                        "mode": "custom",
+                        "custom": "",
+                        "urlParam": "",
+                        "element": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
           "name": "按钮-1",
           "packageType": "m-button"
         },
@@ -104,7 +130,33 @@
               "result": {}
             }
           },
-          "interacts": [],
+          "interacts": [
+            {
+              "id": 97,
+              "isAble": true,
+              "event": "click",
+              "actions": [
+                {
+                  "id": 155,
+                  "isAble": true,
+                  "type": "link",
+                  "value": {
+                    "page": "http://www.baidu.com",
+                    "params": [
+                      {
+                        "key": "ss",
+                        "mode": "custom",
+                        "custom": "1",
+                        "urlParam": "",
+                        "element": []
+                      }
+                    ],
+                    "blank": true
+                  }
+                }
+              ]
+            }
+          ],
           "name": "按钮-2",
           "packageType": "m-button"
         }

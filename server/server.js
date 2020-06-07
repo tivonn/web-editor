@@ -47,7 +47,7 @@ server.put('/build/:sid', (req, res) => {
           /views\\/,  // views
           /router.js/ // router.js
         ]
-        return !exceptList.some(exceptItem => src.match(exceptItem))
+        return exceptList.every(exceptItem => !src.match(exceptItem))
       }
     })
   }

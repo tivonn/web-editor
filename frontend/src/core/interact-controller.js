@@ -34,6 +34,92 @@ const config = {
       default: ''
     },
     {
+      key: 'params',
+      component: 'config-table',
+      props: {
+        label: '参数配置',
+        cols: [
+          {
+            label: '参数名',
+            width: 100,
+            list: [
+              {
+                key: 'key',
+                component: 'config-input'
+              }
+            ]
+          },
+          {
+            label: '参数值模式',
+            width: 130,
+            list: [
+              {
+                key: 'mode',
+                component: 'config-select',
+                props: {
+                  options: [
+                    {
+                      label: '自定义值',
+                      value: 'custom'
+                    },
+                    {
+                      label: '路由参数',
+                      value: 'urlParam'
+                    },
+                    {
+                      label: '页面元件',
+                      value: 'element'
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            label: '参数值',
+            list: [
+              {
+                key: 'custom',
+                removes: [row => row.mode !== 'custom'],
+                component: 'config-input'
+              },
+              {
+                key: 'urlParam',
+                removes: [row => row.mode !== 'urlParam'],
+                component: 'config-input'
+              },
+              {
+                key: 'element',
+                removes: [row => row.mode !== 'element'],
+                component: 'config-cascader',
+                props: {
+                  options: 'elements',
+                  optionLabel: 'name',
+                  optionValue: 'id'
+                }
+              }
+            ]
+          }
+        ],
+        default: {
+          key: '',
+          mode: 'custom',
+          custom: '',
+          urlParam: '',
+          element: []
+        },
+        operations: {
+          add: {
+            label: '添加参数'
+          },
+          delete: {
+            label: '删除参数',
+            width: 30
+          }
+        }
+      }
+    },
+    {
       key: 'blank',
       component: 'config-whether',
       props: {
@@ -212,8 +298,16 @@ const getAction = (action) => {
 
 // eslint-disable-next-line
 const link = (value) => {
-  const { page, blank } = value
-  window.open(page, blank ? '_blank' : '_self')
+  const { page, params: originalParams, blank } = value
+  const params = RequestController.getParams(originalParams)
+  const paramKeys = Object.keys(params)
+  let url
+  if (paramKeys.length) {
+    url = `${page}?${paramKeys.map(key => `${key}=${params[key]}`).join('&')}`
+  } else {
+    url = page
+  }
+  window.open(url, blank ? '_blank' : '_self')
 }
 
 // eslint-disable-next-line
