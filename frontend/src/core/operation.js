@@ -63,7 +63,6 @@ const getActiveElements = (element, isMultiple) => {
 
 const deleteElements = (deleteElements) => {
   let { elements } = store.getters
-  const { activeElements } = store.getters
   deleteElements.forEach(deleteElement => {
     const hasParent = !!deleteElement.parentId
     if (hasParent) {
@@ -79,11 +78,16 @@ const deleteElements = (deleteElements) => {
     }
   })
   store.dispatch('setElements', elements)
-  store.dispatch('setActiveElements',
-    activeElements.filter(activeElement =>
-      deleteElements.every(deleteElement => deleteElement.id !== activeElement)
-    )
-  )
+  // 删除元素时需要刷新hover、active中对应的元素
+  ;['hover', 'active'].forEach(item => {
+    store.dispatch(`set${utils.capitalize(item)}Elements`, store.getters[`${item}Elements`].reduce((newElements, oldElement) => {
+      const newElement = utils.deepQuery(elements, oldElement.id)
+      if (Object.keys(newElement).length) {
+        newElements.push(newElement)
+      }
+      return newElements
+    }, []))
+  })
 }
 
 export default {

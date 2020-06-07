@@ -14,7 +14,7 @@ const config = {
           list: [
             {
               key: 'xCoordinate',
-              span: 6,
+              span: 10,
               component: 'config-input',
               props: {
                 label: 'x坐标',
@@ -23,7 +23,8 @@ const config = {
             },
             {
               key: 'yCoordinate',
-              span: 6,
+              span: 10,
+              offset: 2,
               component: 'config-input',
               props: {
                 label: 'y坐标',

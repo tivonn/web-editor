@@ -62,8 +62,8 @@
                   :is="config.component"
                   :value="action.value[config.key]"
                   @input="value => action.value[config.key] = value"
-                  @update-item="value => Object.assign(action.value[config.key][value.index], value.itemUpdateData)"
-                  v-bind="config.props">
+                  v-bind="config.props"
+                  @update-item="value => Object.assign(action.value[config.key][value.index], value.itemUpdateData)">
                 </component>
               </li>
             </ul>

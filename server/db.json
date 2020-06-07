@@ -2,7 +2,7 @@
   "ids": [
     {
       "type": "element",
-      "max": 730
+      "max": 742
     },
     {
       "type": "interact",
@@ -88,7 +88,7 @@
             "data": {
               "mode": "staticData",
               "staticData": {
-                "data": "按钮"
+                "data": "按钮2"
               },
               "apiScheme": "relative",
               "relativeApi": "",

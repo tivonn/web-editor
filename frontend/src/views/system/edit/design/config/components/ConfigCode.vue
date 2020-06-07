@@ -28,10 +28,24 @@ export default {
       default: () => ({})
     },
 
+    elementId: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+
     label: {
       type: String,
       required: true,
       default: ''
+    }
+  },
+
+  watch: {
+    elementId: {
+      handler () {
+        this.setEditor()
+      }
     }
   },
 
@@ -42,6 +56,7 @@ export default {
   methods: {
     init () {
       this.initEditor()
+      this.setEditor()
     },
 
     initEditor () {
@@ -54,7 +69,6 @@ export default {
         lint: true
       })
       editor.setSize('100%', '200px')
-      editor.setValue(JSON.stringify(this.value, null, '\t'))
       editor.on('blur', () => {
         try {
           this.$emit('input', JSON.parse(editor.getValue()))
@@ -62,6 +76,10 @@ export default {
           this.$message.warning('格式错误')
         }
       })
+    },
+
+    setEditor () {
+      editor.setValue(JSON.stringify(this.value, null, '\t'))
     }
   }
 }
