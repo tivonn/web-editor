@@ -29,7 +29,7 @@ server.put('/build/:sid', (req, res) => {
   const systemId = Number(req.params.sid)
   const systemPath = path.join(serverPath, `/codes/${systemId}`)
   const generateCode = () => {
-    removeCode()  // todo 有时候会报operation not permitted的错误
+    removeCode()
     copyCode()
     outputCode()
   }
