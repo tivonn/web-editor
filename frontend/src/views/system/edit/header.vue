@@ -4,7 +4,7 @@
       <el-button size="small" @click="command('combine')">组合</el-button>
       <el-button size="small" @click="command('uncombine')">解除组合</el-button>
       <el-button size="small" @click="command('save', systemId, pageId, elements)">保存</el-button>
-      <el-button size="small" @click="command('preview', systemId, pageId)">预览</el-button>
+      <el-button size="small" @click="command('preview', systemId, pageId, elements)">预览</el-button>
       <el-button size="small" @click="command('download', systemId)">源码下载</el-button>
     </div>
   </div>

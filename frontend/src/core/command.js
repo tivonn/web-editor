@@ -69,7 +69,8 @@ const save = (systemId, pageId, elements) => {
     .then(() => Message.success('保存成功'))
 }
 
-const preview = (systemId, pageId) => {
+const preview = (systemId, pageId, elements) => {
+  save(systemId, pageId, elements)
   window.open(
     router.resolve({
       name: 'Preview',
