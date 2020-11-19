@@ -29,11 +29,15 @@ const actions = {
       })
   },
 
-  setSystem ({ commit }, systemId) {
-    return this._vm.$axios.get(`/systems/${systemId}`)
-      .then(res => {
-        commit(types.SET_SYSTEM, res.data)
-      })
+  setSystem ({ commit }, data) {
+    if (typeof data === 'number') {
+      return this._vm.$axios.get(`/systems/${data}`)
+        .then(res => {
+          commit(types.SET_SYSTEM, res.data)
+        })
+    } else {
+      commit(types.SET_SYSTEM, data)
+    }
   },
 
   setPage ({ commit }, pageId) {

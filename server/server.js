@@ -44,7 +44,8 @@ server.put('/build/:sid', (req, res) => {
           /package[-lock]*.json/, // package.json
           /packages\\m-[a-z]+\\(?!index.vue)/, // 元件
           /store\\modules\\(?!common.js)/, // vuex
-          /views\\/,  // views
+          /views\\system\\(?!components)/,  // views
+          /views\\homepage.vue/,  // homepage
           /router.js/ // router.js
         ]
         return exceptList.every(exceptItem => !src.match(exceptItem))
@@ -54,15 +55,19 @@ server.put('/build/:sid', (req, res) => {
   const outputCode = () => {
     // app.mixin.js
     fs.outputFileSync(path.join(systemPath, '/src/app.mixin.js'), require(path.join(serverPath, '/template/app.mixin.js'))(systemId))
-    // pages
     const { db } = router
+    // system
+    const system = db.get('systems').find({ id: systemId }).value()
+    console.log(system)
+    fs.outputFileSync(path.join(systemPath, '/src/views/system/data.js'), `export default ${JSON.stringify(system, null, 2)}`)
+    // pages
     const pages = db.get('pages').filter({ systemId }).value()
     fs.outputFileSync(path.join(systemPath, '/src/router.js'), require(path.join(serverPath, '/template/router.js'))(pages))
     pages.forEach(page => {
       const pageId = page.id
       const pagePath = path.join(systemPath, `/src/views/${pageId}`)
       fs.copySync(path.join(frontEndPath, '/src/views/system/preview.vue'), path.join(pagePath, '/index.vue'))
-      fs.outputFileSync(path.join(pagePath, '/data.js'), `export default ${JSON.stringify(page.elements)}`)
+      fs.outputFileSync(path.join(pagePath, '/data.js'), `export default ${JSON.stringify(page.elements, null, 2)}`)
     })
     // package.json
     const packageJson = fs.readJsonSync(path.join(frontEndPath, '/package.json'))

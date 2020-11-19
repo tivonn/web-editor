@@ -31,7 +31,7 @@ module.exports = (systemId) => {
     
   methods: {
     getSystem () {
-      this.$store.dispatch('setSystem', this.systemId)
+      this.$store.dispatch('setSystem', require('@/views/system/data.js').default)
     },
  
     getPage () {

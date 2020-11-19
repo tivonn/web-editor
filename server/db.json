@@ -14,7 +14,7 @@
     },
     {
       "type": "res",
-      "max": 344
+      "max": 494
     }
   ],
   "systems": [
@@ -144,8 +144,8 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "150",
-              "yCoordinate": "304"
+              "xCoordinate": "120",
+              "yCoordinate": "236"
             }
           },
           "content": {
@@ -189,8 +189,8 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "334",
-              "yCoordinate": "302"
+              "xCoordinate": "120",
+              "yCoordinate": "304"
             }
           },
           "content": {
@@ -234,8 +234,8 @@
               "height": "50"
             },
             "position": {
-              "xCoordinate": "368",
-              "yCoordinate": "134"
+              "xCoordinate": "300",
+              "yCoordinate": "135"
             }
           },
           "content": {

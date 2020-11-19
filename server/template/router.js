@@ -5,7 +5,12 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [${pages.map(page => {
+const routes = [
+  {
+    name: 'homepage',
+    path: '',
+    redirect: '/${pages[0].id}'
+  }, ${pages.map(page => {
 return `{
   name: ${page.id},
   path: '/:pid',

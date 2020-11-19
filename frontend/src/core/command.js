@@ -82,7 +82,7 @@ const preview = (systemId, pageId, elements) => {
 
 const download = (systemId) => {
   axios.put(`/build/${systemId}`)
-    .then(() => Message.success('源码下载成功'))
+    .then(() => Message.success(`源码下载成功，请到代码/server/codes/${systemId}中查看`))
 }
 
 export default {
